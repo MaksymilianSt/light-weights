@@ -1,0 +1,22 @@
+spring:
+  application:
+    name=light-weights
+  datasource:
+    url: jdbc:postgresql://localhost:5432/light-weights
+    username: dbuser
+    password: passwd
+    driver-class-name: org.postgresql.Driver
+
+    jpa:
+      hibernate:
+        ddl-auto: validate
+      show-sql: true
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+
+    liquibase:
+      change-log: classpath:/db/changelog/db.changelog-master.yaml
+
+  server:
+    port: 8080
