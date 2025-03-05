@@ -1,0 +1,41 @@
+package com.maksymilianst.lightweights.plan.model;
+
+import com.maksymilianst.lightweights.util.audit.AuditInfo;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
+import java.util.Set;
+
+
+@Entity
+@Table(name = "training_plan")
+@Data
+@NoArgsConstructor
+public class TrainingPlan {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    private String name;
+
+    private String description;
+
+    @ManyToOne()
+    @JoinColumn(name = "category_id")
+    private PlanCategory category;
+
+    @Column(name = "difficulty_lvl")
+    @Enumerated(EnumType.STRING)
+    private DifficultyLevel difficultyLvl;
+
+    private String goal;
+
+    @Embedded
+    private AuditInfo auditInfo;
+
+    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<TrainingBlock> blocks = new HashSet<>();
+}

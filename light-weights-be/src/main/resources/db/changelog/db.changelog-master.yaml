@@ -4,6 +4,6 @@ databaseChangeLog:
       author: maksymilianst
       changes:
         - sqlFile:
-            path: ../sql/MIGRATION_FILE.sql
+            path: ../sql/v_1_create_training_plan_tables.sql
             relativeToChangelogFile: true
 

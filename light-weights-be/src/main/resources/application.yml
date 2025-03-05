@@ -7,16 +7,17 @@ spring:
     password: passwd
     driver-class-name: org.postgresql.Driver
 
-    jpa:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
       hibernate:
-        ddl-auto: validate
-      show-sql: true
-      properties:
-        hibernate:
-          dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    database: postgresql
 
-    liquibase:
-      change-log: classpath:/db/changelog/db.changelog-master.yaml
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
 
   server:
     port: 8080
