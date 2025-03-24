@@ -19,6 +19,7 @@ public class TrainingPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(nullable = false)
     private String name;
 
     private String description;
@@ -27,10 +28,11 @@ public class TrainingPlan {
     @JoinColumn(name = "category_id")
     private PlanCategory category;
 
-    @Column(name = "difficulty_lvl")
+    @Column(name = "difficulty_lvl", length = 50)
     @Enumerated(EnumType.STRING)
     private DifficultyLevel difficultyLvl;
 
+    @Column(length = 50)
     private String goal;
 
     @Embedded

@@ -1,8 +1,8 @@
 package com.maksymilianst.lightweights.plan.model;
 
+import com.maksymilianst.lightweights.execution.model.TrainingSetExecution;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,15 +17,20 @@ public class TrainingSet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false)
     private Integer repetitions;
 
+    @Column(nullable = false)
     private BigDecimal weight;
 
-    @NotNull
     @Min(value = 0)
+    @Column(nullable = false)
     private Integer sequence;
 
     @ManyToOne
-    @JoinColumn(name = "training_exercise_id")
-    private TrainingExercise trainingExercise;
+    @JoinColumn(name = "training_exercise_id", nullable = false)
+    private TrainingExercise exercise;
+
+    @OneToOne(mappedBy = "referencedSet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    TrainingSetExecution execution;
 }

@@ -7,3 +7,10 @@ databaseChangeLog:
             path: ../sql/v_1_create_training_plan_tables.sql
             relativeToChangelogFile: true
 
+  - changeSet:
+      id: 2
+      author: maksymilianst
+      changes:
+        - sqlFile:
+            path: ../sql/v_2_create_training_execution_tables.sql
+            relativeToChangelogFile: true

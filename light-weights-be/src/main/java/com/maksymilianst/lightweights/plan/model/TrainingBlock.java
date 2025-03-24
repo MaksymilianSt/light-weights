@@ -17,18 +17,19 @@ public class TrainingBlock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(nullable = false, length = 55)
     private String name;
 
     private String description;
 
-    @Column(name = "start_date")
+    @Column(name = "start_date", nullable = false)
     private LocalDate start;
 
-    @Column(name = "end_date")
+    @Column(name = "end_date", nullable = false)
     private LocalDate end;
 
     @ManyToOne
-    @JoinColumn(name = "training_plan_id")
+    @JoinColumn(name = "training_plan_id", nullable = false)
     private TrainingPlan plan;
 
     @OneToMany(mappedBy = "block")
