@@ -1,6 +1,7 @@
 package com.maksymilianst.lightweights.execution.model;
 
 import com.maksymilianst.lightweights.plan.model.Training;
+import com.maksymilianst.lightweights.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,10 @@ public class TrainingExecution {
     @Column(name = "realization_date", nullable = false)
     private LocalDate realizationDate;
 
+
+    @ManyToOne()
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @OneToOne
     @JoinColumn(name = "plan_training_id")

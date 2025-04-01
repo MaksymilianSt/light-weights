@@ -14,10 +14,19 @@ databaseChangeLog:
         - sqlFile:
             path: ../sql/v_2_create_training_execution_tables.sql
             relativeToChangelogFile: true
+
   - changeSet:
       id: 3
       author: maksymilianst
       changes:
         - sqlFile:
             path: ../sql/v_3_create_user.sql
+            relativeToChangelogFile: true
+
+  - changeSet:
+      id: 4
+      author: maksymilianst
+      changes:
+        - sqlFile:
+            path: ../sql/v_4_add_user_associations.sql
             relativeToChangelogFile: true

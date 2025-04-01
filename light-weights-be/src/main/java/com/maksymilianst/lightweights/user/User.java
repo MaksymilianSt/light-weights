@@ -1,5 +1,7 @@
 package com.maksymilianst.lightweights.user;
 
+import com.maksymilianst.lightweights.execution.model.TrainingExecution;
+import com.maksymilianst.lightweights.plan.model.TrainingPlan;
 import com.maksymilianst.lightweights.util.audit.AuditInfo;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -55,6 +57,13 @@ public class User implements UserDetails {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    Set<TrainingPlan> plans = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    Set<TrainingExecution> trainingExecutions = new HashSet<>();
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

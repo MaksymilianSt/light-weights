@@ -1,5 +1,6 @@
 package com.maksymilianst.lightweights.plan.model;
 
+import com.maksymilianst.lightweights.user.User;
 import com.maksymilianst.lightweights.util.audit.AuditInfo;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -37,6 +38,11 @@ public class TrainingPlan {
 
     @Embedded
     private AuditInfo auditInfo;
+
+
+    @ManyToOne()
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<TrainingBlock> blocks = new HashSet<>();
