@@ -20,14 +20,14 @@ public class TrainingExecution {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false, length = 55)
-    private String name;
-
     @Column(length = 1024)
     private String notes;
 
     @Column(name = "realization_date", nullable = false)
     private LocalDate realizationDate;
+
+    @Column(nullable = false)
+    private boolean done;
 
 
     @ManyToOne()
@@ -35,7 +35,7 @@ public class TrainingExecution {
     private User user;
 
     @OneToOne
-    @JoinColumn(name = "plan_training_id")
+    @JoinColumn(name = "plan_training_id", nullable = false)
     private Training referencedTraining;
 
     @OneToMany(mappedBy = "trainingExecution", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -1,5 +1,6 @@
 package com.maksymilianst.lightweights.execution.model;
 
+import com.maksymilianst.lightweights.plan.model.Exercise;
 import com.maksymilianst.lightweights.plan.model.TrainingExercise;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -17,15 +18,18 @@ public class TrainingExerciseExecution {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false, length = 55)
-    private String name;
-
     @Column(length = 1024)
     private String notes;
 
+    @Column(nullable = false)
+    private boolean done;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "exercise_id", nullable = false)
+    private Exercise exercise;
 
     @OneToOne
-    @JoinColumn(name = "plan_training_exercise_id")
+    @JoinColumn(name = "plan_training_exercise_id", nullable = false)
     private TrainingExercise referencedExercise;
 
     @ManyToOne

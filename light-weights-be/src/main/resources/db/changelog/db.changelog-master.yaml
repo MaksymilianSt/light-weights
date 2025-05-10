@@ -30,3 +30,12 @@ databaseChangeLog:
         - sqlFile:
             path: ../sql/v_4_add_user_associations.sql
             relativeToChangelogFile: true
+
+  - changeSet:
+      id: 5
+      author: maksymilianst
+      changes:
+        - sqlFile:
+            path: ../sql/v_5_add_exercise.sql
+            relativeToChangelogFile: true
+

@@ -17,11 +17,12 @@ public class TrainingExercise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false, length = 55)
-    private String name;
-
     private String description;
 
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "exercise_id", nullable = false)
+    private Exercise exercise;
 
     @ManyToOne
     @JoinColumn(name = "training_id", nullable = false)

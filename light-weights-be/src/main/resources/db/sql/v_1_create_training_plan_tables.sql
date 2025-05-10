@@ -56,6 +56,7 @@ CREATE TABLE training_set
     id                   SERIAL PRIMARY KEY,
     repetitions          INT           NOT NULL,
     weight               DECIMAL(6, 2) NOT NULL,
+    tempo                VARCHAR(7),
     sequence             INT           NOT NULL,
     training_exercise_id INT           NOT NULL,
 

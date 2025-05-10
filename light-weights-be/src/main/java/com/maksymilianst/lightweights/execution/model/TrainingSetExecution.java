@@ -24,17 +24,23 @@ public class TrainingSetExecution {
     @Column(nullable = false)
     private BigDecimal weight;
 
+    @Column(length = 7)
+    private String tempo;
+
     @Column(nullable = false)
     @Max(10)
     @Min(1)
-    private Integer rpe;
+    private BigDecimal rpe;
 
     @Min(0)
     @Column(nullable = false)
     private Integer sequence;
 
+    @Column(nullable = false)
+    private boolean done;
+
     @OneToOne
-    @JoinColumn(name = "plan_training_set_id")
+    @JoinColumn(name = "plan_training_set_id", nullable = false)
     private TrainingSet referencedSet;
 
     @ManyToOne

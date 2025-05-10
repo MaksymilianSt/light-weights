@@ -40,6 +40,9 @@ public class TrainingPlan {
     private AuditInfo auditInfo;
 
 
+    @OneToMany(mappedBy = "trainingPlan", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Exercise> exercises = new HashSet<>();
+
     @ManyToOne()
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

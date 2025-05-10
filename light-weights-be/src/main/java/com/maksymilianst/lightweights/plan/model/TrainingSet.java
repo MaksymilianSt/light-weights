@@ -23,6 +23,9 @@ public class TrainingSet {
     @Column(nullable = false)
     private BigDecimal weight;
 
+    @Column(length = 7)
+    private String tempo;
+
     @Min(value = 0)
     @Column(nullable = false)
     private Integer sequence;
