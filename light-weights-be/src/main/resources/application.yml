@@ -1,6 +1,9 @@
+app:
+  frontend-url: ${FRONTEND_URL:http://localhost:4200}
+
 spring:
   application:
-    name=light-weights
+    name: light-weights
   datasource:
     url: jdbc:postgresql://localhost:5432/light-weights
     username: dbuser
