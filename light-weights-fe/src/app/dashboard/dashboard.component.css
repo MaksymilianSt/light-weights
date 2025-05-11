@@ -1,0 +1,54 @@
+.navbar {
+  .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #eee7e7;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.main-navbar {
+  background-color: #141420;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.options-navbar {
+  background-color: #181826;
+  margin-top: 12px;
+  padding: 4px
+}
+
+/* to fix hamburger icon color problem*/
+.custom-toggler {
+  background-color: #141420;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 2px;
+}
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='%23f0f0f0' stroke-width='6' stroke-linecap='round' stroke-miterlimit='10' d='M4 6h22M4 16h22M4 26h22'/%3E%3C/svg%3E");
+  width: 30px;
+  height:35px;
+}
+
+.btn-success {
+  background-color: #181826;
+  border-color: #181826;
+  width: 100%;
+  height: 100%;
+  margin: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.btn-success:hover {
+  background-color: #a8a8b4;
+  border-color: #a8a8b4;
+}
+
+.side-menu{
+  background-color: #181826;
+}
+
+
+
