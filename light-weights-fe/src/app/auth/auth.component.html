@@ -1,0 +1,102 @@
+<div class="d-flex justify-content-center  pt-5">
+  <h1 class="display-1 fw-bold mt-5 text-shadow mb-5">Light weights</h1>
+</div>
+
+<div class="container d-flex justify-content-center mt-5">
+  <div class="col-12 col-sm-6 col-md-5">
+
+    <div *ngIf="errorMessage" class="alert alert-danger text-center py-2">
+      {{ errorMessage }}
+    </div>
+
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+
+      <div class="mb-4">
+        <label for="email" class="form-label">Email</label>
+        <input
+          formControlName="email"
+          type="text"
+          id="email"
+          class="form-control"
+          placeholder="Enter email"
+          [ngClass]="{ 'is-invalid': authForm.get('email')?.invalid && authForm.get('email')?.touched }"
+        />
+        <div *ngIf="authForm.get('email')?.touched && authForm.get('email')?.invalid" class="text-danger mt-1">
+          <small *ngIf="authForm.get('email')?.errors?.['required']">Email is required.</small>
+          <small *ngIf="authForm.get('email')?.errors?.['email']">Email is invalid.</small>
+          <small *ngIf="authForm.get('email')?.errors?.['backend']">
+            {{ authForm.get('email')?.errors?.['backend'] }}
+          </small>
+        </div>
+      </div>
+
+      <div class="mb-4" *ngIf="!loginMode">
+        <label for="nickname" class="form-label">Nickname</label>
+        <input
+          formControlName="nickname"
+          type="text" id="nickname"
+          class="form-control"
+          placeholder="Enter nickname"
+          [ngClass]="{ 'is-invalid': authForm.get('nickname')?.invalid && authForm.get('nickname')?.touched }"
+        />
+        <div *ngIf="authForm.get('nickname')?.touched && authForm.get('nickname')?.invalid" class="text-danger mt-1">
+          <small *ngIf="authForm.get('nickname')?.errors?.['required']">Nickname is required.</small>
+          <small *ngIf="authForm.get('nickname')?.errors?.['backend']">
+            {{ authForm.get('nickname')?.errors?.['backend'] }}
+          </small>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="password" class="form-label">Password</label>
+        <input
+          formControlName="password"
+          type="password"
+          id="password"
+          class="form-control"
+          placeholder="Enter password"
+          [ngClass]="{ 'is-invalid': authForm.get('password')?.invalid && authForm.get('password')?.touched }"
+        />
+        <div *ngIf="authForm.get('password')?.touched && authForm.get('password')?.invalid" class="text-danger mt-1">
+          <small *ngIf="authForm.get('password')?.errors?.['required']">Password is required.</small>
+          <small *ngIf="authForm.get('password')?.errors?.['weakPassword']">
+            Password must be at least 8 characters, include an uppercase letter, a digit, and a special character
+          </small>
+          <small *ngIf="authForm.get('password')?.errors?.['backend']">
+            {{ authForm.get('password')?.errors?.['backend'] }}
+          </small>
+        </div>
+      </div>
+
+      <div class="mb-4" *ngIf="!loginMode">
+        <label for="confirmPassword" class="form-label">Confirm password</label>
+        <input
+          formControlName="confirmPassword"
+          type="password"
+          id="confirmPassword"
+          class="form-control"
+          placeholder="Enter password again"
+          [ngClass]="{ 'is-invalid': authForm.get('confirmPassword')?.invalid && authForm.get('confirmPassword')?.touched }"
+        />
+        <div *ngIf="authForm.get('confirmPassword')?.touched && authForm.get('confirmPassword')?.invalid" class="text-danger mt-1">
+          <small *ngIf="authForm.get('confirmPassword')?.errors?.['required']">ConfirmPassword is required.</small>
+          <small *ngIf="authForm.get('confirmPassword')?.errors?.['mismatch']">Passwords do not match.</small>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-link text-shadow text-white me-3" (click)="toggleAuthMode()">
+          {{ loginMode ? 'Don\'t have an account? Register' : 'Already have an account? Login' }}
+        </button>
+        <button [disabled]="authForm.invalid"  class="btn btn-success pe-5 ps-5">
+          {{ loginMode ? 'login' : 'register' }}
+        </button>
+      </div>
+
+      <div class="d-flex justify-content-center mt-5" *ngIf="loading">
+        <i class="fas fa-xl fa-dumbbell fa-bounce"></i>
+      </div>
+
+    </form>
+  </div>
+</div>

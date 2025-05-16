@@ -1,0 +1,30 @@
+.text-shadow {
+  text-shadow: 4px 4px 12px rgba(0, 0, 0, 1.0);
+}
+
+.btn-success {
+  background-color: #f6f3f3;
+  border-color: #000000;
+  color: #000000;
+  font-weight: bolder;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.btn-success:hover {
+  background-color: #e7e7ee;
+  border-color: #e7e7ee;
+}
+
+.is-invalid {
+  border: 1px solid red;
+}
+
+.text-danger {
+  color: red;
+}
+
+.alert-danger {
+  background: #f8aeae;
+  border: 1px solid #f80000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
