@@ -6,6 +6,7 @@ import {AuthService} from './services/auth.service';
 import {AuthenticationRequest} from './models/authentication-request.model';
 import {RegisterRequest} from './models/register-request.model';
 import {ValidationErrorResponse} from './models/validation-error-response.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -23,7 +24,7 @@ export class AuthComponent {
 
   authForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.authForm = this.fb.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
@@ -54,6 +55,7 @@ export class AuthComponent {
 
     this.authService.authenticate(loginPayload).subscribe(resp => {
       this.errorMessage = null;
+      this.router.navigate(['']);
       this.toggleLoading();
     }, error => {
       this.errorMessage = error.error;
@@ -69,6 +71,7 @@ export class AuthComponent {
     };
 
     this.authService.register(registerPayload).subscribe(resp => {
+      this.router.navigate(['']);
       this.toggleLoading()
     }, error => {
       this.handleRegistrationErrors(error);
