@@ -3,6 +3,7 @@ package com.maksymilianst.lightweights.auth;
 import com.maksymilianst.lightweights.auth.dto.AuthenticationRequest;
 import com.maksymilianst.lightweights.auth.dto.AuthenticationResponse;
 import com.maksymilianst.lightweights.auth.dto.RegisterRequest;
+import com.maksymilianst.lightweights.auth.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,5 +1,6 @@
 package com.maksymilianst.lightweights.auth;
 
+import com.maksymilianst.lightweights.auth.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,8 +1,9 @@
-package com.maksymilianst.lightweights.auth;
+package com.maksymilianst.lightweights.auth.service;
 
 import com.maksymilianst.lightweights.auth.dto.AuthenticationRequest;
 import com.maksymilianst.lightweights.auth.dto.AuthenticationResponse;
 import com.maksymilianst.lightweights.auth.dto.RegisterRequest;
+import com.maksymilianst.lightweights.auth.validator.RegistrationValidator;
 import com.maksymilianst.lightweights.user.Role;
 import com.maksymilianst.lightweights.user.User;
 import com.maksymilianst.lightweights.user.UserRepository;
@@ -16,12 +17,13 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-public class AuthService {
+public class AuthServiceImpl implements AuthService {
     private final static Set<Role> DEFAULT_ROLES = Set.of(Role.USER);
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final RegistrationValidator registrationValidator;
 
     public AuthenticationResponse authenticate(AuthenticationRequest authRequest) {
         authenticationManager.authenticate(
@@ -39,6 +41,8 @@ public class AuthService {
     }
 
     public AuthenticationResponse register(RegisterRequest registerRequest) {
+        registrationValidator.validate(registerRequest);
+
         var user = User.builder()
                 .email(registerRequest.email())
                 .nickname(registerRequest.nickname())

@@ -1,8 +1,8 @@
 package com.maksymilianst.lightweights.auth.dto;
 
+import com.maksymilianst.lightweights.auth.validator.Password;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 public record RegisterRequest(
         @Email(message = "Invalid email format")
@@ -13,7 +13,7 @@ public record RegisterRequest(
         String nickname,
 
         @NotBlank(message = "Password is required")
-        @Size(min = 8, message = "Password must contain min. 8 characters")
+        @Password
         String password
 ) {
 }

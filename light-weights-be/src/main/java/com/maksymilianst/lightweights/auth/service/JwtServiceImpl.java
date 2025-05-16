@@ -1,4 +1,4 @@
-package com.maksymilianst.lightweights.auth;
+package com.maksymilianst.lightweights.auth.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class JwtService {
+public class JwtServiceImpl implements JwtService{
 
     private final static String SECRET_KEY = System.getenv("JWT_SECRET_KEY");
     private final static long TOKEN_LIFE_TIME = Duration.ofHours(3).toMillis();
