@@ -1,0 +1,10 @@
+.dropdown-item:focus, .dropdown-item:active {
+  background-color: transparent;
+  color: #000000;
+  outline: none;
+}
+
+.logout-btn:hover {
+  background-color: #ee2222;
+  color: #ecf0f1;
+}
