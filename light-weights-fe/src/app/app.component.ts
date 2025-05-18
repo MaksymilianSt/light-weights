@@ -5,8 +5,9 @@ import {AuthComponent} from './auth/auth.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, DashboardComponent, AuthComponent], //todo:remove DashboardComponent, AuthComponent l8er
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
+  standalone: true,
   styleUrl: './app.component.css'
 })
 export class AppComponent {
