@@ -1,0 +1,126 @@
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <p class="header mb-5">Plans</p>
+  </div>
+
+  <div class="container mt-5">
+
+    <div class="row mb-4">
+      <div class="col-9 d-flex justify-content-center">
+        <input
+          type="search"
+          class="input-group-text search-input"
+          placeholder="search plans"
+          [(ngModel)]="searchText"
+        >
+        <button
+          class="bg-transparent border-0 text-white mx-3"
+          (click)="filterPlans()"
+        >
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+
+      <div class="col-3 d-flex justify-content-start">
+        <button class="btn btn-light new-plan-btn">
+          new plan
+        </button>
+      </div>
+    </div>
+
+    <hr/>
+
+    <div class="row me-4 mx-lg-5">
+      <div class="col-10">
+        <div class="btn border-0 block text-white w-100 p-3 pe-5">
+          <div class="row">
+            <strong class="col-4 align-items-center">Name</strong>
+            <strong class="col-4 align-items-center" *ngIf="!mobile">Category</strong>
+            <strong class="col-4 align-items-center" *ngIf="!mobile">Difficulty Level</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row me-4 mx-lg-5" *ngFor="let plan of filteredPlanList">
+      <div class="col-10">
+        <button
+          [routerLink]="['plans', plan.id]"
+          class="btn btn-light block w-100 mb-5 p-3 pe-5"
+        >
+          <div class="row">
+            <span
+              class="fw-semibold text-truncate d-inline-block col-8 col-md-4 align-items-center"
+            >{{ plan.name }}
+            </span>
+            <span
+              *ngIf="!mobile"
+              class="fw-semibold text-truncate d-inline-block col-1 col-md-4 align-items-center"
+            >
+            {{ plan.category }}
+            </span>
+            <span
+              *ngIf="!mobile"
+              class="fw-semibold text-truncate d-inline-block col-1 col-md-4 align-items-center"
+            >
+            {{ plan.difficultyLvl }}
+            </span>
+          </div>
+        </button>
+      </div>
+
+      <div class="col-1 d-flex align-items-start justify-content-center flex-nowrap gap-2">
+        <div class="dropdown">
+          <button
+            class="btn border-0 pt-3 ms-5"
+            type="button"
+            id="dropdownUserButton"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="fas fa-ellipsis-v"></i>
+          </button>
+
+          <ul class="dropdown-menu " aria-labelledby="dropdownUserButton">
+            <li>
+              <a
+                class="dropdown-item"
+                [routerLink]="['']"
+              > <!--todo: nav to published-->
+                publish
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                [routerLink]="['plans', plan.id]"
+              ><!--todo: nav to plan-->
+
+                view
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item delete-btn"
+              ><!--todo:delete method and refresh list-->
+                delete
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <button
+            class="btn btn-outline-light block border-2 p-3 pe-sm-4 px-lg-5 w-100"
+          >
+            <strong>edit</strong>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

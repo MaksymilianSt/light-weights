@@ -1,0 +1,52 @@
+.header {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #eee7e7;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+@media (min-width: 992px) {
+  .header {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #eee7e7;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  }
+}
+
+.btn-outline-light {
+  color: #ffffff;
+  background: #26273f;
+}
+
+.fas.fa-ellipsis-v {
+  font-size: 30px;
+  color: white;
+}
+
+.dropdown-item:focus, .dropdown-item:active {
+  background-color: transparent;
+  color: #000000;
+  outline: none;
+}
+
+.delete-btn:hover {
+  background-color: #ee2222;
+  color: #ecf0f1;
+}
+
+.search-input {
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+  .search-input {
+    width: 60%;
+  }
+}
+
+.new-plan-btn {
+  background: #d6d7e3;
+  border-color: #d6d7e3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+}

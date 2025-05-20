@@ -1,49 +1,61 @@
 <!--main logo header-->
-<nav class="navbar navbar-expand-lg  main-navbar ">
-  <button
-    type="button"
-    data-bs-toggle="offcanvas"
-    data-bs-target="#sideMenu"
-    aria-controls="sideMenu"
-    class="custom-toggler"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<div class="mb-4">
+    <nav class="navbar navbar-expand-lg  main-navbar ">
+        <button
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#sideMenu"
+                aria-controls="sideMenu"
+                class="custom-toggler"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-  <div class="navbar-nav mx-auto" id="navbarNav">
-    <a class="navbar-brand">Light Weights</a>
-  </div>
+        <div class="navbar-nav mx-auto" id="navbarNav">
+            <a class="navbar-brand">Light Weights</a>
+        </div>
 
-  <app-user-menu class="pe-2"/>
-</nav>
+        <app-user-menu class="pe-2"/>
+    </nav>
 
 
-<!-- upper menu options-->
-<nav class="navbar navbar-expand-lg options-navbar">
-  <div class="container-fluid">
-    <div class="d-flex w-100">
-      <button class="btn btn-success">plans</button>
-      <button class="btn btn-success">execution</button>
-      <button class="btn btn-success">todo</button>
-      <button class="btn btn-success">posts</button>
+    <!-- upper menu options-->
+    <nav class="navbar navbar-expand-lg options-navbar">
+        <div class="container-fluid">
+            <div class="d-flex w-100">
+                <button class="btn btn-success" [routerLink]="['plans']">plans</button>
+                <button class="btn btn-success">execution</button>
+                <button class="btn btn-success">todo</button>
+                <button class="btn btn-success">posts</button>
+            </div>
+        </div>
+    </nav>
+
+
+    <!--left side menu-->
+    <div class="offcanvas offcanvas-start side-menu" tabindex="-1" id="sideMenu">
+        <div class="offcanvas-header">
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="list-unstyled">
+                <!--      todo: proper navigation options-->
+                <li>
+                    <button class="btn btn-success">plans</button>
+                </li>
+                <li>
+                    <button class="btn btn-success">execution</button>
+                </li>
+                <li>
+                    <button class="btn btn-success">todo</button>
+                </li>
+                <li>
+                    <button class="btn btn-success">posts</button>
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
-</nav>
-
-
-<!--left side menu-->
-<div class="offcanvas offcanvas-start side-menu" tabindex="-1" id="sideMenu">
-  <div class="offcanvas-header">
-    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <ul class="list-unstyled">
-<!--      todo: proper navigation options-->
-      <li><button class="btn btn-success">plans</button></li>
-      <li><button class="btn btn-success">execution</button></li>
-      <li><button class="btn btn-success">todo</button></li>
-      <li><button class="btn btn-success">posts</button></li>
-    </ul>
-  </div>
 </div>
 
+<router-outlet/>
