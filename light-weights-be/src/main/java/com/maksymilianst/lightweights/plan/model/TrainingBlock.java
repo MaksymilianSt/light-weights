@@ -1,8 +1,7 @@
 package com.maksymilianst.lightweights.plan.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -10,7 +9,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "training_block")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class TrainingBlock {
     @Id
@@ -32,7 +32,7 @@ public class TrainingBlock {
     @JoinColumn(name = "training_plan_id", nullable = false)
     private TrainingPlan plan;
 
-    @OneToMany(mappedBy = "block")
+    @OneToMany(mappedBy = "block", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<Training> trainings = new HashSet<>();
 
 }

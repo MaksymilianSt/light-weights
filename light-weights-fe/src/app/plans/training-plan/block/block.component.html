@@ -1,0 +1,105 @@
+<div class="container mt-3">
+
+  <div
+    class=" p-2 rounded d-flex justify-content-center align-items-center block-row"
+    role="button"
+    data-bs-toggle="collapse"
+    [attr.data-bs-target]="'#block' + block?.id"
+    aria-expanded="false"
+    [attr.aria-controls]="'#block' + block?.id"
+  >
+    <strong class="justify-content-center">{{ block?.name }}</strong>
+  </div>
+
+
+  <div class="collapse mt-2 block-base" [attr.id]="'block' + block?.id">
+
+    <div class="row mt-1 sm-mx-1 base">
+
+      <div class="col-12 col-sm-4">
+        <strong>begin date</strong>
+        <input
+          class="input-group-text w-100 mt-1"
+          [disabled]="!editMode"
+          [value]="block?.start"
+        >
+      </div>
+
+      <div class="col-12 col-sm-4 mx-lg-4">
+        <strong>end date</strong>
+        <input
+          class="input-group-text w-100 mt-1"
+          [disabled]="!editMode"
+          [value]="block?.end"
+        >
+      </div>
+
+      <div class="col-12 col-sm-3 ms-sm-3 col-lg-2 mx-lg-4 ">
+        <strong>weeks</strong>
+        <input
+          class="input-group-text w-100 mt-1"
+          [disabled]="true"
+          [value]="calculateWeeks(block!.start, block!.end)"
+        >
+      </div>
+
+      <div class="col-12 mt-4">
+        <strong>description</strong>
+        <textarea autosize
+                  class="input-group-text w-100 mt-1 pt-4"
+                  [disabled]="!editMode"
+                  [(ngModel)]="block!.description"
+        ></textarea>
+      </div>
+
+    </div>
+
+    <br>
+
+    <div *ngIf="block!.trainings && block!.trainings!.length > 0">
+
+      <h5><strong> trainings </strong> <i class="fas fa-dumbbell"> </i></h5>
+      <hr>
+
+      <div class="row">
+        <div class="col-4 col-sm-3">
+          <strong>date</strong>
+        </div>
+        <div class="col-5 col-sm-4">
+          <strong>name</strong>
+        </div>
+        <div class="col-2 col-sm-3">
+          <strong>done</strong>
+        </div>
+      </div>
+
+
+      <div *ngFor="let tren of block?.trainings">
+        <div class="row training-row mb-4">
+
+          <div class="col-4 col-sm-3">
+            <strong>{{ tren.date | date }}</strong>
+          </div>
+
+          <div class="col-5 col-sm-4">
+            <strong>{{ tren.name }}</strong>
+          </div>
+
+          <div class="col-2 col-sm-1 ps-4">
+            <strong>{{ tren.done ? '✓' : '✗' }}</strong>
+          </div>
+
+          <div class="col-12 mt-2  col-sm-4 mt-sm-0 d-flex justify-content-end gap-3">
+            <div>
+              <button class="btn btn-outline-light execution-btn">execution</button>
+            </div>
+            <div>
+              <button class="btn btn-outline-light details-btn">details</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

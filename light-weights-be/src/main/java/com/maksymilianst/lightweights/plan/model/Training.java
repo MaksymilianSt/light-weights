@@ -2,8 +2,7 @@ package com.maksymilianst.lightweights.plan.model;
 
 import com.maksymilianst.lightweights.execution.model.TrainingExecution;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -11,7 +10,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "training")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Training {
     @Id

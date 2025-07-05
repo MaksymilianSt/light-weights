@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <p class="header mb-5">{{ plan?.name }}</p>
+  </div>
+
+  <p class="h3 mt-5">details</p>
+
+  <div class="row mt-1 mx-1 base">
+
+    <div class="col-12 me-3 col-sm-5 mx-lg-0 col-lg-2">
+      <strong>category</strong>
+      <input
+        class="input-group-text w-100 mt-1"
+        [disabled]="!editMode"
+        [value]="plan?.category"
+      >
+    </div>
+
+    <div class="col-12 col-sm-5 sm-mx-4 col-lg-2 mx-lg-4">
+      <strong>difficulty level</strong>
+      <input
+        class="input-group-text w-100 mt-1"
+        [disabled]="!editMode"
+        [value]="plan?.difficultyLvl?.toLowerCase()"
+      >
+    </div>
+
+    <div class="col-12 mt-3 col-lg-7 mt-lg-0">
+      <strong>goal</strong>
+      <input
+        class="input-group-text w-100 mt-1"
+        [disabled]="!editMode"
+        [value]="plan?.goal"
+      >
+    </div>
+
+    <div class="col-12 mt-4">
+      <strong>description</strong>
+      <textarea autosize
+                class="input-group-text w-100 mt-1 pt-4"
+                [disabled]="!editMode"
+                [(ngModel)]="plan!.description"
+      ></textarea>
+    </div>
+
+  </div>
+
+  <br>
+
+  <div *ngIf="plan?.blocks && plan?.blocks!.length > 0">
+    <p class="h3 mt-5">blocks</p>
+    <div class="base">
+      <div *ngFor="let block of plan?.blocks">
+        <app-block [block]="block" [editMode]="editMode"/>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -2,12 +2,14 @@ package com.maksymilianst.lightweights.plan.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Table(name = "exercise")
 @Entity
-@Data
+@Table(name = "exercise")
+@Getter
+@Setter
 @NoArgsConstructor
 public class Exercise {
     @Id

@@ -2,15 +2,17 @@ package com.maksymilianst.lightweights.plan.model;
 
 import com.maksymilianst.lightweights.execution.model.TrainingExerciseExecution;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "training_exercise")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class TrainingExercise {
     @Id

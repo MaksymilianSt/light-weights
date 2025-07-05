@@ -3,8 +3,7 @@ package com.maksymilianst.lightweights.plan.model;
 import com.maksymilianst.lightweights.user.User;
 import com.maksymilianst.lightweights.util.audit.AuditInfo;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +11,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "training_plan")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class TrainingPlan {
 

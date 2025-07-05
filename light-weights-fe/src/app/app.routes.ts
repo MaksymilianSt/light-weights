@@ -3,6 +3,7 @@ import {AuthComponent} from './auth/auth.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {AuthGuard} from './auth.guard';
 import {PlansResolver} from './plans/training-plan-list/plans.resolver';
+import {PlanResolver} from './plans/training-plan/plan.resolver';
 
 export const routes: Routes = [
   {
@@ -28,7 +29,17 @@ export const routes: Routes = [
         resolve: {
           plans: PlansResolver
         }
-      }
+      },
+      {
+        path: 'plans/:id',
+        loadComponent: () =>
+          import('./plans/training-plan/training-plan.component').then(
+            (m) => m.TrainingPlanComponent
+          ),
+        resolve: {
+          trainingPlan: PlanResolver
+        }
+      },
     ]
   },
   {

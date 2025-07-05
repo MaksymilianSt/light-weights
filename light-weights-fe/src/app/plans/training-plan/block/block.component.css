@@ -1,0 +1,40 @@
+.block-base {
+  background: #1d1f31;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  border-radius: 10px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+@media (min-width: 900px) {
+  .block-base {
+    padding: 4%;
+  }
+}
+
+.block-row {
+  background-color: #26283d;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+.block-row:hover {
+  background-color: #34364b;
+}
+
+.details-btn {
+  color: #ffffff;
+  background: #2e3248;
+  border: 1px solid #000000;
+}
+
+.execution-btn {
+  color: #ffffff;
+  background: #3b4059;
+  border: 1px solid #000000;
+}
+
+.training-row {
+  background-color: white;
+  color: #26273f;
+  padding: 8px;
+  border-radius: 5px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+}

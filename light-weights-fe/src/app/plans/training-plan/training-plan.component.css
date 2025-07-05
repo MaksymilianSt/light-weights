@@ -1,0 +1,33 @@
+.header {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #eee7e7;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+@media (min-width: 992px) {
+  .header {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #eee7e7;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  }
+}
+
+.base{
+  background: #1a1c2d;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  border-radius: 10px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+@media (min-width: 900px) {
+  .base {
+    padding: 4%;
+  }
+}
+
+textarea {
+  overflow-x: hidden;
+  white-space: pre-wrap;
+  word-break: break-word;
+}

@@ -49,6 +49,9 @@
 .side-menu{
   background-color: #181826;
 }
-
+.sticky-top{
+  background-color: #19192C;
+  z-index: 1020;
+}
 
 
