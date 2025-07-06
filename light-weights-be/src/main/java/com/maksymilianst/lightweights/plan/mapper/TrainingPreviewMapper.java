@@ -7,6 +7,10 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+
 @Mapper(componentModel = "spring")
 public interface TrainingPreviewMapper {
 
@@ -16,5 +20,12 @@ public interface TrainingPreviewMapper {
     @Named("isDone")
     default boolean isDone(TrainingExecution execution) {
         return execution != null && execution.isDone();
+    }
+
+    default List<TrainingPreviewDto> toDtos(Set<Training> trainings) {
+        return trainings.stream()
+                .sorted(Comparator.comparing(Training::getDate))
+                .map(this::toDto)
+                .toList();
     }
 }
