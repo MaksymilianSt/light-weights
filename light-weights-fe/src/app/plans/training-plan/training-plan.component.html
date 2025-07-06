@@ -3,7 +3,7 @@
     <p class="header mb-5">{{ plan?.name }}</p>
   </div>
 
-  <p class="h3 mt-5">details</p>
+  <p class="h3 mt-2 mt-md-5">details</p>
 
   <div class="row mt-1 mx-1 base">
 
@@ -48,7 +48,7 @@
   <br>
 
   <div *ngIf="plan?.blocks && plan?.blocks!.length > 0">
-    <p class="h3 mt-5">blocks</p>
+    <p class="h3 mt-2 mt-sm-5">blocks</p>
     <div class="base">
       <div *ngFor="let block of plan?.blocks">
         <app-block [block]="block" [editMode]="editMode"/>

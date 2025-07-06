@@ -1,6 +1,6 @@
 <div class="container">
   <div class="d-flex justify-content-center">
-    <p class="header mb-5">Plans</p>
+    <p class="header mb-1 mb-sm-5">Plans</p>
   </div>
 
   <div class="container mt-5">
@@ -14,7 +14,7 @@
           [(ngModel)]="searchText"
         >
         <button
-          class="bg-transparent border-0 text-white mx-3"
+          class="bg-transparent border-0 text-white ms-1 ms-md-3"
           (click)="filterPlans()"
         >
           <i class="fas fa-search"></i>
@@ -46,22 +46,22 @@
       <div class="col-10">
         <button
           [routerLink]="['/plans', plan.id]"
-          class="btn btn-light block w-100 mb-5 p-3 pe-5"
+          class="btn btn-light block w-100 mb-5 p-3 pe-0 pe-md-5"
         >
           <div class="row">
             <span
-              class="fw-semibold text-truncate d-inline-block col-8 col-md-4 align-items-center"
+              class="fw-semibold text-truncate d-inline-block col-12 col-md-4 align-items-center text-start text-md-center"
             >{{ plan.name }}
             </span>
             <span
               *ngIf="!mobile"
-              class="fw-semibold text-truncate d-inline-block col-1 col-md-4 align-items-center"
+              class="fw-semibold text-truncate d-inline-block  col-md-4 align-items-center"
             >
             {{ plan.category }}
             </span>
             <span
               *ngIf="!mobile"
-              class="fw-semibold text-truncate d-inline-block col-1 col-md-4 align-items-center"
+              class="fw-semibold text-truncate d-inline-block col-md-4 align-items-center"
             >
             {{ plan.difficultyLvl.toLowerCase() }}
             </span>

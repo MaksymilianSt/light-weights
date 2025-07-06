@@ -58,10 +58,10 @@
 
     <div *ngIf="block!.trainings && block!.trainings!.length > 0">
 
-      <h5><strong> trainings </strong> <i class="fas fa-dumbbell"> </i></h5>
+      <h5 class="mx-2"><strong> trainings </strong> <i class="fas fa-dumbbell"> </i></h5>
       <hr>
 
-      <div class="row">
+      <div class="row mx-2">
         <div class="col-4 col-sm-3">
           <strong>date</strong>
         </div>
@@ -75,7 +75,7 @@
 
 
       <div *ngFor="let tren of block?.trainings">
-        <div class="row training-row mb-4">
+        <div class="row training-row mb-4 mx-2">
 
           <div class="col-4 col-sm-3">
             <strong>{{ tren.date | date }}</strong>
