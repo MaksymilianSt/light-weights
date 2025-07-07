@@ -60,7 +60,7 @@
 
       <h5 class="mx-2"><strong> trainings </strong> <i class="fas fa-dumbbell"> </i></h5>
       <hr>
-
+      <p class="text-end mx-3"><strong>completion:</strong> {{calculateTrainingsCompletion() | number:'1.0-2'}}%</p>
       <div class="row mx-2">
         <div class="col-4 col-sm-3">
           <strong>date</strong>
@@ -94,7 +94,12 @@
               <button class="btn btn-outline-light execution-btn">execution</button>
             </div>
             <div>
-              <button class="btn btn-outline-light details-btn">details</button>
+              <button
+                class="btn btn-outline-light details-btn"
+                [routerLink]="['trainings', tren.id]"
+              >
+                details
+              </button>
             </div>
           </div>
 

@@ -1,7 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {TrainingBlock} from '../models/training-plan';
 import {FormsModule} from '@angular/forms';
-import {DatePipe, NgForOf, NgIf} from '@angular/common';
+import {DatePipe, DecimalPipe, NgForOf, NgIf} from '@angular/common';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-block',
@@ -10,7 +11,9 @@ import {DatePipe, NgForOf, NgIf} from '@angular/common';
     FormsModule,
     NgForOf,
     DatePipe,
-    NgIf
+    NgIf,
+    RouterLink,
+    DecimalPipe
   ],
   templateUrl: './block.component.html',
   styleUrl: './block.component.css'
@@ -25,7 +28,7 @@ export class BlockComponent {
     const endDate = new Date(end);
 
     if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-      return  '?';
+      return '?';
     }
 
     const diffInMs = endDate.getTime() - startDate.getTime();
@@ -34,4 +37,12 @@ export class BlockComponent {
     return Math.ceil(diffInMs / oneWeekInMs);
   }
 
+  calculateTrainingsCompletion() {
+    const completedTrainings = this.block!.trainings
+      .filter(training => training.done)
+      .length;
+    const allTrainingsSize = this.block!.trainings.length;
+
+    return (completedTrainings / allTrainingsSize) * 100;
+  }
 }
