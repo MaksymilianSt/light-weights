@@ -26,7 +26,7 @@ public class Training {
     @Column(nullable = false)
     private LocalDate date;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "training_block_id", nullable = false)
     private TrainingBlock block;
 

@@ -2,6 +2,7 @@ package com.maksymilianst.lightweights.plan.model;
 
 import com.maksymilianst.lightweights.execution.model.TrainingExerciseExecution;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +22,10 @@ public class TrainingExercise {
 
     private String description;
 
+    @Min(value = 0)
+    @Column(nullable = false)
+    private Integer sequence;
+
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "exercise_id", nullable = false)
@@ -30,7 +35,7 @@ public class TrainingExercise {
     @JoinColumn(name = "training_id", nullable = false)
     private Training training;
 
-    @OneToMany(mappedBy = "exercise")
+    @OneToMany(mappedBy = "exercise", fetch = FetchType.EAGER)
     private Set<TrainingSet> sets = new HashSet<>();
 
     @OneToOne(mappedBy = "referencedExercise", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
