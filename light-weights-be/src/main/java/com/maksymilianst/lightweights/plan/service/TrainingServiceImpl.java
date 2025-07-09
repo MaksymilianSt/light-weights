@@ -14,7 +14,7 @@ public class TrainingServiceImpl implements TrainingService {
     private final TrainingMapper trainingMapper;
 
     @Override
-    public TrainingDto getByIdForUser(Integer trainingId) {
+    public TrainingDto getById(Integer trainingId) {
         return trainingRepository
                 .findById(trainingId)
                 .map(trainingMapper::toDto)

@@ -28,10 +28,9 @@ public class TrainingPlanServiceImpl implements TrainingPlanService {
                     .toList();
     }
 
-    @Override
-    public TrainingPlanDto getByIdForUser(Integer planId, Integer userId) {
+    public TrainingPlanDto getById(Integer planId) {
         return trainingPlanRepository
-                .findByIdAndUserId(planId, userId)
+                .findById(planId)
                 .map(trainingPlanMapper::toDto)
                 .orElseThrow();
     }

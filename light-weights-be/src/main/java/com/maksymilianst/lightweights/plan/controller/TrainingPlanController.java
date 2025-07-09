@@ -6,6 +6,7 @@ import com.maksymilianst.lightweights.plan.service.TrainingPlanService;
 import com.maksymilianst.lightweights.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,9 +30,10 @@ public class TrainingPlanController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TrainingPlanDto> getPlanById(@PathVariable("id") Integer id, @AuthenticationPrincipal User user) {
+    @PreAuthorize("@planAccessControlService.hasAccessToPlan(#id, principal.id)")
+    public ResponseEntity<TrainingPlanDto> getPlanById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(
-                trainingPlanService.getByIdForUser(id, user.getId())
+                trainingPlanService.getById(id)
         );
     }
 }
