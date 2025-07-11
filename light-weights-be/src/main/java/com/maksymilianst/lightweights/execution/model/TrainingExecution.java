@@ -34,7 +34,7 @@ public class TrainingExecution {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "plan_training_id", nullable = false)
     private Training referencedTraining;
 

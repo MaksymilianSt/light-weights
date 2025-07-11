@@ -39,7 +39,7 @@ public class TrainingSetExecution {
     @Column(nullable = false)
     private boolean done;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "plan_training_set_id", nullable = false)
     private TrainingSet referencedSet;
 

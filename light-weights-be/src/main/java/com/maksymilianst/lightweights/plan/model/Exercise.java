@@ -19,7 +19,7 @@ public class Exercise {
     @NotNull
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "training_plan_id", nullable = false)
     private TrainingPlan trainingPlan;
 }
