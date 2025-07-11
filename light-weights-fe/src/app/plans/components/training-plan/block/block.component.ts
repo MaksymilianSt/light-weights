@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {TrainingBlock} from '../models/training-plan';
+import {TrainingBlock} from '../../../models/training-plan.model';
 import {FormsModule} from '@angular/forms';
 import {DatePipe, DecimalPipe, NgForOf, NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';

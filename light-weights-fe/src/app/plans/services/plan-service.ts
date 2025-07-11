@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {TrainingPlanListModel} from './training-plan-list/models/training-plan-list-model';
-import {environment} from '../../../environment';
-import {TrainingPlan} from './training-plan/models/training-preview';
+import {TrainingPlanListModel} from '../models/training-plan-list.model';
+import {environment} from '../../../../environment';
+import {TrainingPlan} from '../models/training-preview.model';
 
 @Injectable({
   providedIn: 'root',

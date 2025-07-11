@@ -1,6 +1,6 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {TrainingPlanListModel} from './models/training-plan-list-model';
+import {TrainingPlanListModel} from '../../models/training-plan-list.model';
 import {NgForOf, NgIf} from '@angular/common';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 

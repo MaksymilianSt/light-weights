@@ -1,4 +1,4 @@
-import {TrainingPreview} from './training-block';
+import {TrainingPreview} from './training-block.model';
 
 export interface TrainingBlock {
   id: number;

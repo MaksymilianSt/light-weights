@@ -2,8 +2,9 @@ import {Routes} from '@angular/router';
 import {AuthComponent} from './auth/auth.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {AuthGuard} from './auth.guard';
-import {PlansResolver} from './plans/training-plan-list/plans.resolver';
-import {PlanResolver} from './plans/training-plan/plan.resolver';
+import {PlansResolver} from './plans/resolvers/plans.resolver';
+import {PlanResolver} from './plans/resolvers/plan.resolver';
+import {TrainingResolver} from './plans/resolvers/training.resolver';
 
 export const routes: Routes = [
   {
@@ -23,7 +24,7 @@ export const routes: Routes = [
       {
         path: 'plans',
         loadComponent: () =>
-          import('./plans/training-plan-list/training-plan-list.component').then(
+          import('./plans/components/training-plan-list/training-plan-list.component').then(
             (m) => m.TrainingPlanListComponent
           ),
         resolve: {
@@ -33,11 +34,21 @@ export const routes: Routes = [
       {
         path: 'plans/:id',
         loadComponent: () =>
-          import('./plans/training-plan/training-plan.component').then(
+          import('./plans/components/training-plan/training-plan.component').then(
             (m) => m.TrainingPlanComponent
           ),
         resolve: {
           trainingPlan: PlanResolver
+        }
+      },
+      {
+        path: 'plans/:planId/blocks/:blockId/trainings/:trainingId',
+        loadComponent: () =>
+          import('./plans/components/training/training.component').then(
+            (m) => m.TrainingComponent
+          ),
+        resolve: {
+          training: TrainingResolver
         }
       },
     ]
