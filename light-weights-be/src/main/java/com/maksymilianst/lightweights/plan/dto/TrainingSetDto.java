@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class TrainingSetDto {
     private int id;
     private Integer sequence;
-    private Integer reps;
+    private Integer repetitions;
     private BigDecimal weight;
     private String tempo;
 }

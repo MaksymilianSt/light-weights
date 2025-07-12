@@ -1,0 +1,86 @@
+<div class="container mt-3">
+
+  <div
+    class=" p-2 rounded d-flex align-items-center expand-btn"
+    role="button"
+    data-bs-toggle="collapse"
+    [attr.data-bs-target]="'#exercise' + exercise?.id"
+    aria-expanded="false"
+    [attr.aria-controls]="'#exercise' + exercise?.id"
+  >
+
+    <div class="flex-grow-1 text-start">
+      <strong>
+        {{ exercise?.sequence }}.
+      </strong>
+    </div>
+    <div class="flex-grow-1 text-center">
+      <strong>
+        {{ exercise?.name }}
+      </strong>
+    </div>
+    <div class="flex-grow-1"></div>
+
+  </div>
+
+
+  <div class="collapse mt-2 expand-item" [attr.id]="'exercise' + exercise?.id">
+
+    <div>
+      <strong>description</strong>
+      <textarea autosize
+                class="form-control text-center w-100"
+                [disabled]="!editMode"
+                [(ngModel)]="exercise!.description"
+      ></textarea>
+    </div>
+
+    <br/>
+    <h5 class="mx-2"><strong> sets </strong> <i class="fas fa-dumbbell"> </i></h5>
+    <hr/>
+
+    <div>
+
+      <div class="row mx-2">
+
+        <div class="col-2">
+          <strong>seq</strong>
+        </div>
+        <div class="col-2">
+          <strong>reps</strong>
+        </div>
+        <div class="col-3">
+          <strong>weight</strong>
+        </div>
+        <div class="col-4">
+          <strong>tempo</strong>
+        </div>
+
+      </div>
+
+      <div *ngFor="let set of exercise?.sets">
+        <div class="row row-bar mb-4 mx-2">
+
+          <div class="col-2">
+            <strong>{{ set.sequence}}.</strong>
+          </div>
+
+          <div class="col-2">
+            <strong>{{ set.repetitions }}</strong>
+          </div>
+
+          <div class="col-3">
+            <strong>{{set.weight}} kg</strong>
+          </div>
+
+          <div class="col-4">
+            <strong>{{set.tempo}}</strong>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
