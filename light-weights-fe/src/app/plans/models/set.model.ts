@@ -1,7 +1,7 @@
 export interface Set {
   id: number;
   sequence: number;
-  reps: number;
+  repetitions: number;
   weight: number;
   tempo: string;
 }

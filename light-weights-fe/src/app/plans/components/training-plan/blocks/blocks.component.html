@@ -1,0 +1,6 @@
+<p class="h3 mt-2 mt-sm-5">blocks</p>
+<div class="base">
+  <div *ngFor="let block of blocks">
+    <app-block [block]="block" [editMode]="editMode"/>
+  </div>
+</div>

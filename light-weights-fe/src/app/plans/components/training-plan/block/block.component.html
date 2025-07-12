@@ -1,7 +1,7 @@
 <div class="container mt-3">
 
   <div
-    class=" p-2 rounded d-flex justify-content-center align-items-center block-row"
+    class=" p-2 rounded d-flex justify-content-center align-items-center expand-btn"
     role="button"
     data-bs-toggle="collapse"
     [attr.data-bs-target]="'#block' + block?.id"
@@ -12,7 +12,7 @@
   </div>
 
 
-  <div class="collapse mt-2 block-base" [attr.id]="'block' + block?.id">
+  <div class="collapse mt-2 expand-item" [attr.id]="'block' + block?.id">
 
     <div class="row mt-1 sm-mx-1 base">
 
@@ -61,6 +61,7 @@
       <h5 class="mx-2"><strong> trainings </strong> <i class="fas fa-dumbbell"> </i></h5>
       <hr>
       <p class="text-end mx-3"><strong>completion:</strong> {{calculateTrainingsCompletion() | number:'1.0-2'}}%</p>
+
       <div class="row mx-2">
         <div class="col-4 col-sm-3">
           <strong>date</strong>
@@ -75,7 +76,7 @@
 
 
       <div *ngFor="let tren of block?.trainings">
-        <div class="row training-row mb-4 mx-2">
+        <div class="row row-bar mb-4 mx-2">
 
           <div class="col-4 col-sm-3">
             <strong>{{ tren.date | date }}</strong>

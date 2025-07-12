@@ -5,11 +5,12 @@ import {AutosizeModule} from 'ngx-autosize';
 import {FormsModule} from '@angular/forms';
 import {BlockComponent} from './block/block.component';
 import {NgForOf, NgIf} from '@angular/common';
+import {BlocksComponent} from './blocks/blocks.component';
 
 @Component({
   selector: 'app-training-plan',
   standalone: true,
-  imports: [AutosizeModule, FormsModule, BlockComponent, NgForOf, NgIf],
+  imports: [AutosizeModule, FormsModule, BlockComponent, NgForOf, NgIf, BlocksComponent],
   templateUrl: './training-plan.component.html',
   styleUrl: './training-plan.component.css'
 })
