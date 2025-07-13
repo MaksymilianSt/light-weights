@@ -8,18 +8,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/plans")
+@RequestMapping(TrainingPlanController.URL)
 @RequiredArgsConstructor
 public class TrainingPlanController {
+    public final static String URL = "/api/plans";
+
     private final TrainingPlanService trainingPlanService;
 
     @GetMapping
@@ -36,4 +36,28 @@ public class TrainingPlanController {
                 trainingPlanService.getById(id)
         );
     }
+
+    @PostMapping
+    public ResponseEntity<TrainingPlanDto> create(@RequestBody TrainingPlanDto trainingPlanDto, @AuthenticationPrincipal User user) {
+        TrainingPlanDto createdPlan = trainingPlanService.create(trainingPlanDto, user);
+
+        return ResponseEntity.created(URI.create(URL + "/" + createdPlan.getId()))
+                .body(createdPlan);
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("@planAccessControlService.hasAccessToPlan(#id, principal.id)")
+    public ResponseEntity<TrainingPlanDto> update(@PathVariable("id") Integer id, @RequestBody TrainingPlanDto trainingPlanDto) {
+        return ResponseEntity.ok(
+                trainingPlanService.update(id, trainingPlanDto)
+        );
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("@planAccessControlService.hasAccessToPlan(#id, principal.id)")
+    public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
+        trainingPlanService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

@@ -37,7 +37,7 @@ public class TrainingPlan {
     private String goal;
 
     @Embedded
-    private AuditInfo auditInfo;
+    private AuditInfo auditInfo = new AuditInfo();
 
 
     @OneToMany(mappedBy = "trainingPlan", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

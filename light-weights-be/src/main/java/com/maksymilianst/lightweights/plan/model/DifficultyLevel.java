@@ -11,4 +11,15 @@ public enum DifficultyLevel {
     DifficultyLevel(int lvl) {
         this.lvl = lvl;
     }
+
+    public static DifficultyLevel fromStringIgnoreCase(String input) {
+        if (input == null) return UNKNOWN;
+
+        for (DifficultyLevel level : values()) {
+            if (level.name().equalsIgnoreCase(input)) {
+                return level;
+            }
+        }
+        return UNKNOWN;
+    }
 }
