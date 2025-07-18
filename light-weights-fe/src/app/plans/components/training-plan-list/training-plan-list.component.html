@@ -22,7 +22,10 @@
       </div>
 
       <div class="col-3 d-flex justify-content-start">
-        <button class="btn btn-light new-plan-btn">
+        <button
+          class="btn btn-light new-plan-btn"
+          [routerLink]="['/plans', 'new']"
+        >
           new plan
         </button>
       </div>
@@ -102,7 +105,8 @@
             <li>
               <a
                 class="dropdown-item delete-btn"
-              ><!--todo:delete method and refresh list-->
+                (click)="deletePlan(plan.id)"
+              >
                 delete
               </a>
             </li>
@@ -111,6 +115,7 @@
 
         <div>
           <button
+            [routerLink]="['/plans', plan.id]" [queryParams]="{ edit: true }"
             class="btn btn-outline-light block border-2 p-3 pe-sm-4 px-lg-5 w-100"
           >
             <strong>edit</strong>

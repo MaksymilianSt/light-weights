@@ -32,6 +32,16 @@ export const routes: Routes = [
         }
       },
       {
+        path: 'plans/new',
+        loadComponent: () =>
+          import('./plans/components/training-plan/training-plan.component').then(
+            (m) => m.TrainingPlanComponent
+          ),
+        resolve: {
+          trainingPlan: PlanResolver
+        }
+      },
+      {
         path: 'plans/:id',
         loadComponent: () =>
           import('./plans/components/training-plan/training-plan.component').then(

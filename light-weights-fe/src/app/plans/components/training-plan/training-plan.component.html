@@ -1,7 +1,49 @@
-<div class="container">
-  <div class="d-flex justify-content-center">
-    <p class="header mb-5">{{ plan?.name }}</p>
+<form class="container" [formGroup]="planForm" (ngSubmit)="onSave()">
+
+  <div *ngIf="editMode" class="text-end">
+    <button
+      class="btn btn-outline-light"
+      [disabled]="planForm.invalid"
+    >
+      save
+    </button>
   </div>
+
+  <div
+    *ngIf="!editMode; else editName"
+    class="d-flex justify-content-center"
+  >
+    <p class="header mb-5">{{ planForm.get('name')?.value }}</p>
+  </div>
+
+  <ng-template #editName>
+    <br>
+    <div class="mt-5">
+      <strong>name</strong>
+      <input
+        [ngClass]="{ 'invalid-border': planForm.get('name')?.invalid && planForm.get('name')?.touched }"
+        class="input-group-text w-100 w mt-1"
+        formControlName="name"
+      >
+      <div
+        class="text-danger mt-1"
+        *ngIf="planForm.get('name')?.invalid && planForm.get('name')?.touched"
+      >
+        Field name s required!.
+      </div>
+    </div>
+
+  </ng-template>
+
+<div *ngIf="!editMode" class="text-end">
+  <button
+    class="btn btn-outline-light"
+    type="button"
+    (click)="editMode = true"
+  >
+    edit
+  </button>
+</div>
 
   <p class="h3 mt-2 mt-md-5">details</p>
 
@@ -9,28 +51,51 @@
 
     <div class="col-12 me-3 col-sm-5 mx-lg-0 col-lg-2">
       <strong>category</strong>
-      <input
+
+      <select *ngIf="editMode; else readCategory"
         class="input-group-text w-100 mt-1"
         [disabled]="!editMode"
-        [value]="plan?.category"
+        formControlName="category"
       >
+        <option *ngFor="let category of categories" [value]="category">
+          {{ category }}
+        </option>
+      </select>
+
+      <ng-template #readCategory>
+        <input class="input-group-text w-100 mt-1"
+               [disabled]="true"
+               [value]="planForm.get('category')?.value"
+        >
+      </ng-template>
     </div>
 
     <div class="col-12 col-sm-5 sm-mx-4 col-lg-2 mx-lg-4">
       <strong>difficulty level</strong>
-      <input
+      <select *ngIf="editMode; else readDiffLvl"
         class="input-group-text w-100 mt-1"
         [disabled]="!editMode"
-        [value]="plan?.difficultyLvl?.toLowerCase()"
+        formControlName="difficultyLvl"
       >
+        <option *ngFor="let lvl of difficultyLvls" [value]="lvl">
+          {{ lvl.toLowerCase() }}
+        </option>
+      </select>
+
+      <ng-template #readDiffLvl>
+        <input class="input-group-text w-100 mt-1"
+               [disabled]="true"
+               [value]="planForm.get('difficultyLvl')?.value"
+        >
+      </ng-template>
     </div>
 
     <div class="col-12 mt-3 col-lg-7 mt-lg-0">
       <strong>goal</strong>
       <input
         class="input-group-text w-100 mt-1"
-        [disabled]="!editMode"
-        [value]="plan?.goal"
+        [readonly]="!editMode"
+        formControlName="goal"
       >
     </div>
 
@@ -38,8 +103,8 @@
       <strong>description</strong>
       <textarea autosize
                 class="input-group-text w-100 mt-1 pt-4"
-                [disabled]="!editMode"
-                [(ngModel)]="plan!.description"
+                [readonly]="!editMode"
+                formControlName="description"
       ></textarea>
     </div>
 
@@ -54,4 +119,4 @@
     ></app-blocks>
   </div>
 
-</div>
+</form>

@@ -13,6 +13,7 @@ import com.maksymilianst.lightweights.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -73,6 +74,20 @@ public class TrainingPlanServiceImpl implements TrainingPlanService {
     @Override
     public void delete(Integer planId) {
         this.trainingPlanRepository.deleteById(planId);
+    }
+
+    @Override
+    public List<String> getCategories() {
+        return planCategoryRepository.findAll().stream()
+                .map(PlanCategory::getName)
+                .toList();
+    }
+
+    @Override
+    public List<String> getDifficultyLvls() {
+        return Arrays.stream(DifficultyLevel.values())
+                .map(DifficultyLevel::toString)
+                .toList();
     }
 
     private static Comparator<TrainingPlan> byMostRecentlyModified() {

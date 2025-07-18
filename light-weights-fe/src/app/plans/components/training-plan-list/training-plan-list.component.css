@@ -14,10 +14,6 @@
   }
 }
 
-.btn-outline-light {
-  color: #ffffff;
-  background: #26273f;
-}
 
 .fas.fa-ellipsis-v {
   font-size: 30px;
@@ -46,7 +42,8 @@
 }
 
 .new-plan-btn {
-  background: #d6d7e3;
-  border-color: #d6d7e3;
+  background: #dfe4ea;
+  border: 3px #060a31;
+  border-color: #030000;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
 }

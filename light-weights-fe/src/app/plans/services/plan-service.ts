@@ -21,4 +21,30 @@ export class PlanService {
   getPlanById(id: number): Observable<TrainingPlan> {
     return this.http.get<TrainingPlan>(`${this.API_URL}/plans/${id}`)
   }
+
+  createPlan(plan: TrainingPlan): Observable<TrainingPlan> {
+    return this.http.post<TrainingPlan>(
+      `${this.API_URL}/plans`,
+      plan
+    );
+  }
+
+  updatePlan(planId: number, plan: TrainingPlan): Observable<TrainingPlan> {
+    return this.http.put<TrainingPlan>(
+      `${this.API_URL}/plans/${planId}`,
+          plan
+    );
+  }
+
+  deletePlan(planId: Number): Observable<any> {
+    return this.http.delete(`${this.API_URL}/plans/${planId}`)
+  }
+
+  getCategories(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.API_URL}/plans/categories`)
+  }
+
+  getDifficultyLvls(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.API_URL}/plans/difficulty-lvls`)
+  }
 }

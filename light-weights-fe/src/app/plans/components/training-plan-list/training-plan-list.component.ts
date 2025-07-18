@@ -3,6 +3,7 @@ import {FormsModule} from '@angular/forms';
 import {TrainingPlanListModel} from '../../models/training-plan-list.model';
 import {NgForOf, NgIf} from '@angular/common';
 import {ActivatedRoute, RouterLink} from '@angular/router';
+import {PlanService} from '../../services/plan-service';
 
 @Component({
   selector: 'app-training-plan-list',
@@ -22,7 +23,10 @@ export class TrainingPlanListComponent implements OnInit {
   mobile: boolean = this.isMobile();
   searchText: string | null = null;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private planService: PlanService
+    ) {
   }
 
   ngOnInit(): void {
@@ -43,6 +47,16 @@ export class TrainingPlanListComponent implements OnInit {
     );
   }
 
+  deletePlan(planId: number): void {
+    if (confirm('Are you sure you want to delete this plan?')) {
+      this.planService.deletePlan(planId).subscribe(() => {
+        this.planList = this.planList
+          .filter(plan => plan.id !== planId);
+        this.filteredPlanList = this.planList;
+      });
+    }
+  }
+
   private fetchPlans() {
     this.planList = this.route.snapshot.data['plans'];
     this.filteredPlanList = this.planList;
@@ -56,4 +70,5 @@ export class TrainingPlanListComponent implements OnInit {
   private isMobile(): boolean {
     return window.innerWidth <= 768
   }
+
 }

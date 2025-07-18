@@ -60,4 +60,18 @@ public class TrainingPlanController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/categories")
+    public ResponseEntity<List<String>> getCategories() {
+        return ResponseEntity.ok(
+                trainingPlanService.getCategories()
+        );
+    }
+
+    @GetMapping("/difficulty-lvls")
+    public ResponseEntity<List<String>> getDifficultyLvls() {
+        return ResponseEntity.ok(
+                trainingPlanService.getDifficultyLvls()
+        );
+    }
+
 }

@@ -16,4 +16,8 @@ public interface TrainingPlanService {
     TrainingPlanDto update(Integer planId, TrainingPlanDto plan);
 
     void delete(Integer planId);
+
+    List<String> getCategories();
+
+    List<String> getDifficultyLvls();
 }
