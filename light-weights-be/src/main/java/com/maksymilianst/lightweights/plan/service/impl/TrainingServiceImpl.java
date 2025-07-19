@@ -1,8 +1,9 @@
-package com.maksymilianst.lightweights.plan.service;
+package com.maksymilianst.lightweights.plan.service.impl;
 
 import com.maksymilianst.lightweights.plan.dto.TrainingDto;
 import com.maksymilianst.lightweights.plan.mapper.TrainingMapper;
 import com.maksymilianst.lightweights.plan.repository.TrainingRepository;
+import com.maksymilianst.lightweights.plan.service.TrainingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

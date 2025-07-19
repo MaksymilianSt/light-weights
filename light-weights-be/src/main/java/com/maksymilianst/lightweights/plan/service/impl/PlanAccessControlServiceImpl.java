@@ -1,8 +1,9 @@
-package com.maksymilianst.lightweights.plan.service;
+package com.maksymilianst.lightweights.plan.service.impl;
 
 import com.maksymilianst.lightweights.plan.repository.TrainingBlockRepository;
 import com.maksymilianst.lightweights.plan.repository.TrainingPlanRepository;
 import com.maksymilianst.lightweights.plan.repository.TrainingRepository;
+import com.maksymilianst.lightweights.plan.service.PlanAccessControlService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

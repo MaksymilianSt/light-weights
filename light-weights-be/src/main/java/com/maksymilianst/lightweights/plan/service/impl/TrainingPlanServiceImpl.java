@@ -1,4 +1,4 @@
-package com.maksymilianst.lightweights.plan.service;
+package com.maksymilianst.lightweights.plan.service.impl;
 
 import com.maksymilianst.lightweights.plan.dto.TrainingPlanDto;
 import com.maksymilianst.lightweights.plan.dto.TrainingPlanPreviewDto;
@@ -9,6 +9,7 @@ import com.maksymilianst.lightweights.plan.model.PlanCategory;
 import com.maksymilianst.lightweights.plan.model.TrainingPlan;
 import com.maksymilianst.lightweights.plan.repository.PlanCategoryRepository;
 import com.maksymilianst.lightweights.plan.repository.TrainingPlanRepository;
+import com.maksymilianst.lightweights.plan.service.TrainingPlanService;
 import com.maksymilianst.lightweights.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
