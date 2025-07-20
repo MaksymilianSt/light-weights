@@ -1,49 +1,24 @@
 <form class="container" [formGroup]="planForm" (ngSubmit)="onSave()">
 
-  <div *ngIf="editMode" class="text-end">
-    <button
-      class="btn btn-outline-light"
-      [disabled]="planForm.invalid"
-    >
-      save
-    </button>
-  </div>
-
   <div
-    *ngIf="!editMode; else editName"
+    *ngIf="!editMode"
     class="d-flex justify-content-center"
   >
     <p class="header mb-5">{{ planForm.get('name')?.value }}</p>
   </div>
 
-  <ng-template #editName>
-    <br>
-    <div class="mt-5">
-      <strong>name</strong>
-      <input
-        [ngClass]="{ 'invalid-border': planForm.get('name')?.invalid && planForm.get('name')?.touched }"
-        class="input-group-text w-100 w mt-1"
-        formControlName="name"
-      >
-      <div
-        class="text-danger mt-1"
-        *ngIf="planForm.get('name')?.invalid && planForm.get('name')?.touched"
-      >
-        Field name s required!.
-      </div>
-    </div>
-
-  </ng-template>
-
-  <div *ngIf="!editMode" class="text-end">
+  <div class="text-end">
     <button
       class="btn btn-outline-light"
       type="button"
-      (click)="editMode = true"
+      (click)="toggleMode()"
     >
-      edit
+      {{ editMode ? 'read mode' : 'edit' }}
     </button>
   </div>
+
+
+
 
   <h5
     *ngIf="message"
@@ -55,6 +30,25 @@
   <p class="h3 mt-2 mt-md-5">details</p>
 
   <div class="row mt-1 mx-1 base">
+
+    <div *ngIf="editMode">
+      <br>
+      <div class="mb-3">
+        <strong>name</strong>
+        <input
+          [ngClass]="{ 'invalid-border': planForm.get('name')?.invalid && planForm.get('name')?.touched }"
+          class="input-group-text w-100 w mt-1"
+          formControlName="name"
+        >
+        <div
+          class="text-danger mt-1"
+          *ngIf="planForm.get('name')?.invalid && planForm.get('name')?.touched"
+        >
+          Field name s required!.
+        </div>
+      </div>
+
+    </div>
 
     <div class="col-12 me-3 col-sm-5 mx-lg-0 col-lg-2">
       <strong>category</strong>
@@ -115,6 +109,15 @@
       ></textarea>
     </div>
 
+
+    <div *ngIf="editMode" class="text-end mt-3">
+      <button
+        class="btn btn-outline-light"
+        [disabled]="planForm.invalid"
+      >
+        save
+      </button>
+    </div>
   </div>
 
   <br>

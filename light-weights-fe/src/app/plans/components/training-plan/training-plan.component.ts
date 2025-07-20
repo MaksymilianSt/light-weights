@@ -53,6 +53,10 @@ export class TrainingPlanComponent implements OnInit {
       this.editMode = true;
     }
 
+    this.initForm();
+  }
+
+  initForm(){
     this.planForm = this.fb.group({
       name: [this.plan?.name ?? '', Validators.required],
       description: [this.plan?.description ?? ''],
@@ -82,8 +86,16 @@ export class TrainingPlanComponent implements OnInit {
       this.planService.updatePlan(this.plan!.id, toSave).subscribe((updated) => {
         this.editMode = false;
         this.addMessage('Changes successfully applied')
+        this.plan = updated;
       })
     }
+  }
+
+  toggleMode() {
+    if(this.editMode) {
+      this.initForm();
+    }
+    this.editMode = !this.editMode;
   }
 
   private addMessage(message: string): void {
@@ -94,5 +106,6 @@ export class TrainingPlanComponent implements OnInit {
       this.message = null;
     }, twoSeconds);
   }
+
 
 }
