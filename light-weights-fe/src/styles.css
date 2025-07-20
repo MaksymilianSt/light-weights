@@ -28,6 +28,7 @@ body {
 @media (min-width: 900px) {
   .base {
     padding: 4%;
+    background: #1a1c2d;
   }
 }
 
@@ -69,4 +70,8 @@ textarea {
 .btn-outline-light {
   color: #ffffff;
   background: #26273f;
+}
+
+.info-message {
+  color: #a7dace !important;
 }

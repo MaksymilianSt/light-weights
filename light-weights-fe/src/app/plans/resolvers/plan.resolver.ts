@@ -11,7 +11,7 @@ export class PlanResolver implements Resolve<TrainingPlan | null> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<TrainingPlan | null> {
-    const planId = route.paramMap.get('id');
+    const planId = route.paramMap.get('planId');
 
     return planId != null
               ? this.planService.getPlanById(Number(planId))

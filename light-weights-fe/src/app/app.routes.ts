@@ -42,7 +42,7 @@ export const routes: Routes = [
         }
       },
       {
-        path: 'plans/:id',
+        path: 'plans/:planId',
         loadComponent: () =>
           import('./plans/components/training-plan/training-plan.component').then(
             (m) => m.TrainingPlanComponent

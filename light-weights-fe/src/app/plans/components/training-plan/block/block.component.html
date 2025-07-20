@@ -1,4 +1,8 @@
-<div class="container mt-3">
+<form
+  class="container mt-3"
+  [formGroup]="blockForm"
+  (ngSubmit)="onSave()"
+>
 
   <div
     class=" p-2 rounded d-flex justify-content-center align-items-center expand-btn"
@@ -8,30 +12,73 @@
     aria-expanded="false"
     [attr.aria-controls]="'#block' + block?.id"
   >
-    <strong class="justify-content-center">{{ block?.name }}</strong>
+    <strong class="justify-content-center">{{ createMode ? '*new block*' : block?.name }}</strong>
   </div>
 
 
-  <div class="collapse mt-2 expand-item" [attr.id]="'block' + block?.id">
+  <div
+    class="mt-2 expand-item"
+    [ngClass]="{
+    'collapse': !createMode,
+    'show': createMode
+  }"
+    [attr.id]="'block' + block?.id"
+  >
+    <div *ngIf="editMode && !createMode" class="text-end pe-2">
+      <button
+        class="btn btn-danger"
+        type="button"
+        (click)="deleteBlock()"
+      >delete</button>
+    </div>
 
-    <div class="row mt-1 sm-mx-1 base">
+    <h5
+      *ngIf="message"
+      class="info-message text-center"
+    >
+      {{message}}
+    </h5>
+    <div class="row mt-1 mx-1">
+
+      <div
+        *ngIf="editMode"
+        class="col-12 mb-3">
+        <strong>name</strong>
+        <input
+          class="input-group-text w-100 mt-1"
+          [ngClass]="blockForm.get('name')?.touched && blockForm.get('name')?.invalid ? 'is-invalid' : ''"
+          [readOnly]="!editMode"
+          formControlName="name"
+        >
+        <div *ngIf="blockForm.get('name')?.touched && blockForm.get('name')?.invalid" class="error-message">
+          Name is required.
+        </div>
+      </div>
 
       <div class="col-12 col-sm-4">
         <strong>begin date</strong>
         <input
+          [type]="editMode ? 'date' : ''"
           class="input-group-text w-100 mt-1"
-          [disabled]="!editMode"
-          [value]="block?.start"
+          [readOnly]="!editMode"
+          formControlName="start"
         >
       </div>
 
       <div class="col-12 col-sm-4 mx-lg-4">
         <strong>end date</strong>
         <input
+          [type]="editMode ? 'date' : ''"
           class="input-group-text w-100 mt-1"
-          [disabled]="!editMode"
-          [value]="block?.end"
+          [ngClass]="blockForm.get('end')?.touched && blockForm.errors?.['endDateAfterStartDate'] ? 'is-invalid' : ''"
+          [readOnly]="!editMode"
+          formControlName="end"
         >
+        <div *ngIf=" blockForm.get('end')?.touched && blockForm.errors?.['endDateAfterStartDate'] " class="error-message">
+          End date must be later than start date.
+        </div>
+
+
       </div>
 
       <div class="col-12 col-sm-3 ms-sm-3 col-lg-2 mx-lg-4 ">
@@ -39,7 +86,7 @@
         <input
           class="input-group-text w-100 mt-1"
           [disabled]="true"
-          [value]="calculateWeeks(block!.start, block!.end)"
+          [value]="calculateWeeks(this.blockForm.get('start')?.value, this.blockForm.get('end')?.value)"
         >
       </div>
 
@@ -47,11 +94,21 @@
         <strong>description</strong>
         <textarea autosize
                   class="input-group-text w-100 mt-1 pt-4"
-                  [disabled]="!editMode"
-                  [(ngModel)]="block!.description"
+                  [readOnly]="!editMode"
+                  formControlName="description"
         ></textarea>
       </div>
 
+      <div *ngIf="editMode"
+        class="text-end">
+        <br/>
+        <button
+          [disabled]="blockForm.invalid"
+        class="btn btn-outline-light"
+        >
+          save
+        </button>
+      </div>
     </div>
 
     <br>
@@ -108,4 +165,4 @@
       </div>
     </div>
   </div>
-</div>
+</form>

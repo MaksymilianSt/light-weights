@@ -35,15 +35,22 @@
 
   </ng-template>
 
-<div *ngIf="!editMode" class="text-end">
-  <button
-    class="btn btn-outline-light"
-    type="button"
-    (click)="editMode = true"
+  <div *ngIf="!editMode" class="text-end">
+    <button
+      class="btn btn-outline-light"
+      type="button"
+      (click)="editMode = true"
+    >
+      edit
+    </button>
+  </div>
+
+  <h5
+    *ngIf="message"
+    class="info-message text-center py-3"
   >
-    edit
-  </button>
-</div>
+    {{message}}
+  </h5>
 
   <p class="h3 mt-2 mt-md-5">details</p>
 
@@ -112,10 +119,9 @@
 
   <br>
 
-  <div *ngIf="plan?.blocks && plan?.blocks!.length > 0">
+  <div *ngIf="!createMode">
     <app-blocks
       [blocks]="plan!.blocks"
-      [editMode]="editMode"
     ></app-blocks>
   </div>
 

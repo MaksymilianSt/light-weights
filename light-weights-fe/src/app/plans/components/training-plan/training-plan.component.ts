@@ -31,6 +31,7 @@ export class TrainingPlanComponent implements OnInit {
   editMode: boolean = false;
   createMode: boolean = false;
   planForm!: FormGroup;
+  message: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -75,12 +76,23 @@ export class TrainingPlanComponent implements OnInit {
     if (this.createMode) {
       this.planService.createPlan(toSave).subscribe((created) => {
         this.router.navigate(['plans', created.id]);
+        this.addMessage('Changes successfully applied');
       });
     } else {
       this.planService.updatePlan(this.plan!.id, toSave).subscribe((updated) => {
         this.editMode = false;
+        this.addMessage('Changes successfully applied')
       })
     }
+  }
+
+  private addMessage(message: string): void {
+    this.message = message;
+
+    const twoSeconds = 1000 * 2;
+    setTimeout(() => {
+      this.message = null;
+    }, twoSeconds);
   }
 
 }
