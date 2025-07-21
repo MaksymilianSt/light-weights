@@ -21,8 +21,16 @@ public class TrainingBlockController {
 
     private final TrainingBlockService trainingBlockService;
 
+    @GetMapping("/{blockId}")
+    @PreAuthorize("@planAccessControlService.hasAccessToBlock(#blockId, principal.id)")
+    public ResponseEntity<TrainingBlockDto> getTrainingById(@PathVariable("blockId") Integer blockId) {
+        return ResponseEntity.ok(
+                trainingBlockService.getById(blockId)
+        );
+    }
 
     @PostMapping
+    @PreAuthorize("@planAccessControlService.hasAccessToPlan(#planId, principal.id)")
     public ResponseEntity<TrainingBlockDto> create(
             @PathVariable("planId") Integer planId,
             @RequestBody TrainingBlockDto trainingBlockDto,

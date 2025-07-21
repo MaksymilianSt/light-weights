@@ -33,6 +33,6 @@ public class Training {
     @OneToMany(mappedBy = "training", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<TrainingExercise> exercises = new HashSet<>();
 
-    @OneToOne(mappedBy = "referencedTraining", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "referencedTraining", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     TrainingExecution execution;
 }

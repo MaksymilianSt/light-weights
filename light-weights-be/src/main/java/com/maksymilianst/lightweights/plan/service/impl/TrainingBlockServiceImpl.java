@@ -23,6 +23,14 @@ public class TrainingBlockServiceImpl implements TrainingBlockService {
 
 
     @Override
+    public TrainingBlockDto getById(Integer blockId) {
+        return trainingBlockRepository
+                .findById(blockId)
+                .map(trainingBlockMapper::toDto)
+                .orElseThrow(() -> new IllegalArgumentException("Block not found"));
+    }
+
+    @Override
     public TrainingBlockDto create(Integer planId, TrainingBlockDto block, User user) {
         trainingBlockValidator.validate(block);
 

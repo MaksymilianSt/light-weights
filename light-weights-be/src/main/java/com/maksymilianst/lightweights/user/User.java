@@ -47,7 +47,7 @@ public class User implements UserDetails {
     private String password;
 
     @Embedded
-    private AuditInfo auditInfo;
+    private AuditInfo auditInfo = new AuditInfo();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(

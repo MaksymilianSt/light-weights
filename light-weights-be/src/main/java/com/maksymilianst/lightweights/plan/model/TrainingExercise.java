@@ -35,9 +35,9 @@ public class TrainingExercise {
     @JoinColumn(name = "training_id", nullable = false)
     private Training training;
 
-    @OneToMany(mappedBy = "exercise", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "exercise", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<TrainingSet> sets = new HashSet<>();
 
-    @OneToOne(mappedBy = "referencedExercise", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "referencedExercise", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     TrainingExerciseExecution execution;
 }

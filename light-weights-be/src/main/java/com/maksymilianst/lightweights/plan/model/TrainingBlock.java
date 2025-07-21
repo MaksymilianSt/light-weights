@@ -32,7 +32,7 @@ public class TrainingBlock {
     @JoinColumn(name = "training_plan_id", nullable = false)
     private TrainingPlan plan;
 
-    @OneToMany(mappedBy = "block", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "block", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     Set<Training> trainings = new HashSet<>();
 
 }

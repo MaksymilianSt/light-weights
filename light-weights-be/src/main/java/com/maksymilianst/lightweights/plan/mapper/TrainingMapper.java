@@ -12,4 +12,8 @@ public interface TrainingMapper {
     @Mapping(source = "block.name", target = "blockName")
     TrainingDto toDto(Training training);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "exercises", ignore = true)
+    Training toEntity(TrainingDto trainingDto);
+
 }

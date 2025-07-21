@@ -36,6 +36,6 @@ public class TrainingSet {
     @JoinColumn(name = "training_exercise_id", nullable = false)
     private TrainingExercise exercise;
 
-    @OneToOne(mappedBy = "referencedSet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "referencedSet", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     TrainingSetExecution execution;
 }

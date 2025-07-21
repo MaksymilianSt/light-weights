@@ -6,6 +6,8 @@ import com.maksymilianst.lightweights.user.User;
 
 public interface TrainingBlockService {
 
+    TrainingBlockDto getById(Integer blockId);
+
     TrainingBlockDto create(Integer planId, TrainingBlockDto block, User user);
 
     TrainingBlockDto update(Integer blockId, TrainingBlockDto block);
