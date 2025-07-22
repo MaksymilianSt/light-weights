@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -33,7 +34,7 @@ public class TrainingBlockController {
     @PreAuthorize("@planAccessControlService.hasAccessToPlan(#planId, principal.id)")
     public ResponseEntity<TrainingBlockDto> create(
             @PathVariable("planId") Integer planId,
-            @RequestBody TrainingBlockDto trainingBlockDto,
+            @Validated @RequestBody TrainingBlockDto trainingBlockDto,
             @AuthenticationPrincipal User user,
             UriComponentsBuilder uriBuilder
     ) {
@@ -50,7 +51,7 @@ public class TrainingBlockController {
 
     @PutMapping("/{blockId}")
     @PreAuthorize("@planAccessControlService.hasAccessToBlock(#blockId, principal.id)")
-    public ResponseEntity<TrainingBlockDto> update(@PathVariable("blockId") Integer blockId, @RequestBody TrainingBlockDto trainingBlockDto) {
+    public ResponseEntity<TrainingBlockDto> update(@PathVariable("blockId") Integer blockId, @Validated @RequestBody TrainingBlockDto trainingBlockDto) {
         return ResponseEntity.ok(
                 trainingBlockService.update(blockId, trainingBlockDto)
         );

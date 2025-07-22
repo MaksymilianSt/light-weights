@@ -5,6 +5,7 @@ import com.maksymilianst.lightweights.plan.service.TrainingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -32,7 +33,7 @@ public class TrainingController {
     public ResponseEntity<TrainingDto> create(
             @PathVariable("planId") Integer planId,
             @PathVariable("blockId") Integer blockId,
-            @RequestBody TrainingDto trainingDto,
+            @Validated @RequestBody TrainingDto trainingDto,
             UriComponentsBuilder uriBuilder
     ) {
         TrainingDto createdTraining = trainingService.create(blockId, trainingDto);
@@ -48,7 +49,7 @@ public class TrainingController {
 
     @PutMapping("/{trainingId}")
     @PreAuthorize("@planAccessControlService.hasAccessToTraining(#trainingId, principal.id)")
-    public ResponseEntity<TrainingDto> update(@PathVariable("trainingId") Integer trainingId, @RequestBody TrainingDto trainingDto) {
+    public ResponseEntity<TrainingDto> update(@PathVariable("trainingId") Integer trainingId, @Validated @RequestBody TrainingDto trainingDto) {
         return ResponseEntity.ok(
                 trainingService.update(trainingId, trainingDto)
         );

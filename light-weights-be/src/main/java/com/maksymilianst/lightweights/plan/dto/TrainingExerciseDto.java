@@ -1,5 +1,6 @@
 package com.maksymilianst.lightweights.plan.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
@@ -9,6 +10,7 @@ import java.util.List;
 @Builder
 public class TrainingExerciseDto {
     private int id;
+    @NotNull
     private String name;
     private String description;
     private Integer sequence;

@@ -45,16 +45,16 @@ public class TrainingBlockServiceImpl implements TrainingBlockService {
     }
 
     @Override
-    public TrainingBlockDto update(Integer blockId, TrainingBlockDto planDto) {
-        trainingBlockValidator.validate(planDto);
-
+    public TrainingBlockDto update(Integer blockId, TrainingBlockDto blockDto) {
         TrainingBlock toUpdate = trainingBlockRepository.findById(blockId)
                 .orElseThrow(() -> new IllegalArgumentException("Block not found"));
 
-        toUpdate.setName(planDto.getName());
-        toUpdate.setDescription(planDto.getDescription());
-        toUpdate.setStart(planDto.getStart());
-        toUpdate.setEnd(planDto.getEnd());
+        trainingBlockValidator.validate(blockDto, toUpdate.getTrainings());
+
+        toUpdate.setName(blockDto.getName());
+        toUpdate.setDescription(blockDto.getDescription());
+        toUpdate.setStart(blockDto.getStart());
+        toUpdate.setEnd(blockDto.getEnd());
 
         TrainingBlock updated = trainingBlockRepository.save(toUpdate);
         return trainingBlockMapper.toDto(updated);

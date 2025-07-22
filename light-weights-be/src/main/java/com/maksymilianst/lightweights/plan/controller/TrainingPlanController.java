@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -38,7 +39,7 @@ public class TrainingPlanController {
     }
 
     @PostMapping
-    public ResponseEntity<TrainingPlanDto> create(@RequestBody TrainingPlanDto trainingPlanDto, @AuthenticationPrincipal User user) {
+    public ResponseEntity<TrainingPlanDto> create(@Validated @RequestBody TrainingPlanDto trainingPlanDto, @AuthenticationPrincipal User user) {
         TrainingPlanDto createdPlan = trainingPlanService.create(trainingPlanDto, user);
 
         return ResponseEntity.created(URI.create(URL + "/" + createdPlan.getId()))
@@ -47,7 +48,7 @@ public class TrainingPlanController {
 
     @PutMapping("/{id}")
     @PreAuthorize("@planAccessControlService.hasAccessToPlan(#id, principal.id)")
-    public ResponseEntity<TrainingPlanDto> update(@PathVariable("id") Integer id, @RequestBody TrainingPlanDto trainingPlanDto) {
+    public ResponseEntity<TrainingPlanDto> update(@PathVariable("id") Integer id, @Validated @RequestBody TrainingPlanDto trainingPlanDto) {
         return ResponseEntity.ok(
                 trainingPlanService.update(id, trainingPlanDto)
         );
