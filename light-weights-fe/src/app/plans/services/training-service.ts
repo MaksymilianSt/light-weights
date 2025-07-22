@@ -18,4 +18,24 @@ export class TrainingService {
       `${this.API_URL}/plans/${planId}/blocks/${blockId}/trainings/${trainingId}`
     )
   }
+
+  createTraining(planId: number, blockId: number, training: Training): Observable<Training> {
+    return this.http.post<Training>(
+      `${this.API_URL}/plans/${planId}/blocks/${blockId}/trainings`,
+      training
+    );
+  }
+
+  updateTraining(planId: number, blockId: number, training: Training): Observable<Training> {
+    return this.http.put<Training>(
+      `${this.API_URL}/plans/${planId}/blocks/${blockId}/trainings/${training.id}`,
+      training
+    );
+  }
+
+  deleteTrainingById(planId: number, blockId: number, trainingId: number): Observable<void> {
+    return this.http.delete<void>(
+      `${this.API_URL}/plans/${planId}/blocks/${blockId}/trainings/${trainingId}`
+    )
+  }
 }

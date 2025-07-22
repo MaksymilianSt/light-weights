@@ -1,18 +1,17 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TrainingBlock} from '../../../models/training-plan.model';
 import {
-  AbstractControl,
   FormBuilder,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  ValidationErrors,
-  ValidatorFn,
   Validators
 } from '@angular/forms';
 import {DatePipe, DecimalPipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {BlockService} from '../../../services/block-service';
+import {TrainingService} from '../../../services/training-service';
+import {BlockValidator} from '../../../validators/block.validator';
 
 @Component({
   selector: 'app-block',
@@ -47,6 +46,7 @@ export class BlockComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private blockService: BlockService,
+    private trainingService: TrainingService,
   ) {
   }
 
@@ -65,11 +65,17 @@ export class BlockComponent implements OnInit {
 
     this.blockForm = this.fb.group({
         name: [this.block.name ?? '', Validators.required],
-        start: [this.block.start, Validators.required],
-        end: [this.block.end, Validators.required],
+        start: [
+          this.block.start,
+          [Validators.required, BlockValidator.startDateAfterTrainingValidator(this.block.trainings)]
+        ],
+        end: [
+          this.block.end,
+          [Validators.required, BlockValidator.endDateBeforeTrainingValidator(this.block.trainings)]
+        ],
         description: [this.block.description ?? ''],
       },
-      {validators: this.endDateAfterStartDateValidator}
+      {validators: BlockValidator.endDateAfterStartDateValidator()}
     );
   }
 
@@ -132,6 +138,18 @@ export class BlockComponent implements OnInit {
     }
   }
 
+  deleteTraining(trainingId: number) {
+    if(confirm('Are you sure you want to delete this training?')) {
+      const planId = this.route.snapshot.params['planId'];
+
+      this.trainingService.deleteTrainingById(planId, this.block!.id, trainingId).subscribe(() => {
+        this.block!.trainings = this.block!.trainings.filter( training => training.id !== trainingId);
+        this.addMessage('Training successfully deleted');
+      })
+    }
+
+  }
+
   calculateWeeks(start: string | Date, end: string | Date): number | '?' {
     const startDate = new Date(start);
     const endDate = new Date(end);
@@ -155,7 +173,6 @@ export class BlockComponent implements OnInit {
     return (completedTrainings / allTrainingsSize) * 100;
   }
 
-
   private addMessage(message: string): void {
     this.message = message;
 
@@ -163,19 +180,6 @@ export class BlockComponent implements OnInit {
     setTimeout(() => {
       this.message = null;
     }, twoSeconds);
-  }
-
-  private endDateAfterStartDateValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
-    const start = group.get('start')?.value;
-    const end = group.get('end')?.value;
-
-    if (!start || !end) {
-      return null;
-    }
-    const startDate = new Date(start);
-    const endDate = new Date(end);
-
-    return endDate > startDate ? null : {endDateAfterStartDate: true};
   }
 
 }

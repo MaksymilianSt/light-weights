@@ -60,24 +60,37 @@
         <input
           [type]="editMode ? 'date' : ''"
           class="input-group-text w-100 mt-1"
+          [ngClass]="blockForm.get('start')?.invalid ? 'is-invalid' : ''"
           [readOnly]="!editMode"
           formControlName="start"
         >
+
+        <div *ngIf="blockForm.errors?.['endDateAfterStartDate'] " class="error-message">
+          start date must be earlier than end date.
+        </div>
+        <div *ngIf=" blockForm.get('start')?.touched && blockForm.get('start')?.errors?.['startDateAfterTraining'] " class="error-message">
+          Begin date after it s trainings date
+        </div>
+
       </div>
+
 
       <div class="col-12 col-sm-4 mx-lg-4">
         <strong>end date</strong>
         <input
           [type]="editMode ? 'date' : ''"
           class="input-group-text w-100 mt-1"
-          [ngClass]="blockForm.get('end')?.touched && blockForm.errors?.['endDateAfterStartDate'] ? 'is-invalid' : ''"
+          [ngClass]="blockForm.get('end')?.invalid ? 'is-invalid' : ''"
           [readOnly]="!editMode"
           formControlName="end"
         >
-        <div *ngIf=" blockForm.get('end')?.touched && blockForm.errors?.['endDateAfterStartDate'] " class="error-message">
+
+        <div *ngIf="blockForm.errors?.['endDateAfterStartDate'] " class="error-message">
           End date must be later than start date.
         </div>
-
+        <div *ngIf="blockForm.get('end')?.touched && blockForm.get('end')?.errors?.['endDateBeforeTraining']" class="error-message">
+          Cannot set end date before it s trainings date
+        </div>
 
       </div>
 
@@ -113,54 +126,97 @@
 
     <br>
 
-    <div *ngIf="block!.trainings && block!.trainings!.length > 0">
+    <div >
 
       <h5 class="mx-2"><strong> trainings </strong> <i class="fas fa-dumbbell"> </i></h5>
       <hr>
-      <p class="text-end mx-3"><strong>completion:</strong> {{calculateTrainingsCompletion() | number:'1.0-2'}}%</p>
 
-      <div class="row mx-2">
-        <div class="col-4 col-sm-3">
-          <strong>date</strong>
-        </div>
-        <div class="col-5 col-sm-4">
-          <strong>name</strong>
-        </div>
-        <div class="col-2 col-sm-3">
-          <strong>done</strong>
-        </div>
+      <div *ngIf="!editMode; else addTraining">
+        <p
+          class="text-end mx-3"
+          *ngIf=" block?.trainings && block!.trainings!.length > 0"
+        ><strong>completion:</strong> {{calculateTrainingsCompletion() | number:'1.0-2'}}%</p>
       </div>
+      <ng-template #addTraining>
+        <div  class="text-end p-3">
+          <button
+            type="button"
+            class="btn btn-outline-light"
+            [disabled]="createMode"
+            [routerLink]="['blocks', block?.id, 'trainings', 'new']"
+          >
+            add training
+          </button>
+        </div>
+      </ng-template>
 
-
-      <div *ngFor="let tren of block?.trainings">
-        <div class="row row-bar mb-4 mx-2">
-
+      <div *ngIf="block!.trainings && block!.trainings!.length > 0">
+        <div class="row mx-2">
           <div class="col-4 col-sm-3">
-            <strong>{{ tren.date | date }}</strong>
+            <strong>date</strong>
           </div>
-
           <div class="col-5 col-sm-4">
-            <strong>{{ tren.name }}</strong>
+            <strong>name</strong>
           </div>
-
-          <div class="col-2 col-sm-1 ps-4">
-            <strong>{{ tren.done ? '✓' : '✗' }}</strong>
+          <div class="col-2 col-sm-3">
+            <strong>done</strong>
           </div>
+        </div>
 
-          <div class="col-12 mt-2  col-sm-4 mt-sm-0 d-flex justify-content-end gap-3">
-            <div>
-              <button class="btn btn-outline-light execution-btn">execution</button>
+
+        <div *ngFor="let tren of block?.trainings">
+          <div class="row row-bar mb-4 mx-2">
+
+            <div class="col-4 col-sm-3">
+              <strong>{{ tren.date | date }}</strong>
             </div>
-            <div>
-              <button
-                class="btn btn-outline-light details-btn"
-                [routerLink]="['blocks', block!.id, 'trainings', tren.id]"
-              >
-                details
-              </button>
-            </div>
-          </div>
 
+            <div class="col-5 col-sm-4">
+              <strong>{{ tren.name }}</strong>
+            </div>
+
+            <div class="col-2 col-sm-1 ps-4">
+              <strong>{{ tren.done ? '✓' : '✗' }}</strong>
+            </div>
+
+            <div class="col-12 mt-2  col-sm-4 mt-sm-0 d-flex justify-content-end gap-3">
+
+                <div *ngIf="!editMode">
+                  <button
+                    type="button"
+                    class="btn btn-outline-light execution-btn"
+                  >execution</button>
+                </div>
+                <div *ngIf="!editMode">
+                  <button
+                    type="button"
+                    class="btn btn-outline-light details-btn"
+                    [routerLink]="['blocks', block!.id, 'trainings', tren.id]"
+                  >
+                    details
+                  </button>
+                </div>
+
+                <div *ngIf="editMode">
+                  <button
+                    type="button"
+                    class="btn btn-outline-light execution-btn"
+                    [routerLink]="['blocks', block!.id, 'trainings', tren.id]" [queryParams]="{ edit: true }"
+                  >edit</button>
+                </div>
+                <div *ngIf="editMode">
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    (click)="deleteTraining(tren.id)"
+                  >
+                    delete
+                  </button>
+                </div>
+
+            </div>
+
+          </div>
         </div>
       </div>
     </div>

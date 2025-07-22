@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../../../environment';
-import {TrainingPlan} from '../models/training-preview.model';
 import {TrainingBlock} from '../models/training-plan.model';
 
 @Injectable({
@@ -14,6 +13,9 @@ export class BlockService {
   constructor(private http: HttpClient) {
   }
 
+  getBlockById(planId: number, blockId: number): Observable<TrainingBlock> {
+    return this.http.get<TrainingBlock>(`${this.API_URL}/plans/${planId}/blocks/${blockId}`);
+  }
 
   createBlock(planId: number, block: TrainingBlock): Observable<TrainingBlock> {
     return this.http.post<TrainingBlock>(
@@ -25,7 +27,7 @@ export class BlockService {
   updateBlock(planId: number, block: TrainingBlock): Observable<TrainingBlock> {
     return this.http.put<TrainingBlock>(
       `${this.API_URL}/plans/${planId}/blocks/${block.id}`,
-          block
+      block
     );
   }
 

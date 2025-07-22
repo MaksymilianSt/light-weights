@@ -32,7 +32,7 @@ body {
   }
 }
 
-textarea {
+.textarea {
   overflow-x: hidden;
   white-space: pre-wrap;
   word-break: break-word;
@@ -74,4 +74,10 @@ textarea {
 
 .info-message {
   color: #a7dace !important;
+}
+.error-message{
+  color: #f80000;
+}
+.is-invalid {
+  border: 2px solid red;
 }
