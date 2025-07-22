@@ -2,11 +2,9 @@ package com.maksymilianst.lightweights.plan.controller;
 
 import com.maksymilianst.lightweights.plan.dto.TrainingBlockDto;
 import com.maksymilianst.lightweights.plan.service.TrainingBlockService;
-import com.maksymilianst.lightweights.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -35,10 +33,9 @@ public class TrainingBlockController {
     public ResponseEntity<TrainingBlockDto> create(
             @PathVariable("planId") Integer planId,
             @Validated @RequestBody TrainingBlockDto trainingBlockDto,
-            @AuthenticationPrincipal User user,
             UriComponentsBuilder uriBuilder
     ) {
-        TrainingBlockDto createdBlock = trainingBlockService.create(planId, trainingBlockDto, user);
+        TrainingBlockDto createdBlock = trainingBlockService.create(planId, trainingBlockDto);
 
         URI uri = uriBuilder
                 .path(URL + "/{blockId}")

@@ -1,14 +1,13 @@
 package com.maksymilianst.lightweights.plan.service;
 
 import com.maksymilianst.lightweights.plan.dto.TrainingBlockDto;
-import com.maksymilianst.lightweights.user.User;
 
 
 public interface TrainingBlockService {
 
     TrainingBlockDto getById(Integer blockId);
 
-    TrainingBlockDto create(Integer planId, TrainingBlockDto block, User user);
+    TrainingBlockDto create(Integer planId, TrainingBlockDto block);
 
     TrainingBlockDto update(Integer blockId, TrainingBlockDto block);
 

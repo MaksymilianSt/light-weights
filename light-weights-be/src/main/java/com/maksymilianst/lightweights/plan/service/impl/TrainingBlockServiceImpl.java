@@ -8,7 +8,6 @@ import com.maksymilianst.lightweights.plan.repository.TrainingBlockRepository;
 import com.maksymilianst.lightweights.plan.repository.TrainingPlanRepository;
 import com.maksymilianst.lightweights.plan.service.TrainingBlockService;
 import com.maksymilianst.lightweights.plan.validator.TrainingBlockValidator;
-import com.maksymilianst.lightweights.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +30,7 @@ public class TrainingBlockServiceImpl implements TrainingBlockService {
     }
 
     @Override
-    public TrainingBlockDto create(Integer planId, TrainingBlockDto block, User user) {
+    public TrainingBlockDto create(Integer planId, TrainingBlockDto block) {
         trainingBlockValidator.validate(block);
 
         TrainingBlock toCreate = trainingBlockMapper.toEntity(block);
