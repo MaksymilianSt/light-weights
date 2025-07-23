@@ -1,5 +1,6 @@
 package com.maksymilianst.lightweights.plan.service.impl;
 
+import com.maksymilianst.lightweights.plan.listener.event.TrainingExerciseChangedEvent;
 import com.maksymilianst.lightweights.plan.dto.TrainingExerciseDto;
 import com.maksymilianst.lightweights.plan.mapper.TrainingExerciseMapper;
 import com.maksymilianst.lightweights.plan.mapper.TrainingSetMapper;
@@ -8,7 +9,9 @@ import com.maksymilianst.lightweights.plan.repository.ExerciseRepository;
 import com.maksymilianst.lightweights.plan.repository.TrainingExerciseRepository;
 import com.maksymilianst.lightweights.plan.repository.TrainingRepository;
 import com.maksymilianst.lightweights.plan.service.TrainingExerciseService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -25,6 +28,8 @@ public class TrainingExerciseServiceImpl implements TrainingExerciseService {
     private final TrainingExerciseMapper trainingExerciseMapper;
     private final ExerciseRepository exerciseRepository;
     private final TrainingSetMapper setMapper;
+
+    private final ApplicationEventPublisher publisher;
 
 
     @Override
@@ -48,6 +53,7 @@ public class TrainingExerciseServiceImpl implements TrainingExerciseService {
     }
 
     @Override
+    @Transactional
     public TrainingExerciseDto update(Integer exerciseId, TrainingExerciseDto trainingExerciseDto) {
         TrainingExercise toUpdate = trainingExerciseRepository.findById(exerciseId)
                 .orElseThrow(() -> new IllegalArgumentException("TrainingExercise not found"));
@@ -55,6 +61,9 @@ public class TrainingExerciseServiceImpl implements TrainingExerciseService {
         updateTrainingExerciseDetails(toUpdate, trainingExerciseDto, toUpdate.getTraining());
         updateOrCreateTrainingSets(trainingExerciseDto, toUpdate);
 
+        publisher.publishEvent(
+                new TrainingExerciseChangedEvent(toUpdate.getTraining().getBlock().getPlan().getId())
+        );
 
         TrainingExercise updated = trainingExerciseRepository.save(toUpdate);
         return trainingExerciseMapper.toDto(updated);
