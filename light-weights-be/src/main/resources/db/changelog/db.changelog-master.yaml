@@ -47,3 +47,11 @@ databaseChangeLog:
             path: ../sql/v_6_add_sequence_to_training_exercise.sql
             relativeToChangelogFile: true
 
+  - changeSet:
+      id: 7
+      author: maksymilianst
+      changes:
+        - sqlFile:
+            path: ../sql/v_7_remove_training-exercise_name_column.sql
+            relativeToChangelogFile: true
+

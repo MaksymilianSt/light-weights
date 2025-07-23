@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Data
 @Builder
 public class TrainingSetDto {
-    private int id;
+    private Integer id;
     private Integer sequence;
     @NotNull
     private Integer repetitions;
