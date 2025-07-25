@@ -1,5 +1,6 @@
 package com.maksymilianst.lightweights.plan.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,5 +20,6 @@ public class TrainingExerciseDto {
     @Min(0)
     private Integer sequence;
 
+    @Valid
     private List<TrainingSetDto> sets;
 }

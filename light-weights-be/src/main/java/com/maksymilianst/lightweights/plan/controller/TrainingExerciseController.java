@@ -52,4 +52,11 @@ public class TrainingExerciseController {
         );
     }
 
+    @DeleteMapping("/{exerciseId}")
+    @PreAuthorize("@planAccessControlService.hasAccessToTraining(#trainingId, principal.id)")
+    public ResponseEntity<?> delete(@PathVariable("trainingId") Integer trainingId, @PathVariable("exerciseId") Integer exerciseId) {
+        trainingExerciseService.delete(exerciseId);
+        return ResponseEntity.noContent().build();
+    }
+
 }

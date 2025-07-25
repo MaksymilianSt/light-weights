@@ -69,6 +69,11 @@ public class TrainingExerciseServiceImpl implements TrainingExerciseService {
         return trainingExerciseMapper.toDto(updated);
     }
 
+    @Override
+    public void delete(Integer exerciseId) {
+        trainingExerciseRepository.deleteById(exerciseId);
+    }
+
     private void updateTrainingExerciseDetails(TrainingExercise toUpdate, TrainingExerciseDto trainingExerciseDto, Training toUpdate1) {
         toUpdate.setExercise(
                 findExerciseByNameAndPlanIdOrCreate(trainingExerciseDto.getName(), toUpdate1.getBlock().getPlan())

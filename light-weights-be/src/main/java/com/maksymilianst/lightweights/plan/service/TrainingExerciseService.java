@@ -9,4 +9,6 @@ public interface TrainingExerciseService {
 
     TrainingExerciseDto update(Integer exerciseId, TrainingExerciseDto exerciseDto);
 
+    void delete(Integer exerciseId);
+
 }
