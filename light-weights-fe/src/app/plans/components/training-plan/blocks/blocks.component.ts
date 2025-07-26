@@ -23,10 +23,10 @@ export class BlocksComponent {
 
   setReadMode() {
     this.editMode = false;
-    this.blockComponents.forEach(component => component.initForm());
+    this.cleanUnsavedChanges();
   }
 
-  updateBlockList(newBlock: TrainingBlock) {
+  addNewBlock(newBlock: TrainingBlock) {
     this.blocks = [newBlock, ...this.blocks]
       .sort((a, b) => a.start < b.start ? -1 : 1);
     this.newBlock = false;
@@ -44,6 +44,10 @@ export class BlocksComponent {
     } else {
       this.editMode = true;
     }
+  }
+
+  private cleanUnsavedChanges() {
+    this.blockComponents.forEach(component => component.initForm());
   }
 
 }

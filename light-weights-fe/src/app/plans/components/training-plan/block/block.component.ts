@@ -32,7 +32,7 @@ import {BlockValidator} from '../../../validators/block.validator';
 export class BlockComponent implements OnInit {
 
   @Output() setReadMode = new EventEmitter();
-  @Output() updateBlockList = new EventEmitter<TrainingBlock>();
+  @Output() addBlockToList = new EventEmitter<TrainingBlock>();
   @Output() deleteBlockFromList = new EventEmitter<number>();
 
   @Input() block: TrainingBlock | null = null;
@@ -85,8 +85,6 @@ export class BlockComponent implements OnInit {
     } else {
       this.updateBlock()
     }
-    this.setReadMode.emit();
-
   }
 
   createBlock() {
@@ -100,11 +98,12 @@ export class BlockComponent implements OnInit {
       end: formValue.end
     } as TrainingBlock;
     this.blockService.createBlock(planId, toCreate).subscribe(created => {
-      this.addMessage('Changes successfully applied');
       this.block = created;
       this.createMode = false;
       this.initForm();
-      this.updateBlockList.emit(created);
+      this.addBlockToList.emit(created);
+      this.setReadMode.emit();
+      this.addMessage('Changes successfully applied');
     })
 
   }
@@ -122,9 +121,10 @@ export class BlockComponent implements OnInit {
     } as TrainingBlock;
 
     this.blockService.updateBlock(planId, toUpdate).subscribe((updated) => {
-      this.addMessage('Changes successfully applied');
       this.block = updated;
       this.initForm();
+      this.setReadMode.emit();
+      this.addMessage('Changes successfully applied');
     })
 
   }

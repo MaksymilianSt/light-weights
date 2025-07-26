@@ -2,40 +2,34 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../../../environment';
-import {Training} from '../models/training.model';
+import {Exercise} from '../models/exercise.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TrainingService {
+export class ExerciseService {
   private readonly API_URL = `${environment.apiUrl}`;
 
   constructor(private http: HttpClient) {
   }
 
-  getTrainingById(planId: number, blockId: number, trainingId: number): Observable<Training> {
-    return this.http.get<Training>(
-      `${this.API_URL}/plans/${planId}/blocks/${blockId}/trainings/${trainingId}`
-    )
-  }
-
-  createTraining(planId: number, blockId: number, training: Training): Observable<Training> {
-    return this.http.post<Training>(
-      `${this.API_URL}/plans/${planId}/blocks/${blockId}/trainings`,
-      training
+  createExercise(planId: number, blockId: number, trainingId: number, exercise: Exercise): Observable<Exercise> {
+    return this.http.post<Exercise>(
+      `${this.API_URL}/plans/${planId}/blocks/${blockId}/trainings/${trainingId}/exercises`,
+      exercise
     );
   }
 
-  updateTraining(planId: number, blockId: number, training: Training): Observable<Training> {
-    return this.http.put<Training>(
-      `${this.API_URL}/plans/${planId}/blocks/${blockId}/trainings/${training.id}`,
-      training
+  updateExercise(planId: number, blockId: number, trainingId: number, exercise: Exercise): Observable<Exercise> {
+    return this.http.put<Exercise>(
+      `${this.API_URL}/plans/${planId}/blocks/${blockId}/trainings/${trainingId}/exercises/${exercise.id}`,
+      exercise
     );
   }
 
-  deleteTrainingById(planId: number, blockId: number, trainingId: number): Observable<void> {
+  deleteExerciseById(planId: number, blockId: number, trainingId: number, exercisegId: number): Observable<void> {
     return this.http.delete<void>(
-      `${this.API_URL}/plans/${planId}/blocks/${blockId}/trainings/${trainingId}`
+      `${this.API_URL}/plans/${planId}/blocks/${blockId}/trainings/${trainingId}/exercises/${exercisegId}`
     )
   }
 }

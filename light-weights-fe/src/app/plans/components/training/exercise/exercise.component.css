@@ -1,0 +1,9 @@
+.form-control-plaintext{
+  background-color: #f2f5f8;
+  border-color: #051b2d;
+  border-radius: 1px;
+}
+.is-invalid {
+  border: 2px solid #c50808;
+  background-color: rgba(255, 147, 143, 0.42);
+}

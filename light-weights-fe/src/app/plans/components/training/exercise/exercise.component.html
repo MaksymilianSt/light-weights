@@ -1,4 +1,8 @@
-<div class="container mt-3">
+<form
+  class="container mt-3"
+  [formGroup]="exerciseForm"
+  (ngSubmit)="onSave()"
+>
 
   <div
     class=" p-2 rounded d-flex align-items-center expand-btn"
@@ -11,12 +15,12 @@
 
     <div class="flex-grow-1 text-start">
       <strong>
-        {{ exercise?.sequence }}.
+        {{ exercise?.sequence + '.'}}
       </strong>
     </div>
     <div class="flex-grow-1 text-center">
       <strong>
-        {{ exercise?.name }}
+        {{ createMode ? '*new exercise*' : exercise?.name }}
       </strong>
     </div>
     <div class="flex-grow-1"></div>
@@ -24,14 +28,51 @@
   </div>
 
 
-  <div class="collapse mt-2 expand-item" [attr.id]="'exercise' + exercise?.id">
+  <div
+    class="mt-2 expand-item"
+    [ngClass]="{
+    'collapse': !createMode,
+    'show': createMode
+  }"
+    [attr.id]="'exercise' + exercise?.id"
+  >
+    <h5 *ngIf="message" class="info-message text-center">
+      {{message}}
+    </h5>
+
+    <div *ngIf="editMode && !createMode" class="text-end pe-2">
+      <button
+        class="btn btn-danger"
+        type="button"
+        (click)="deleteExercise()"
+      >delete</button>
+    </div>
+
+    <div *ngIf="editMode" class="row mt-3">
+      <div *ngIf="editMode" class="col-8 mb-2">
+        <strong>name</strong>
+        <input
+          class="form-control text-center w-100"
+          formControlName="name"
+        >
+      </div>
+      <div class="col-4 mb-2">
+        <strong>sequence</strong>
+        <input
+          type="number"
+          class="form-control text-center w-75"
+          formControlName="sequence"
+          min="0"
+        >
+      </div>
+    </div>
 
     <div>
       <strong>description</strong>
       <textarea autosize
                 class="form-control text-center w-100"
-                [disabled]="!editMode"
-                [(ngModel)]="exercise!.description"
+                [readOnly]="!editMode"
+                formControlName="description"
       ></textarea>
     </div>
 
@@ -39,48 +80,126 @@
     <h5 class="mx-2"><strong> sets </strong> <i class="fas fa-dumbbell"> </i></h5>
     <hr/>
 
+    <div *ngIf="editMode" class="text-end mb-3">
+      <button
+        type="button"
+        class="btn btn-outline-light"
+        (click)="addSet()"
+      >add set
+      </button>
+    </div>
+
     <div>
 
-      <div class="row mx-2">
+      <div class="row mx-2" *ngIf="sets.controls.length > 0">
 
-        <div class="col-2">
+        <div class="col-2 text-center">
           <strong>seq</strong>
         </div>
-        <div class="col-2">
+        <div class="col-2 text-center">
           <strong>reps</strong>
         </div>
-        <div class="col-3">
+        <div class="col-3 text-center">
           <strong>weight</strong>
         </div>
-        <div class="col-4">
+        <div class="col-3 text-center">
           <strong>tempo</strong>
         </div>
 
       </div>
 
-      <div *ngFor="let set of exercise?.sets">
-        <div class="row row-bar mb-4 mx-2">
+        <div formArrayName="sets">
+            <div *ngFor="let setGroup of sets.controls; let i = index" [formGroupName]="i">
+                <div class="row row-bar mb-4 mx-2">
 
-          <div class="col-2">
-            <strong>{{ set.sequence}}.</strong>
-          </div>
+                    <div class="col-2" [ngClass]="editMode ? 'mt-3 mt-sm-0' : ''">
+                        <input
+                                [readOnly]="!editMode"
+                                type="number"
+                                class="form-control-plaintext text-center"
+                                formControlName="sequence"
+                                min="0"
+                        >
+                    </div>
 
-          <div class="col-2">
-            <strong>{{ set.repetitions }}</strong>
-          </div>
+                    <div class="col-2" [ngClass]="editMode ? 'mt-3 mt-sm-0' : ''">
+                        <input
+                                [readOnly]="!editMode"
+                                [ngClass]="{
+                                    'is-invalid': setGroup.get('repetitions')?.touched && setGroup.get('repetitions')?.invalid
+                                    }"
+                                type="number"
+                                class="form-control-plaintext text-center"
+                                formControlName="repetitions"
+                        >
+                    </div>
 
-          <div class="col-3">
-            <strong>{{set.weight}} kg</strong>
-          </div>
+                    <div class="col-3" [ngClass]="editMode ? 'mt-3 mt-sm-0' : ''">
+                        <input
+                                [readOnly]="!editMode"
+                                [ngClass]="{
+                                    'is-invalid': setGroup.get('weight')?.touched && setGroup.get('weight')?.invalid
+                                    }"
+                                type="number"
+                                class="form-control-plaintext text-center"
+                                formControlName="weight"
+                                max="9999"
+                        >
+                    </div>
 
-          <div class="col-4">
-            <strong>{{set.tempo}}</strong>
-          </div>
+                    <div class="col-3 pe-1" [ngClass]="editMode ? 'mt-3 mt-sm-0' : ''">
+                        <input
+                                [readOnly]="!editMode"
 
+                                class="form-control-plaintext text-center"
+                                formControlName="tempo"
+                                maxlength="7"
+                        >
+                    </div>
+
+                    <div
+                            *ngIf="editMode"
+                            class="col-1 col-sm-2"
+                    >
+                        <div class="row">
+                            <div class="col-4">
+                                <button
+                                        type="button"
+                                        class="btn btn-outline-light"
+                                        (click)="copySet(setGroup.value)"
+                                >
+                                    +
+                                </button>
+                            </div>
+                            <div class="col-4">
+                                <button
+                                        type="button"
+                                        class="btn btn-danger"
+                                        (click)="removeSet(i)"
+                                >
+                                    x
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
         </div>
-      </div>
 
     </div>
 
+    <div *ngIf="editMode || createMode"
+         class="text-end">
+      <br/>
+      <button
+        [disabled]="exerciseForm.invalid"
+        class="btn btn-outline-light"
+      >
+        save
+      </button>
+    </div>
+
   </div>
-</div>
+</form>

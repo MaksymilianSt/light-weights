@@ -1,11 +1,52 @@
-<p class="h3 mt-2 mt-sm-5">exercises</p>
+<div class="row mt-3">
+  <div class="col-8">
+    <p class="h3 mt-2 mt-sm-5">exercises</p>
+  </div>
+  <div class="col-4 text-end">
+    <button
+      type="button"
+      class="btn btn-outline-light"
+      (click)="toggleMode()"
+    >
+      {{ editMode ? 'read mode' : 'edit' }}
+    </button>
+  </div>
+</div>
 
 <div class="base">
+
+  <h5 *ngIf="message" class="info-message text-center">
+    {{message}}
+  </h5>
+
+  <div *ngIf="editMode" class="text-end pe-3 mt-1">
+    <button
+      type="button"
+      class="btn btn-outline-light"
+      (click)="newExercise = true"
+    >
+      add exercise
+    </button>
+  </div>
+
+  <div *ngIf="newExercise">
+    <app-exercise
+      [exercise]="null"
+      [editMode]="editMode"
+      [createMode]="newExercise"
+      [nextSequence]="getLastSequence() + 1"
+      (setReadMode)="setReadMode()"
+      (addExerciseToList)="addExercise($event)"
+    />
+  </div>
 
   <div *ngFor="let exercise of exercises">
     <app-exercise
       [exercise]="exercise"
       [editMode]="editMode"
+      (deleteExerciseFromList)="deleteExercise($event)"
+      (setReadMode)="setReadMode()"
+      (updateExerciseList)="updateExercises($event)"
     />
   </div>
 

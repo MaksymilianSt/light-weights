@@ -140,9 +140,9 @@
       <ng-template #addTraining>
         <div  class="text-end p-3">
           <button
+            *ngIf="!createMode"
             type="button"
             class="btn btn-outline-light"
-            [disabled]="createMode"
             [routerLink]="['blocks', block?.id, 'trainings', 'new']"
           >
             add training

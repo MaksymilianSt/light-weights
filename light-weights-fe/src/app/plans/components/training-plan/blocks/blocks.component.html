@@ -31,10 +31,8 @@
       [createMode]="newBlock"
       [editMode]="editMode"
       (setReadMode)="setReadMode()"
-      (updateBlockList)="updateBlockList($event)"
+      (addBlockToList)="addNewBlock($event)"
     />
-
-
 
 
   <div *ngFor="let block of blocks?? []">
@@ -42,7 +40,7 @@
       [block]="block"
       [editMode]="editMode"
       (setReadMode)="setReadMode()"
-      (updateBlockList)="updateBlockList($event)"
+      (addBlockToList)="addNewBlock($event)"
       (deleteBlockFromList)="deleteBlock($event)"
     />
   </div>
