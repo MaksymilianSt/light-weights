@@ -55,3 +55,11 @@ databaseChangeLog:
             path: ../sql/v_7_remove_training-exercise_name_column.sql
             relativeToChangelogFile: true
 
+  - changeSet:
+      id: 8
+      author: maksymilianst
+      changes:
+        - sqlFile:
+            path: ../sql/v_8_add_sequence_column_to_execution.sql
+            relativeToChangelogFile: true
+

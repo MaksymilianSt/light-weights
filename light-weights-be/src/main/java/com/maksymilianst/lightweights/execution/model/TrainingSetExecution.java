@@ -4,14 +4,16 @@ import com.maksymilianst.lightweights.plan.model.TrainingSet;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "training_set_execution")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class TrainingSetExecution {
     @Id

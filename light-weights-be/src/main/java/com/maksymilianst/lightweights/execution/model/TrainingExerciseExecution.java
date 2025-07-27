@@ -3,26 +3,33 @@ package com.maksymilianst.lightweights.execution.model;
 import com.maksymilianst.lightweights.plan.model.Exercise;
 import com.maksymilianst.lightweights.plan.model.TrainingExercise;
 import jakarta.persistence.*;
-import lombok.Data;
+import jakarta.validation.constraints.Min;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "training_exercise_execution")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class TrainingExerciseExecution {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(length = 1024)
     private String notes;
 
     @Column(nullable = false)
     private boolean done;
+
+    @Min(value = 0)
+    @Column(nullable = false)
+    private Integer sequence;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "exercise_id", nullable = false)

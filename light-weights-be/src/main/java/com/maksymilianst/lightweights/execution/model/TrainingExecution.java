@@ -3,8 +3,9 @@ package com.maksymilianst.lightweights.execution.model;
 import com.maksymilianst.lightweights.plan.model.Training;
 import com.maksymilianst.lightweights.user.User;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -13,12 +14,13 @@ import java.util.Set;
 
 @Entity
 @Table(name = "training_execution")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class TrainingExecution {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(length = 1024)
     private String notes;
@@ -28,7 +30,6 @@ public class TrainingExecution {
 
     @Column(nullable = false)
     private boolean done;
-
 
     @ManyToOne()
     @JoinColumn(name = "user_id", nullable = false)
