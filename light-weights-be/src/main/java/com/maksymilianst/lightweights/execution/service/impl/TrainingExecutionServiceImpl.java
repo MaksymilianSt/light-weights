@@ -1,7 +1,6 @@
 package com.maksymilianst.lightweights.execution.service.impl;
 
 import com.maksymilianst.lightweights.execution.dto.TrainingExecutionDto;
-import com.maksymilianst.lightweights.execution.dto.TrainingExerciseExecutionDto;
 import com.maksymilianst.lightweights.execution.exception.ExecutionAlreadyExistsException;
 import com.maksymilianst.lightweights.execution.mapper.SetExecutionMapper;
 import com.maksymilianst.lightweights.execution.mapper.TrainingExecutionMapper;
@@ -33,6 +32,17 @@ public class TrainingExecutionServiceImpl implements TrainingExecutionService {
     private final TrainingRepository trainingRepository;
     private final TrainingExecutionMapper trainingExecutionMapper;
     private final SetExecutionMapper setExecutionMapper;
+
+    @Override
+    public TrainingExecutionDto update(Integer trainingExecutionId, TrainingExecutionDto trainingExecutionDto) {
+        TrainingExecution toUpdate = trainingExecutionRepository.findById(trainingExecutionId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid training execution id"));
+
+        toUpdate.setNotes(trainingExecutionDto.getNotes());
+
+        TrainingExecution updated = trainingExecutionRepository.save(toUpdate);
+        return trainingExecutionMapper.toDto(updated);
+    }
 
     @Override
     @Transactional
@@ -89,14 +99,4 @@ public class TrainingExecutionServiceImpl implements TrainingExecutionService {
                 .collect(Collectors.toSet());
     }
 
-    @Override
-    public TrainingExecutionDto update(Integer trainingExecutionId, TrainingExecutionDto trainingExecutionDto) {
-        TrainingExecution toUpdate = trainingExecutionRepository.findById(trainingExecutionId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid training execution id"));
-
-        toUpdate.setNotes(trainingExecutionDto.getNotes());
-
-        TrainingExecution updated = trainingExecutionRepository.save(toUpdate);
-        return trainingExecutionMapper.toDto(updated);
-    }
 }
