@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,11 +25,11 @@ public class TrainingExecution {
     @Column(length = 1024)
     private String notes;
 
-    @Column(name = "realization_date", nullable = false)
-    private LocalDate realizationDate;
+    @Column(name = "execution_start_date", nullable = false)
+    private LocalDateTime startDate;
 
-    @Column(nullable = false)
-    private boolean done;
+    @Column(name = "execution_finish_date")
+    private LocalDateTime finishDate;
 
     @ManyToOne()
     @JoinColumn(name = "user_id", nullable = false)
@@ -41,5 +41,11 @@ public class TrainingExecution {
 
     @OneToMany(mappedBy = "trainingExecution", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<TrainingExerciseExecution> trainingExerciseExecutions = new HashSet<>();
+
+
+    @PrePersist
+    protected void onCreate() {
+        startDate = LocalDateTime.now();
+    }
 
 }

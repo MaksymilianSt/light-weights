@@ -63,3 +63,11 @@ databaseChangeLog:
             path: ../sql/v_8_add_sequence_column_to_execution.sql
             relativeToChangelogFile: true
 
+  - changeSet:
+      id: 9
+      author: maksymilianst
+      changes:
+        - sqlFile:
+            path: ../sql/v_9_add_executed_at_columns.sql
+            relativeToChangelogFile: true
+

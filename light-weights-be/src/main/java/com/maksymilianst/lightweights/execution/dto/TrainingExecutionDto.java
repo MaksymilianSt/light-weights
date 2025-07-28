@@ -3,7 +3,7 @@ package com.maksymilianst.lightweights.execution.dto;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -11,8 +11,8 @@ import java.util.List;
 public class TrainingExecutionDto {
     private Integer id;
     private String notes;
-    private LocalDate realizationDate;
-    private Boolean done;
+    private LocalDateTime startDate;
+    private LocalDateTime finishDate;
 
     private List<TrainingExerciseExecutionDto> trainingExerciseExecutions;
 }

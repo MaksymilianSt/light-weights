@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "training_set_execution")
@@ -38,8 +39,8 @@ public class TrainingSetExecution {
     @Column(nullable = false)
     private Integer sequence;
 
-    @Column(nullable = false)
-    private boolean done;
+    @Column(name = "executed_at")
+    private LocalDateTime executedAt;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "plan_training_set_id", nullable = false)

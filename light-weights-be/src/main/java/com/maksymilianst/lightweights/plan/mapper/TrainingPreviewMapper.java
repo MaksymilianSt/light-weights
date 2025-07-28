@@ -19,7 +19,7 @@ public interface TrainingPreviewMapper {
 
     @Named("isDone")
     default boolean isDone(TrainingExecution execution) {
-        return execution != null && execution.isDone();
+        return execution != null && execution.getFinishDate() != null;
     }
 
     default List<TrainingPreviewDto> toDtos(Set<Training> trainings) {

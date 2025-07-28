@@ -2,6 +2,8 @@ package com.maksymilianst.lightweights.execution.service.impl;
 
 import com.maksymilianst.lightweights.execution.dto.TrainingExerciseExecutionDto;
 import com.maksymilianst.lightweights.execution.dto.TrainingSetExecutionDto;
+import com.maksymilianst.lightweights.execution.exception.ExecutionFinishedException;
+import com.maksymilianst.lightweights.execution.exception.TrainingExecutionException;
 import com.maksymilianst.lightweights.execution.mapper.ExerciseExecutionMapper;
 import com.maksymilianst.lightweights.execution.model.TrainingExerciseExecution;
 import com.maksymilianst.lightweights.execution.model.TrainingSetExecution;
@@ -9,6 +11,7 @@ import com.maksymilianst.lightweights.execution.repository.TrainingExerciseExecu
 import com.maksymilianst.lightweights.execution.service.TrainingExerciseExecutionService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -17,6 +20,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class TrainingExerciseExecutionServiceImpl implements TrainingExerciseExecutionService {
 
@@ -28,8 +32,12 @@ public class TrainingExerciseExecutionServiceImpl implements TrainingExerciseExe
     @Transactional
     public TrainingExerciseExecutionDto update(Integer exerciseExecutionId, TrainingExerciseExecutionDto exerciseExecutionDto) {
         TrainingExerciseExecution toUpdate = exerciseExecutionRepository.findById(exerciseExecutionId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid exercise execution id"));
+                .orElseThrow(() -> new TrainingExecutionException("Invalid exercise execution id"));
 
+        if(toUpdate.getTrainingExecution().getFinishDate() != null){
+            log.info("Attempt to update already finished training execution with id: {}", exerciseExecutionId);
+            throw new ExecutionFinishedException();
+        }
         toUpdate.setNotes(exerciseExecutionDto.getNotes());
         toUpdate.setSequence(exerciseExecutionDto.getSequence());
         toUpdate.setDone(exerciseExecutionDto.getDone());
@@ -60,7 +68,7 @@ public class TrainingExerciseExecutionServiceImpl implements TrainingExerciseExe
         setToUpdate.setTempo(source.getTempo());
         setToUpdate.setRpe(source.getRpe());
         setToUpdate.setSequence(source.getSequence());
-        setToUpdate.setDone(source.getDone());
+        setToUpdate.setExecutedAt(source.getExecutedAt());
     }
 
 }

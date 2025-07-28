@@ -1,6 +1,6 @@
 package com.maksymilianst.lightweights.execution.exception;
 
-public class ExecutionAlreadyExistsException extends RuntimeException {
+public class ExecutionAlreadyExistsException extends TrainingExecutionException {
     private static final String DEFAULT_MESSAGE = "Execution already exists";
 
     public ExecutionAlreadyExistsException() {

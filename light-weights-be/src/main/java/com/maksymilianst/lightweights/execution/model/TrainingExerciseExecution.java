@@ -46,4 +46,8 @@ public class TrainingExerciseExecution {
     @OneToMany(mappedBy = "exerciseExecution", cascade = CascadeType.ALL, orphanRemoval = true )
     private Set<TrainingSetExecution> trainingSetExecutions = new HashSet<>();
 
+    public boolean isDone() {
+        return done || (trainingSetExecutions != null && trainingSetExecutions.stream()
+                .allMatch(set -> set.getExecutedAt() != null));
+    }
 }

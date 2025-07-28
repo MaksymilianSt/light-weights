@@ -2,6 +2,8 @@ package com.maksymilianst.lightweights.execution.service.impl;
 
 import com.maksymilianst.lightweights.execution.dto.TrainingExecutionDto;
 import com.maksymilianst.lightweights.execution.exception.ExecutionAlreadyExistsException;
+import com.maksymilianst.lightweights.execution.exception.ExecutionFinishedException;
+import com.maksymilianst.lightweights.execution.exception.TrainingExecutionException;
 import com.maksymilianst.lightweights.execution.mapper.SetExecutionMapper;
 import com.maksymilianst.lightweights.execution.mapper.TrainingExecutionMapper;
 import com.maksymilianst.lightweights.execution.model.TrainingExecution;
@@ -19,7 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,9 +36,28 @@ public class TrainingExecutionServiceImpl implements TrainingExecutionService {
     private final SetExecutionMapper setExecutionMapper;
 
     @Override
+    public TrainingExecutionDto finish(Integer trainingExecutionId) {
+        TrainingExecution execution = trainingExecutionRepository.findById(trainingExecutionId)
+                .orElseThrow(() -> new TrainingExecutionException("Invalid training execution id"));
+
+        if (execution.getFinishDate() != null) {
+            throw new ExecutionFinishedException();
+        }
+        execution.setFinishDate(LocalDateTime.now());
+
+        TrainingExecution saved = trainingExecutionRepository.save(execution);
+        return trainingExecutionMapper.toDto(saved);
+
+    }
+
+    @Override
     public TrainingExecutionDto update(Integer trainingExecutionId, TrainingExecutionDto trainingExecutionDto) {
         TrainingExecution toUpdate = trainingExecutionRepository.findById(trainingExecutionId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid training execution id"));
+                .orElseThrow(() -> new TrainingExecutionException("Invalid training execution id"));
+
+        if (toUpdate.getFinishDate() != null) {
+            throw new ExecutionFinishedException();
+        }
 
         toUpdate.setNotes(trainingExecutionDto.getNotes());
 
@@ -48,7 +69,7 @@ public class TrainingExecutionServiceImpl implements TrainingExecutionService {
     @Transactional
     public TrainingExecutionDto create(Integer trainingId, User user) {
         Training training = trainingRepository.findById(trainingId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid training id"));
+                .orElseThrow(() -> new TrainingExecutionException("Invalid training id"));
 
         if (training.getExecution() != null) {
             throw new ExecutionAlreadyExistsException();
@@ -57,7 +78,6 @@ public class TrainingExecutionServiceImpl implements TrainingExecutionService {
         TrainingExecution newExecution = new TrainingExecution();
 
         newExecution.setUser(user);
-        newExecution.setRealizationDate(LocalDate.now());
         newExecution.setReferencedTraining(training);
         training.setExecution(newExecution);
         newExecution.setTrainingExerciseExecutions(

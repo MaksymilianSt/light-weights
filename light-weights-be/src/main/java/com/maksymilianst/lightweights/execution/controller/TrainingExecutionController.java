@@ -17,16 +17,15 @@ import java.net.URI;
 @RequestMapping(TrainingExecutionController.URL)
 @RequiredArgsConstructor
 public class TrainingExecutionController {
-    public static final String URL =  "/api/executions";
+    public static final String URL = "/api/executions";
 
     private final TrainingExecutionService trainingExecutionService;
 
 
     @PostMapping
     @PreAuthorize("@planAccessControlService.hasAccessToTraining(#trainingId, principal.id)")
-    ResponseEntity<TrainingExecutionDto> create(@NotNull @Param("trainingId") Integer trainingId, @AuthenticationPrincipal User user){
+    ResponseEntity<TrainingExecutionDto> create(@NotNull @Param("trainingId") Integer trainingId, @AuthenticationPrincipal User user) {
         TrainingExecutionDto created = trainingExecutionService.create(trainingId, user);
-
         return ResponseEntity
                 .created(URI.create(TrainingExecutionController.URL + "/" + created.getId()))
                 .body(created);
@@ -34,9 +33,15 @@ public class TrainingExecutionController {
 
     @PutMapping("/{executionId}")
     @PreAuthorize("@executionAccessControlService.hasAccessToExecution(#executionId, principal.id)")
-    ResponseEntity<TrainingExecutionDto> update(@PathVariable("executionId") Integer executionId,@RequestBody TrainingExecutionDto trainingExecutionDto){
+    ResponseEntity<TrainingExecutionDto> update(@PathVariable("executionId") Integer executionId, @RequestBody TrainingExecutionDto trainingExecutionDto) {
         TrainingExecutionDto updated = trainingExecutionService.update(executionId, trainingExecutionDto);
+        return ResponseEntity.ok(updated);
+    }
 
+    @PatchMapping("/{executionId}")
+    @PreAuthorize("@executionAccessControlService.hasAccessToExecution(#executionId, principal.id)")
+    ResponseEntity<TrainingExecutionDto> finish(@PathVariable("executionId") Integer executionId) {
+        TrainingExecutionDto updated = trainingExecutionService.finish(executionId);
         return ResponseEntity.ok(updated);
     }
 
