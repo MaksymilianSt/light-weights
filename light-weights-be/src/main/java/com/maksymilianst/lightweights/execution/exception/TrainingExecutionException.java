@@ -7,6 +7,6 @@ public class TrainingExecutionException extends RuntimeException {
         super(BASE_MESSAGE);
     }
     public TrainingExecutionException(String message) {
-        super(BASE_MESSAGE + message);
+        super(message);
     }
 }
