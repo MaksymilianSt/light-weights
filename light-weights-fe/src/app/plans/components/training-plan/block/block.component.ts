@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {TrainingBlock} from '../../../models/training-plan.model';
+import {TrainingBlock} from '../../../models/training-block.model';
 import {
   FormBuilder,
   FormGroup,
@@ -8,10 +8,12 @@ import {
   Validators
 } from '@angular/forms';
 import {DatePipe, DecimalPipe, NgClass, NgForOf, NgIf} from '@angular/common';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {BlockService} from '../../../services/block-service';
 import {TrainingService} from '../../../services/training-service';
 import {BlockValidator} from '../../../validators/block.validator';
+import {TrainingPreview} from '../../../models/training-preview.model';
+import {TrainingExecutionService} from '../../../../execution/services/training-execution-service';
 
 @Component({
   selector: 'app-block',
@@ -45,8 +47,10 @@ export class BlockComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
+    private router: Router,
     private blockService: BlockService,
     private trainingService: TrainingService,
+    private executionService: TrainingExecutionService
   ) {
   }
 
@@ -182,4 +186,13 @@ export class BlockComponent implements OnInit {
     }, twoSeconds);
   }
 
+  onExecution(training: TrainingPreview): void {
+    if(training.executionId == null){
+      this.executionService.createTrainingExecution(training.id).subscribe(execution => {
+        this.router.navigate(['executions', execution.id]);
+      })
+
+    }
+    this.router.navigate(['executions', training.executionId]);
+  }
 }

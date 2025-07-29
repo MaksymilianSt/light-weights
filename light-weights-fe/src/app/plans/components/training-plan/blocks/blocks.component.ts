@@ -1,5 +1,5 @@
 import {Component, Input, QueryList, ViewChildren} from '@angular/core';
-import {TrainingBlock} from '../../../models/training-plan.model';
+import {TrainingBlock} from '../../../models/training-block.model';
 import {BlockComponent} from '../block/block.component';
 import {NgForOf, NgIf} from '@angular/common';
 

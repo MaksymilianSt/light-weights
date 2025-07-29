@@ -1,5 +1,5 @@
 import {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
-import {TrainingPreview} from '../models/training-block.model';
+import {TrainingPreview} from '../models/training-preview.model';
 
 export class BlockValidator {
 

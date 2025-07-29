@@ -1,5 +1,5 @@
 import {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
-import {TrainingBlock} from '../models/training-plan.model';
+import {TrainingBlock} from '../models/training-block.model';
 
 export class TrainingValidator {
 

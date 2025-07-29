@@ -12,7 +12,7 @@ import {
 import {DatePipe, NgClass, NgIf} from '@angular/common';
 import {ExercisesComponent} from './exercises/exercises.component';
 import {TrainingService} from '../../services/training-service';
-import {TrainingBlock} from '../../models/training-plan.model';
+import {TrainingBlock} from '../../models/training-block.model';
 import {TrainingValidator} from '../../validators/training.validator';
 
 @Component({

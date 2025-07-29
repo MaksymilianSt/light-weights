@@ -164,19 +164,19 @@
         </div>
 
 
-        <div *ngFor="let tren of block?.trainings">
+        <div *ngFor="let training of block?.trainings">
           <div class="row row-bar mb-4 mx-2">
 
             <div class="col-4 col-sm-3">
-              <strong>{{ tren.date | date }}</strong>
+              <strong>{{ training.date | date }}</strong>
             </div>
 
             <div class="col-5 col-sm-4">
-              <strong>{{ tren.name }}</strong>
+              <strong>{{ training.name }}</strong>
             </div>
 
             <div class="col-2 col-sm-1 ps-4">
-              <strong>{{ tren.done ? '✓' : '✗' }}</strong>
+              <strong>{{ training.done ? '✓' : '✗' }}</strong>
             </div>
 
             <div class="col-12 mt-2  col-sm-4 mt-sm-0 d-flex justify-content-end gap-3">
@@ -184,14 +184,22 @@
                 <div *ngIf="!editMode">
                   <button
                     type="button"
-                    class="btn btn-outline-light execution-btn"
-                  >execution</button>
+                    class="btn btn-outline-light"
+                    [ngClass]="{
+                      'execution-create-btn': training.executionId == null,
+                      'execution-finished-btn': training.executionId != null && training.done,
+                      'execution-started-btn': training.executionId != null && !training.done
+                              }"
+                    (click)="onExecution(training)"
+                  >
+                    {{ training.executionId == null ? 'new execution' : 'execution' }}
+                  </button>
                 </div>
                 <div *ngIf="!editMode">
                   <button
                     type="button"
                     class="btn btn-outline-light details-btn"
-                    [routerLink]="['blocks', block!.id, 'trainings', tren.id]"
+                    [routerLink]="['blocks', block!.id, 'trainings', training.id]"
                   >
                     details
                   </button>
@@ -200,15 +208,15 @@
                 <div *ngIf="editMode">
                   <button
                     type="button"
-                    class="btn btn-outline-light execution-btn"
-                    [routerLink]="['blocks', block!.id, 'trainings', tren.id]" [queryParams]="{ edit: true }"
+                    class="btn btn-outline-light execution-finished-btn"
+                    [routerLink]="['blocks', block!.id, 'trainings', training.id]" [queryParams]="{ edit: true }"
                   >edit</button>
                 </div>
                 <div *ngIf="editMode">
                   <button
                     type="button"
                     class="btn btn-danger"
-                    (click)="deleteTraining(tren.id)"
+                    (click)="deleteTraining(training.id)"
                   >
                     delete
                   </button>

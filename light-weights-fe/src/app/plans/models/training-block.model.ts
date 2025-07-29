@@ -1,7 +1,10 @@
-export interface TrainingPreview {
+import {TrainingPreview} from './training-preview.model';
+
+export interface TrainingBlock {
   id: number;
   name: string;
   description: string;
-  date: string;
-  done: boolean;
+  start: string;
+  end: string;
+  trainings: TrainingPreview[];
 }

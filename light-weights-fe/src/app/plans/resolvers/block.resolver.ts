@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
 import {BlockService} from '../services/block-service';
-import {TrainingBlock} from '../models/training-plan.model';
+import {TrainingBlock} from '../models/training-block.model';
 
 
 @Injectable({providedIn: 'root'})

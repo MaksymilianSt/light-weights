@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {TrainingPlan} from '../../models/training-preview.model';
+import {TrainingPlan} from '../../models/training-plan.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AutosizeModule} from 'ngx-autosize';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';

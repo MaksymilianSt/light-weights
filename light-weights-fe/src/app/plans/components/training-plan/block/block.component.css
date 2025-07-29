@@ -4,9 +4,19 @@
   border: 1px solid #000000;
 }
 
-.execution-btn {
+.execution-finished-btn {
   color: #ffffff;
   background: #3b4059;
   border: 1px solid #000000;
 }
-
+.execution-started-btn {
+  color: #ffffff;
+  background: #4c526e;
+  border: 2px solid #d1eff1;
+  box-shadow: 3px 3px 5px #1a1c2d
+}
+.execution-create-btn {
+  color: #ffffff;
+  background: #47506b;
+  border: 1px solid #e9e9f1;
+}

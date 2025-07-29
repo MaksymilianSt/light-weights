@@ -1,10 +1,14 @@
-import {TrainingPreview} from './training-block.model';
+import {TrainingBlock} from './training-block.model';
 
-export interface TrainingBlock {
+export interface TrainingPlan {
   id: number;
   name: string;
   description: string;
-  start: string;
-  end: string;
-  trainings: TrainingPreview[];
+  category: string;
+  difficultyLvl: string;
+  goal: string;
+  blocks: TrainingBlock[];
+
+  createdAt: string;
+  updatedAt: string;
 }
