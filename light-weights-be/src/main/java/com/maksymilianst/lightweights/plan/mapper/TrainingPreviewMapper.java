@@ -15,6 +15,7 @@ import java.util.Set;
 public interface TrainingPreviewMapper {
 
     @Mapping(source = "execution", target = "done", qualifiedByName = "isDone")
+    @Mapping(source = "execution.id", target = "executionId")
     TrainingPreviewDto toDto(Training training);
 
     @Named("isDone")

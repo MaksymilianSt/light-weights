@@ -21,7 +21,7 @@ public class ExecutionAccessControlServiceImpl implements ExecutionAccessControl
         boolean hasAccess = trainingExecutionRepository.findById(executionId)
                 .map(execution -> {
                     var trainingId = execution.getReferencedTraining().getId();
-                    return planAccessControlService.hasAccessToPlan(trainingId, userId);
+                    return planAccessControlService.hasAccessToTraining(trainingId, userId);
                 })
                 .orElse(false);
 

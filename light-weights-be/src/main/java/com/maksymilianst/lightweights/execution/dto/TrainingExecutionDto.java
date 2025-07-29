@@ -13,6 +13,7 @@ public class TrainingExecutionDto {
     private String notes;
     private LocalDateTime startDate;
     private LocalDateTime finishDate;
+    private String referencedTrainingName;
 
     private List<TrainingExerciseExecutionDto> trainingExerciseExecutions;
 }

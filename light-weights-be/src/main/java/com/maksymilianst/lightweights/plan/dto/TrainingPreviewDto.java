@@ -13,4 +13,5 @@ public class TrainingPreviewDto {
     private String description;
     private LocalDateTime date;
     private boolean done;
+    private Integer executionId;
 }

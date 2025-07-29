@@ -13,6 +13,7 @@ import com.maksymilianst.lightweights.execution.repository.TrainingExecutionRepo
 import com.maksymilianst.lightweights.execution.service.TrainingExecutionService;
 import com.maksymilianst.lightweights.plan.model.Training;
 import com.maksymilianst.lightweights.plan.model.TrainingExercise;
+import com.maksymilianst.lightweights.plan.model.TrainingPlan;
 import com.maksymilianst.lightweights.plan.model.TrainingSet;
 import com.maksymilianst.lightweights.plan.repository.TrainingRepository;
 import com.maksymilianst.lightweights.user.User;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,6 +36,24 @@ public class TrainingExecutionServiceImpl implements TrainingExecutionService {
     private final TrainingRepository trainingRepository;
     private final TrainingExecutionMapper trainingExecutionMapper;
     private final SetExecutionMapper setExecutionMapper;
+
+
+    @Override
+    public List<TrainingExecutionDto> getAllForUser(User user) {
+        List<TrainingExecution> usersExecutions = trainingExecutionRepository.findAllByUserId(user.getId());
+
+        return usersExecutions.stream()
+                .map(trainingExecutionMapper::toDto)
+                .toList();
+    }
+
+    @Override
+    public TrainingExecutionDto getById(Integer trainingExecutionId) {
+        TrainingExecution execution = trainingExecutionRepository.findById(trainingExecutionId)
+                .orElseThrow(() -> new TrainingExecutionException("Invalid training execution id"));
+
+        return trainingExecutionMapper.toDto(execution);
+    }
 
     @Override
     public TrainingExecutionDto finish(Integer trainingExecutionId) {
@@ -63,6 +83,11 @@ public class TrainingExecutionServiceImpl implements TrainingExecutionService {
 
         TrainingExecution updated = trainingExecutionRepository.save(toUpdate);
         return trainingExecutionMapper.toDto(updated);
+    }
+
+    @Override
+    public void deleteById(Integer trainingExecutionId) {
+        trainingExecutionRepository.deleteById(trainingExecutionId);
     }
 
     @Override

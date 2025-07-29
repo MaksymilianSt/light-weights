@@ -12,6 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(TrainingExecutionController.URL)
@@ -21,6 +22,20 @@ public class TrainingExecutionController {
 
     private final TrainingExecutionService trainingExecutionService;
 
+    @GetMapping
+    ResponseEntity<List<TrainingExecutionDto>> getAll(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(
+                trainingExecutionService.getAllForUser(user)
+        );
+    }
+
+    @GetMapping("/{executionId}")
+    @PreAuthorize("@executionAccessControlService.hasAccessToExecution(#executionId, principal.id)")
+    ResponseEntity<TrainingExecutionDto> getById(@PathVariable Integer executionId) {
+        return ResponseEntity.ok(
+                trainingExecutionService.getById(executionId)
+        );
+    }
 
     @PostMapping
     @PreAuthorize("@planAccessControlService.hasAccessToTraining(#trainingId, principal.id)")
@@ -43,6 +58,13 @@ public class TrainingExecutionController {
     ResponseEntity<TrainingExecutionDto> finish(@PathVariable("executionId") Integer executionId) {
         TrainingExecutionDto updated = trainingExecutionService.finish(executionId);
         return ResponseEntity.ok(updated);
+    }
+
+    @DeleteMapping("/{executionId}")
+    @PreAuthorize("@executionAccessControlService.hasAccessToExecution(#executionId, principal.id)")
+    ResponseEntity<?> deleteById(@PathVariable Integer executionId) {
+        trainingExecutionService.deleteById(executionId);
+        return ResponseEntity.noContent().build();
     }
 
 }
