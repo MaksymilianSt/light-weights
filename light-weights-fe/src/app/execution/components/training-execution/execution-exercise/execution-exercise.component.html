@@ -1,0 +1,220 @@
+<form
+  class="container mt-3"
+  [formGroup]="exerciseExecutionForm"
+>
+
+  <div
+    class=" p-2 rounded d-flex align-items-center expand-btn"
+    role="button"
+    data-bs-toggle="collapse"
+    [attr.data-bs-target]="'#exercise' + exercise?.id"
+    aria-expanded="false"
+    [attr.aria-controls]="'#exercise' + exercise?.id"
+  >
+
+    <div class="flex-grow-1 text-start">
+      <strong>
+        {{ exercise?.sequence + '.' }}
+      </strong>
+    </div>
+    <div class="flex-grow-1 text-center">
+      <strong>
+        {{ exercise?.name }}
+      </strong>
+    </div>
+    <div class="flex-grow-1 text-end">
+      <strong>
+        {{ exercise?.done ? '✓' : '✗' }}
+      </strong>
+    </div>
+
+  </div>
+
+
+  <div
+    class="collapse mt-2 expand-item"
+
+    [attr.id]="'exercise' + exercise?.id"
+  >
+
+    <div class="row">
+
+      <div *ngIf="editMode" class="col-6 col-sm-3 mb-2">
+        <strong>sequence</strong>
+        <input
+          type="number"
+          class="form-control w-25 w-sm-50"
+          formControlName="sequence"
+          min="0"
+        >
+      </div>
+
+      <div *ngIf="editMode" class="col-6 col-sm-3 mb-2">
+        <strong>done</strong>
+        <div>
+          <input
+            type="checkbox"
+            formControlName="done"
+          >
+        </div>
+      </div>
+
+      <div
+        class="col-6 "
+        [ngClass]="{'col-sm-3' : editMode}"
+      >
+        <strong>total</strong>
+        <p
+          class="form-control w-sm-50"
+        >
+          {{ '23:17' }}
+        </p>
+      </div>
+
+      <div
+        class="col-6"
+        [ngClass]="{'col-sm-3' : editMode}"
+      >
+        <strong>avg break</strong>
+        <p
+          class="form-control w-sm-50"
+        >
+          {{ '3:17' }}
+        </p>
+      </div>
+
+
+      <div class="mt-1">
+        <strong>notes</strong>
+        <textarea autosize
+                  class="form-control text-center w-100"
+                  [readOnly]="!editMode"
+                  formControlName="notes"
+        ></textarea>
+      </div>
+
+    </div>
+
+
+    <br/>
+    <h5 class="mx-2"><strong> sets </strong> <i class="fas fa-dumbbell"> </i></h5>
+    <hr/>
+
+
+    <div
+      *ngIf="exercise.trainingSetExecutions !== null && exercise.trainingSetExecutions.length > 0"
+      class="row mx-2 align-items-center g-0"
+    >
+
+      <div class="col-1 me-1 text-center">
+        <strong class="set-label">seq</strong>
+      </div>
+      <div class="col-1 me-1 text-center">
+        <strong class="set-label">reps</strong>
+      </div>
+      <div class="col-2 ms-1 text-center">
+        <strong class="set-label">weight</strong>
+      </div>
+      <div class="col-3 me-1 text-center">
+        <strong class="set-label">tempo</strong>
+      </div>
+      <div class="col-1 me-1 text-center">
+        <strong class="set-label">rpe</strong>
+      </div>
+      <div class="col-2 me-0 text-center">
+        <strong class="set-label">time</strong>
+      </div>
+      <div class="col-1 text-center">
+        <strong class="set-label">done</strong>
+      </div>
+
+    </div>
+
+    <div formArrayName="sets">
+      <div *ngFor="let setGroup of sets.controls; let i = index" [formGroupName]="i">
+        <div
+          class="row row-bar mb-4 mx-2 align-items-center g-0"
+          [ngClass]="{'set-finished': setGroup.get('executedAt')?.value !== null}"
+        >
+
+          <div class="col-1 me-1">
+            <input
+              [readOnly]="!editMode"
+              type="number"
+              class="set-input"
+              formControlName="sequence"
+              min="0"
+            >
+          </div>
+
+          <div class="col-1 me-1">
+            <input
+              [readOnly]="!editMode"
+              [ngClass]="{
+                           'is-invalid': setGroup.get('repetitions')?.touched && setGroup.get('repetitions')?.invalid
+                          }"
+              class="set-input"
+              type="number"
+              formControlName="repetitions"
+              min="0"
+            >
+          </div>
+
+          <div class="col-2 me-1">
+            <input
+              [readOnly]="!editMode"
+              [ngClass]="{
+                           'is-invalid': setGroup.get('weight')?.touched && setGroup.get('weight')?.invalid
+                          }"
+              class="set-input"
+              type="number"
+              formControlName="weight"
+              min="1"
+              max="9999"
+            >
+          </div>
+
+          <div class="col-3 me-1">
+            <input
+              [readOnly]="!editMode"
+              class="set-input"
+              formControlName="tempo"
+              maxlength="7"
+            >
+          </div>
+
+          <div class="col-1 me-1">
+            <input
+              [readOnly]="!editMode"
+              type="number"
+              class="set-input"
+              formControlName="rpe"
+              min="0"
+              max="10"
+            >
+          </div>
+
+          <div class="col-2 me-0">
+            <input
+              [readOnly]="!editMode"
+              class="set-input"
+              [value]="'2:37'"
+            >
+          </div>
+
+          <div class="col-1">
+            <input
+              [disabled]="!editMode"
+              class="set-input"
+              type="checkbox"
+            >
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</form>

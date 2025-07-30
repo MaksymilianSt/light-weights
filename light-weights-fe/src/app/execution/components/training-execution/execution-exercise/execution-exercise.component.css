@@ -1,0 +1,33 @@
+.set-input {
+  background: transparent;
+  border: 1px solid #1a1c2d;
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+.set-label {
+  font-weight: 800;
+  font-size: 1.02rem;
+}
+@media (max-width: 900px) {
+  .set-label {
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+}
+
+@media (min-width: 576px) {
+  .w-sm-50 {
+    width: 50% !important;
+  }
+}
+
+.is-invalid {
+  border: 2px solid #c50808;
+  background-color: rgba(255, 147, 143, 0.42);
+}
+
+.set-finished{
+  background: #ace8ba;
+  border: 1px solid #46d265;
+}

@@ -4,7 +4,7 @@ export interface TrainingExerciseExecution {
   id: number;
   name: string | null;
   notes: string | null;
-  done: boolean | null;
+  done: boolean;
   sequence: number;
   trainingSetExecutions: TrainingSetExecution[];
 }

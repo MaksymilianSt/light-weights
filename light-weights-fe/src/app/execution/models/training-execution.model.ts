@@ -5,5 +5,6 @@ export interface TrainingExecution {
   notes: string | null;
   startDate: string | null;
   finishDate: string | null;
+  referencedTrainingName: string;
   trainingExerciseExecutions: TrainingExerciseExecution[];
 }

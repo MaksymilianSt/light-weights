@@ -1,0 +1,14 @@
+<div class="mt-3">
+  <p class="h3 mt-2 mt-sm-5">exercises</p>
+</div>
+
+<div class="base">
+
+  <div *ngFor="let exercise of exercises">
+    <app-execution-exercise
+      [exercise]="exercise"
+      [editMode]="editMode"
+    />
+
+  </div>
+</div>

@@ -1,1 +1,85 @@
-<p>training-execution works! {{execution.startDate}}</p>
+<form [formGroup]="executionForm" class="container">
+
+  <div
+    class="d-flex justify-content-center"
+  >
+    <p>
+      <strong class="header me-1">{{ execution.referencedTrainingName }}</strong>
+      execution
+    </p>
+  </div>
+
+  <div
+    class="text-end"
+  >
+    <button
+      class="btn btn-danger"
+      type="button"
+
+    >
+      delete
+    </button>
+  </div>
+
+  <div
+    *ngIf="editMode"
+    class="mb-4 mb-sm-5"
+  >
+    <button
+      type="button"
+      class="btn btn-outline-light"
+    >
+      finish execution
+    </button>
+  </div>
+
+
+  <p class="h3 mt-3">details</p>
+
+  <div class="row mt-1 mx-1 base">
+
+    <div class="d-flex flex-column align-items-end">
+      <strong>training time</strong>
+      <p class="input-group-text w-10  px-4 mt-1">
+        {{ '56:37' }}
+      </p>
+    </div>
+
+    <div class="col-6 col-sm-5">
+      <strong>start date</strong>
+      <p class="input-group-text w-100 mt-1">
+        {{ execution.startDate |  date:'dd.MM.yyyy HH:mm' }}
+      </p>
+    </div>
+
+    <div
+      class="col-6 col-sm-5 ms-sm-5"
+
+    >
+      <strong>finish date</strong>
+      <p class="input-group-text w-100 mt-1">
+        {{ (execution.finishDate |  date:'dd.MM.yyyy HH:mm') ?? '-' }}
+      </p>
+    </div>
+
+    <div class="col-12 mt-sm-4">
+      <strong>notes</strong>
+      <textarea autosize
+                class="input-group-text w-100 mt-1 pt-4"
+                [readOnly]="!editMode"
+                formControlName="notes"
+      ></textarea>
+    </div>
+
+  </div>
+
+  <br>
+
+  <div>
+    <app-execution-exercises
+      [exercises]="execution.trainingExerciseExecutions"
+      [editMode]="editMode"
+    />
+  </div>
+
+</form>
