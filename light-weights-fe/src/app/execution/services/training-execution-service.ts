@@ -19,9 +19,28 @@ export class TrainingExecutionService {
     )
   }
 
+  finishTrainingExecutionById(executionId: number): Observable<TrainingExecution> {
+    return this.http.patch<TrainingExecution>(
+      `${this.BASE_URL}/${executionId}`, {}
+    );
+  }
+
   createTrainingExecution(trainingId: number): Observable<TrainingExecution> {
     return this.http.post<TrainingExecution>(
       `${this.BASE_URL}?trainingId=${trainingId}`, {}
+    )
+  }
+
+  updateTrainingExecution(execution: TrainingExecution): Observable<TrainingExecution> {
+    return this.http.put<TrainingExecution>(
+      `${this.BASE_URL}/${execution.id}`,
+        execution
+    )
+  }
+
+  deleteTrainingExecutionById(executionId: number): Observable<void> {
+    return this.http.delete<void>(
+      `${this.BASE_URL}/${executionId}`
     )
   }
 
