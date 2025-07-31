@@ -13,7 +13,6 @@ import com.maksymilianst.lightweights.execution.repository.TrainingExecutionRepo
 import com.maksymilianst.lightweights.execution.service.TrainingExecutionService;
 import com.maksymilianst.lightweights.plan.model.Training;
 import com.maksymilianst.lightweights.plan.model.TrainingExercise;
-import com.maksymilianst.lightweights.plan.model.TrainingPlan;
 import com.maksymilianst.lightweights.plan.model.TrainingSet;
 import com.maksymilianst.lightweights.plan.repository.TrainingRepository;
 import com.maksymilianst.lightweights.user.User;
@@ -22,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -36,6 +36,7 @@ public class TrainingExecutionServiceImpl implements TrainingExecutionService {
     private final TrainingRepository trainingRepository;
     private final TrainingExecutionMapper trainingExecutionMapper;
     private final SetExecutionMapper setExecutionMapper;
+    private final Clock clock;
 
 
     @Override
@@ -63,7 +64,7 @@ public class TrainingExecutionServiceImpl implements TrainingExecutionService {
         if (execution.getFinishDate() != null) {
             throw new ExecutionFinishedException();
         }
-        execution.setFinishDate(LocalDateTime.now());
+        execution.setFinishDate(LocalDateTime.now(clock));
 
         TrainingExecution saved = trainingExecutionRepository.save(execution);
         return trainingExecutionMapper.toDto(saved);

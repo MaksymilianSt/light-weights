@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -45,7 +46,7 @@ public class TrainingExecution {
 
     @PrePersist
     protected void onCreate() {
-        startDate = LocalDateTime.now();
+        startDate = LocalDateTime.now(Clock.systemUTC());
     }
 
 }
