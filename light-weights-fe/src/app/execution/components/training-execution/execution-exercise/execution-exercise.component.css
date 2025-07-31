@@ -28,6 +28,17 @@
 }
 
 .set-finished{
-  background: #ace8ba;
+  background: #c5fcd1;
   border: 1px solid #46d265;
+}
+
+.set-unfinished{
+  background: #fad5d5;
+}
+.break-before-avg{
+  color: #4fb628;
+}
+
+.break-after-avg{
+  color: #ee9d44;
 }

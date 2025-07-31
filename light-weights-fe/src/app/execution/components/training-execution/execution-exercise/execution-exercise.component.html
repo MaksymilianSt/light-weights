@@ -67,7 +67,7 @@
         <p
           class="form-control w-sm-50"
         >
-          {{ '23:17' }}
+          {{ exerciseTime }}
         </p>
       </div>
 
@@ -79,7 +79,7 @@
         <p
           class="form-control w-sm-50"
         >
-          {{ '3:17' }}
+          {{ avgBreakTime }}
         </p>
       </div>
 
@@ -97,9 +97,23 @@
 
 
     <br/>
-    <h5 class="mx-2">
-      <strong> sets </strong> <i class="fas fa-dumbbell" [ngClass]="{'fa-bounce': afterSave}"> </i>
-    </h5>
+
+    <div class="d-flex justify-content-between align-items-end pb-0 my-0 mt-2">
+      <div>
+        <h5 class="mx-2 my-0">
+          <strong> sets </strong> <i class="fas fa-dumbbell" [ngClass]="{'fa-bounce': afterSave}"> </i>
+        </h5>
+      </div>
+      <div *ngIf="editMode && !exercise.done">
+        <strong class="set-label">break:</strong>
+        <p
+          class="input-group-text w-10  px-2 py-0 my-0 me-2"
+        >
+          {{ calculateCurrentBreakTime()}}
+        </p>
+      </div>
+    </div>
+
     <hr/>
 
 
@@ -132,18 +146,25 @@
 
     </div>
 
+
     <div formArrayName="sets">
       <div *ngFor="let setGroup of sets.controls; let i = index" [formGroupName]="i">
         <div
           class="row row-bar mb-4 mx-2 align-items-center g-0"
-          [ngClass]="{'set-finished': setGroup.get('executedAt')?.value !== null}"
+          [ngClass]="{
+          'set-finished': setGroup.get('done')?.value !== null,
+          'set-unfinished': setGroup.get('done')?.value === null && !editMode
+          }"
         >
 
           <div class="col-1 me-1">
             <input
               [readOnly]="!editMode"
               type="number"
-              class="set-input"
+              class="set-input text-center"
+              [ngClass]="{
+                           'is-invalid': setGroup.get('sequence')?.touched && setGroup.get('sequence')?.invalid
+                          }"
               formControlName="sequence"
               min="0"
             >
@@ -155,7 +176,7 @@
               [ngClass]="{
                            'is-invalid': setGroup.get('repetitions')?.touched && setGroup.get('repetitions')?.invalid
                           }"
-              class="set-input"
+              class="set-input text-center"
               type="number"
               formControlName="repetitions"
               min="0"
@@ -168,7 +189,7 @@
               [ngClass]="{
                            'is-invalid': setGroup.get('weight')?.touched && setGroup.get('weight')?.invalid
                           }"
-              class="set-input"
+              class="set-input text-center"
               type="number"
               formControlName="weight"
               min="1"
@@ -179,7 +200,10 @@
           <div class="col-3 me-1">
             <input
               [readOnly]="!editMode"
-              class="set-input"
+              class="set-input text-center"
+              [ngClass]="{
+                           'is-invalid': setGroup.get('tempo')?.touched && setGroup.get('tempo')?.invalid
+                          }"
               formControlName="tempo"
               maxlength="7"
             >
@@ -189,7 +213,10 @@
             <input
               [readOnly]="!editMode"
               type="number"
-              class="set-input"
+              class="set-input text-center"
+              [ngClass]="{
+                           'is-invalid': setGroup.get('rpe')?.touched && setGroup.get('rpe')?.invalid
+                          }"
               formControlName="rpe"
               min="0"
               max="10"
@@ -198,17 +225,19 @@
 
           <div class="col-2 me-0">
             <input
-              [readOnly]="!editMode"
-              class="set-input"
-              [value]="'2:37'"
+              [readOnly]="true"
+              class="set-input text-center"
+              [ngClass]="setBreakTimeColor(setGroup)"
+              [value]="calculateSetBreakTime(setGroup)"
             >
           </div>
 
           <div class="col-1">
             <input
-              [disabled]="!editMode"
-              class="set-input"
+              class="set-input text-center"
               type="checkbox"
+              formControlName="done"
+              (click)="!editMode? $event.preventDefault() : null"
             >
           </div>
 
