@@ -1,5 +1,6 @@
 package com.maksymilianst.lightweights.plan.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -21,6 +22,7 @@ public class TrainingDto {
     private Integer executionId;
     private String blockName;
 
+    @Valid
     private List<TrainingExerciseDto> exercises;
 
 }

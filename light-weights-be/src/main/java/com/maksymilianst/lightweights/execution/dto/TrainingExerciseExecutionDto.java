@@ -1,9 +1,11 @@
 package com.maksymilianst.lightweights.execution.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
+
 
 import java.util.List;
 
@@ -19,5 +21,6 @@ public class TrainingExerciseExecutionDto {
     @NotNull
     private Integer sequence;
 
+    @Valid
     private List<TrainingSetExecutionDto> trainingSetExecutions;
 }

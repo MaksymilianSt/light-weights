@@ -1,5 +1,6 @@
 package com.maksymilianst.lightweights.execution.dto;
 
+import jakarta.validation.Valid;
 import lombok.Builder;
 import lombok.Data;
 
@@ -15,5 +16,6 @@ public class TrainingExecutionDto {
     private LocalDateTime finishDate;
     private String referencedTrainingName;
 
+    @Valid
     private List<TrainingExerciseExecutionDto> trainingExerciseExecutions;
 }

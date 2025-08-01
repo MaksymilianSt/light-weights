@@ -9,4 +9,6 @@ import org.mapstruct.Mapping;
 public interface TrainingExecutionMapper {
     @Mapping(source = "trainingExecution.referencedTraining.name", target = "referencedTrainingName")
     TrainingExecutionDto toDto(TrainingExecution trainingExecution);
+
+
 }
