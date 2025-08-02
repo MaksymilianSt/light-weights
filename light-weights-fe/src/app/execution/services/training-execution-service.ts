@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../../../environment';
 import {TrainingExecution} from '../models/training-execution.model';
+import {TrainingExecutionPreview} from '../models/training-execution-preview.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,12 @@ export class TrainingExecutionService {
   private readonly BASE_URL = `${environment.apiUrl}/executions`;
 
   constructor(private http: HttpClient) {
+  }
+
+  getTrainingExecutions(): Observable<TrainingExecutionPreview> {
+    return this.http.get<TrainingExecutionPreview>(
+      `${this.BASE_URL}`
+    )
   }
 
   getTrainingExecutionById(executionId: number): Observable<TrainingExecution> {

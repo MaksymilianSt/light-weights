@@ -7,6 +7,7 @@ import {PlanResolver} from './plans/resolvers/plan.resolver';
 import {TrainingResolver} from './plans/resolvers/training.resolver';
 import {BlockResolver} from './plans/resolvers/block.resolver';
 import {TrainingExecutionResolver} from './execution/resolvers/training-execution.resolver';
+import {TrainingExecutionPreviewResolver} from './execution/resolvers/training-execution-preview.resolver';
 
 export const routes: Routes = [
   {
@@ -73,6 +74,16 @@ export const routes: Routes = [
         resolve: {
           training: TrainingResolver,
           block: BlockResolver
+        }
+      },
+      {
+        path: 'executions',
+        loadComponent: () =>
+          import('./execution/components/training-execution-list/training-execution-list.component').then(
+            (m) => m.TrainingExecutionListComponent
+          ),
+        resolve: {
+          trainingExecutions: TrainingExecutionPreviewResolver,
         }
       },
       {

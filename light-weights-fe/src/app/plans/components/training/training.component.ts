@@ -14,6 +14,7 @@ import {ExercisesComponent} from './exercises/exercises.component';
 import {TrainingService} from '../../services/training-service';
 import {TrainingBlock} from '../../models/training-block.model';
 import {TrainingValidator} from '../../validators/training.validator';
+import {TrainingExecutionService} from '../../../execution/services/training-execution-service';
 
 @Component({
   selector: 'app-training',
@@ -44,7 +45,8 @@ export class TrainingComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private trainingService: TrainingService
+    private trainingService: TrainingService,
+    private executionService: TrainingExecutionService
   ) {
   }
 
@@ -139,6 +141,17 @@ export class TrainingComponent implements OnInit {
       })
     }
   }
+
+  onExecution() {
+    if (this.training.executionId === null) {
+      this.executionService.createTrainingExecution(this.training.id).subscribe(execution => {
+        this.router.navigate(['executions', execution.id]);
+      })
+    } else {
+      this.router.navigate(['executions', this.training.executionId]);
+    }
+  }
+
 
   private addMessage(message: string): void {
     this.message = message;

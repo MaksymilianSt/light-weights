@@ -1,0 +1,13 @@
+.search-input {
+  width: 80%;
+}
+@media (min-width: 992px) {
+  .search-input {
+    width: 50%;
+  }
+}
+
+.execution-started-btn {
+  border: 3px solid #aeeaee;
+  box-shadow: 1px 1px 3px #aeeaee
+}

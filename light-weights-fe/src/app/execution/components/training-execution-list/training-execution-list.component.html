@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <p class="header mb-1 mb-sm-5">training executions</p>
+  </div>
+
+  <div class="container mt-5">
+
+    <div class="row mb-4">
+      <div class="d-flex justify-content-center mb-3">
+        <input
+          type="search"
+          class="input-group-text search-input"
+          placeholder="search executions"
+          [(ngModel)]="searchText"
+        >
+        <button
+          class="bg-transparent border-0 text-white ms-1 ms-md-3"
+          (click)="filterExecutions()"
+        >
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+
+      <hr/>
+
+      <div class="row mx-lg-1">
+        <div class="col-12">
+          <div class="btn border-0 block text-white w-100 p-3 me-5">
+            <div class="row">
+              <strong
+                class="col-5 col-md-3"
+              >
+                date
+              </strong>
+              <strong
+                *ngIf="!mobile"
+                class="col-3"
+              >
+                plan
+              </strong>
+              <strong
+                class="col-4 col-md-3"
+              >
+                name
+              </strong>
+              <strong
+
+                class="col-3 col-md-3"
+              >
+                {{ mobile ? '%' : 'completion' }}
+              </strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mx-0 mx-lg-1">
+        <div
+          *ngFor="let execution of filteredExecutions"
+          class="col-12"
+        >
+          <button
+            [routerLink]="[execution.id]"
+            class="btn btn-light block w-100 mb-5 py-3 pe-0 pe-3"
+            [ngClass]="{'execution-started-btn' : !execution.finished}"
+          >
+            <div class="row">
+            <span
+              class="fw-semibold text-truncate col-5 col-md-3"
+            >
+              {{ execution.startDate | date: 'yyyy-MM-dd' }}
+            </span>
+              <span
+                *ngIf="!mobile"
+                class="fw-semibold text-truncate col-12 col-md-3"
+              >
+              {{ execution.planName }}
+            </span>
+              <span
+                class="fw-semibold text-truncate d-inline-block col-4 col-md-3"
+              >
+            {{ execution.trainingName }}
+            </span>
+              <span
+                class="fw-semibold text-truncate d-inline-block col-3 col-md-3"
+              >
+            {{ execution.completionPercentage.toFixed(0) + '%' }}
+            </span>
+            </div>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

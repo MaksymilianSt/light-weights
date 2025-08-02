@@ -1,6 +1,7 @@
 package com.maksymilianst.lightweights.execution.controller;
 
 import com.maksymilianst.lightweights.execution.dto.TrainingExecutionDto;
+import com.maksymilianst.lightweights.execution.dto.TrainingExecutionPreviewDto;
 import com.maksymilianst.lightweights.execution.service.TrainingExecutionService;
 import com.maksymilianst.lightweights.user.User;
 import jakarta.validation.constraints.NotNull;
@@ -23,7 +24,7 @@ public class TrainingExecutionController {
     private final TrainingExecutionService trainingExecutionService;
 
     @GetMapping
-    ResponseEntity<List<TrainingExecutionDto>> getAll(@AuthenticationPrincipal User user) {
+    ResponseEntity<List<TrainingExecutionPreviewDto>> getAll(@AuthenticationPrincipal User user) {
         return ResponseEntity.ok(
                 trainingExecutionService.getAllForUser(user)
         );

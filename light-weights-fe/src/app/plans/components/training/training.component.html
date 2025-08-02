@@ -23,10 +23,11 @@
       *ngIf="!editMode"
       class="col-3 text-end">
       <button
-        [disabled]="!training.executionId != null"
+        type="button"
         class="btn btn-outline-light border-2 mb-4"
+        (click)="onExecution()"
       >
-        show execution
+        {{ (training.executionId === null ? 'create' : '') + ' execution' }}
       </button>
     </div>
 

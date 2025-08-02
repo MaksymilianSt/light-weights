@@ -1,6 +1,7 @@
 package com.maksymilianst.lightweights.execution.service.impl;
 
 import com.maksymilianst.lightweights.execution.dto.TrainingExecutionDto;
+import com.maksymilianst.lightweights.execution.dto.TrainingExecutionPreviewDto;
 import com.maksymilianst.lightweights.execution.exception.ExecutionAlreadyExistsException;
 import com.maksymilianst.lightweights.execution.exception.ExecutionFinishedException;
 import com.maksymilianst.lightweights.execution.exception.TrainingExecutionException;
@@ -40,12 +41,10 @@ public class TrainingExecutionServiceImpl implements TrainingExecutionService {
 
 
     @Override
-    public List<TrainingExecutionDto> getAllForUser(User user) {
+    public List<TrainingExecutionPreviewDto> getAllForUser(User user) {
         List<TrainingExecution> usersExecutions = trainingExecutionRepository.findAllByUserId(user.getId());
 
-        return usersExecutions.stream()
-                .map(trainingExecutionMapper::toDto)
-                .toList();
+        return trainingExecutionMapper.toPreviewDtos(usersExecutions);
     }
 
     @Override

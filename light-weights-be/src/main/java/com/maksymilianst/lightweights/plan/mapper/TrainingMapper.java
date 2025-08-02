@@ -10,6 +10,10 @@ import org.mapstruct.Mapping;
 public interface TrainingMapper {
 
     @Mapping(source = "block.name", target = "blockName")
+    @Mapping(
+            target = "executionId",
+            expression = "java(training.getExecution() != null ? training.getExecution().getId() : null)"
+    )
     TrainingDto toDto(Training training);
 
     @Mapping(target = "id", ignore = true)

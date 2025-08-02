@@ -1,6 +1,7 @@
 package com.maksymilianst.lightweights.execution.service;
 
 import com.maksymilianst.lightweights.execution.dto.TrainingExecutionDto;
+import com.maksymilianst.lightweights.execution.dto.TrainingExecutionPreviewDto;
 import com.maksymilianst.lightweights.user.User;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 
 public interface TrainingExecutionService {
 
-    List<TrainingExecutionDto> getAllForUser(User user);
+    List<TrainingExecutionPreviewDto> getAllForUser(User user);
 
     TrainingExecutionDto getById(Integer trainingExecutionId);
 
