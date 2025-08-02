@@ -1,0 +1,15 @@
+app:
+  frontend-url: ${FRONTEND_URL:http://localhost:4200}
+
+security:
+  jwt:
+    secret-key: 55dc31ac577f43b3776f6fc48fd5ab4771eba1648113134a047b1cea0a03ffa1
+
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:light-weights}
+    username: ${DB_USER:dbuser}
+    password: ${DB_PASSWORD:passwd}
+
+  jpa:
+    show-sql: true

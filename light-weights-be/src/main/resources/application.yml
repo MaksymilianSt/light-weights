@@ -1,19 +1,20 @@
 app:
-  frontend-url: ${FRONTEND_URL:http://localhost:4200}
+  frontend-url: ${FRONTEND_URL}
+
+security:
+  jwt:
+    secret-key: ${JWT_SECRET}
 
 spring:
+  profiles.active: ${SPRING_PROFILES_ACTIVE:dev}
   application:
     name: light-weights
   datasource:
-    url: jdbc:postgresql://localhost:5432/light-weights
-    username: dbuser
-    password: passwd
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
       ddl-auto: validate
-    show-sql: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -23,4 +24,4 @@ spring:
     change-log: classpath:/db/changelog/db.changelog-master.yaml
 
   server:
-    port: 8080
+    port: ${PORT:8080}
