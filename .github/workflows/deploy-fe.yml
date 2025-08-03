@@ -1,0 +1,40 @@
+name: Deploy Angular FE to S3
+
+on:
+  push:
+    branches:
+      - release
+    paths:
+      - 'light-weights-fe/**'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          cd light-weights-fe
+          npm ci
+
+      - name: Build Angular prod
+        run: |
+          cd light-weights-fe
+          npm run build -- --configuration production
+
+      - name: Deploy to S3
+        env:
+          AWS_REGION: eu-north-1
+          AWS_S3_BUCKET: light-weights
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 sync light-weights-fe/dist/light-weights-fe/browser/ s3://$AWS_S3_BUCKET --delete
