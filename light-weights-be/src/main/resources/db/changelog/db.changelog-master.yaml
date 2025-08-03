@@ -71,3 +71,11 @@ databaseChangeLog:
             path: ../sql/v_9_add_executed_at_columns.sql
             relativeToChangelogFile: true
 
+  - changeSet:
+      id: 10
+      author: maksymilianst
+      changes:
+        - sqlFile:
+            path: ../sql/v_10_add_plan_categories.sql
+            relativeToChangelogFile: true
+

@@ -81,6 +81,7 @@ public class TrainingPlanServiceImpl implements TrainingPlanService {
     public List<String> getCategories() {
         return planCategoryRepository.findAll().stream()
                 .map(PlanCategory::getName)
+                .sorted()
                 .toList();
     }
 
