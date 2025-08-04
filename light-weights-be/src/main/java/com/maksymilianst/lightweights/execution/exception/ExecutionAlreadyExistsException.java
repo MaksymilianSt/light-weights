@@ -6,6 +6,7 @@ public class ExecutionAlreadyExistsException extends TrainingExecutionException 
     public ExecutionAlreadyExistsException() {
         super(DEFAULT_MESSAGE);
     }
+
     public ExecutionAlreadyExistsException(String message) {
         super(message);
     }
