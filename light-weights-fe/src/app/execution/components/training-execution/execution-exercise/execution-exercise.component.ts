@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {TrainingExerciseExecution} from '../../../models/training-exercise-execution.model';
 import {AutosizeModule} from 'ngx-autosize';
 import {NgClass, NgForOf, NgIf} from '@angular/common';
@@ -33,6 +33,8 @@ export class ExecutionExerciseComponent implements OnInit, OnDestroy {
   @Input() exercise!: TrainingExerciseExecution;
   @Input() editMode = false;
 
+  @Output() updateExerciseInList = new EventEmitter<TrainingExerciseExecution>();
+
   exerciseExecutionForm!: FormGroup;
   formChangesSub?: Subscription;
   afterSave: boolean = false;
@@ -42,6 +44,7 @@ export class ExecutionExerciseComponent implements OnInit, OnDestroy {
 
   avgBreakTime: string = '00:00';
   _avgBreakTimeSub?: Subscription;
+
 
   constructor(
     private fb: FormBuilder,
@@ -118,6 +121,7 @@ export class ExecutionExerciseComponent implements OnInit, OnDestroy {
       this.initForm();
       this.setAfterSaveIcon();
       this.setUpTimes()
+      this.updateExerciseInList.emit(this.exercise);
     })
   }
 
