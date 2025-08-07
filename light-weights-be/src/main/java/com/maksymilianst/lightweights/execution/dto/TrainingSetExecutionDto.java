@@ -18,7 +18,7 @@ public class TrainingSetExecutionDto {
     @NotNull
     private Integer repetitions;
 
-    @DecimalMin(value = "1.0", message = "Weight must be at least 1")
+    @DecimalMin(value = "0")
     @DecimalMax(value = "9999.99", message = "Weight must be at most 9999.99")
     private BigDecimal weight;
 
