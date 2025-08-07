@@ -71,7 +71,7 @@ export class ExerciseComponent implements OnInit {
       id: [set.id],
       sequence: [set.sequence, [Validators.required, Validators.min(0)]],
       repetitions: [set.repetitions, [Validators.required, Validators.min(1)]],
-      weight: [set.weight, [Validators.required, Validators.min(1), Validators.max(9999)]],
+      weight: [set.weight, [Validators.required, Validators.min(0), Validators.max(9999)]],
       tempo: [set.tempo, Validators.maxLength(7)]
     });
   }
