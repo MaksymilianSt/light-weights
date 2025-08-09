@@ -11,6 +11,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "training_plan")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue("PLAN")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -44,7 +47,7 @@ public class TrainingPlan {
     private Set<Exercise> exercises = new HashSet<>();
 
     @ManyToOne()
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, orphanRemoval = true)
