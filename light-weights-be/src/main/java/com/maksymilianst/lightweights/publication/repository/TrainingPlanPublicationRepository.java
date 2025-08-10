@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TrainingPlanPublicationRepository extends JpaRepository<TrainingPlanPublication, Integer> {
+
+    Boolean existsByIdAndAuthorId(Integer id, Integer authorId);
 }

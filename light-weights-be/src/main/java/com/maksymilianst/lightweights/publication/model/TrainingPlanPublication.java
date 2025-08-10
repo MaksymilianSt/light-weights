@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,5 +25,15 @@ public class TrainingPlanPublication extends TrainingPlan {
 
     public LocalDateTime getPublicationDate() {
         return getAuditInfo().getCreatedAt();
+    }
+
+    @PrePersist
+    public void prePersist() {
+        super.auditInfo.setCreatedAt(LocalDateTime.now(Clock.systemUTC()));
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        super.auditInfo.setCreatedAt(LocalDateTime.now(Clock.systemUTC()));
     }
 }

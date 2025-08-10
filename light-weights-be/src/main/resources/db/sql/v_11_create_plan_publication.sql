@@ -1,0 +1,6 @@
+ALTER TABLE training_plan
+    ADD COLUMN dtype VARCHAR(16) NOT NULL DEFAULT 'PLAN';
+
+ALTER TABLE training_plan
+    ADD COLUMN author_id INT REFERENCES app_user (id) ON DELETE CASCADE;
+
