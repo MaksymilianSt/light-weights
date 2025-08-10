@@ -79,3 +79,11 @@ databaseChangeLog:
             path: ../sql/v_10_add_plan_categories.sql
             relativeToChangelogFile: true
 
+  - changeSet:
+      id: 11
+      author: maksymilianst
+      changes:
+        - sqlFile:
+            path: ../sql/v_11_create_plan_publication.sql
+            relativeToChangelogFile: true
+

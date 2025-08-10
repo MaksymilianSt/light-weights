@@ -21,6 +21,7 @@ public class TrainingPlanPublicationDto {
     private String difficultyLvl;
     private String goal;
     private LocalDateTime publishedAt;
+    private String authorEmail;
     @Valid
     private List<TrainingPublicationDto> trainings;
 }
