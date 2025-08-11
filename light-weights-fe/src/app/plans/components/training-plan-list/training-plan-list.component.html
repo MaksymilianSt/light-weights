@@ -88,8 +88,8 @@
             <li>
               <a
                 class="dropdown-item"
-                [routerLink]="['']"
-              > <!--todo: nav to published-->
+                (click)="onPublishPlan(plan.id)"
+              >
                 publish
               </a>
             </li>
