@@ -10,6 +10,10 @@ import org.hibernate.annotations.Where;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Entity
 @DiscriminatorValue("PUBLICATION")
@@ -22,6 +26,21 @@ public class TrainingPlanPublication extends TrainingPlan {
     @ManyToOne()
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
+
+    @OneToMany(mappedBy = "planPublication")
+    private Set<TrainingPlanPublicationDownload> downloads = new HashSet<>();
+
+    public Set<TrainingPlanPublicationDownload> getUserUniqueDownloads() {
+        return new HashSet<>(
+                downloads.stream()
+                        .collect(Collectors.toMap(
+                                download -> download.getUser().getId(),
+                                Function.identity(),
+                                (existing, replacement) -> existing
+                        ))
+                        .values()
+        );
+    }
 
     public LocalDateTime getPublicationDate() {
         return getAuditInfo().getCreatedAt();

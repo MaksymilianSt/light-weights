@@ -8,11 +8,15 @@ import com.maksymilianst.lightweights.publication.dto.PlanScale;
 import com.maksymilianst.lightweights.publication.dto.TrainingPlanPublicationDto;
 import com.maksymilianst.lightweights.publication.mapper.TrainingPlanPublicationMapper;
 import com.maksymilianst.lightweights.publication.model.TrainingPlanPublication;
+import com.maksymilianst.lightweights.publication.model.TrainingPlanPublicationDownload;
+import com.maksymilianst.lightweights.publication.repository.TrainingPlanPublicationDownloadRepository;
 import com.maksymilianst.lightweights.publication.repository.TrainingPlanPublicationRepository;
 import com.maksymilianst.lightweights.publication.service.CopyPlanService;
 import com.maksymilianst.lightweights.publication.service.PlanPublicationService;
+import com.maksymilianst.lightweights.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +27,7 @@ import java.util.List;
 public class PlanPublicationServiceImpl implements PlanPublicationService {
     private final TrainingPlanRepository planRepository;
     private final TrainingPlanPublicationRepository publicationRepository;
+    private final TrainingPlanPublicationDownloadRepository downloadRepository;
     private final CopyPlanService copyPlanService;
     private final TrainingPlanPublicationMapper planPublicationMapper;
     private final TrainingPlanMapper trainingPlanMapper;
@@ -62,6 +67,7 @@ public class PlanPublicationServiceImpl implements PlanPublicationService {
 
         TrainingPlan plan = copyPlanService.fromPublication(sourcePublication, scale);
         plan = planRepository.save(plan);
+        logDownload(sourcePublication);
 
         return trainingPlanMapper.toDto(plan);
     }
@@ -70,5 +76,16 @@ public class PlanPublicationServiceImpl implements PlanPublicationService {
     public void deletePublishedPlan(Integer planPublicationId) {
         log.info("Deleting published plan: {}", planPublicationId);
         publicationRepository.deleteById(planPublicationId);
+    }
+
+    private void logDownload(TrainingPlanPublication publication) {
+        var download = new TrainingPlanPublicationDownload();
+
+        download.setPlanPublication(publication);
+        download.setUser(
+                (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()
+        );
+
+        downloadRepository.save(download);
     }
 }
