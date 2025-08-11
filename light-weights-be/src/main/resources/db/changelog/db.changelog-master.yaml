@@ -87,3 +87,10 @@ databaseChangeLog:
             path: ../sql/v_11_create_plan_publication.sql
             relativeToChangelogFile: true
 
+  - changeSet:
+      id: 12
+      author: maksymilianst
+      changes:
+        - sqlFile:
+            path: ../sql/v_12_create_plan_publication_download_log.sql
+            relativeToChangelogFile: true
