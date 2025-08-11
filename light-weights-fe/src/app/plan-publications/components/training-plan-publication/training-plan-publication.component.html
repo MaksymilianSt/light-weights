@@ -1,0 +1,144 @@
+<div class="container">
+
+  <div class="d-flex justify-content-center">
+    <p class="header ">{{ this.planPublication.name }}</p>
+  </div>
+  <p class="text-center mb-3">publication</p>
+
+  <div class="text-end">
+    <button
+      class="btn btn-outline-light"
+      (click)="onDownloadPlan()"
+    >
+      download plan
+    </button>
+  </div>
+
+  <div
+    class="text-end mt-4 pe-3"
+    *ngIf="planPublication.authorEmail === user?.email"
+  >
+    <button
+      class="btn btn-danger"
+      (click)="onDelete()"
+    >
+      delete
+    </button>
+  </div>
+
+  <p class="h3 mt-2 mt-md-5">details</p>
+
+  <div class="row mt-1 mx-1 base">
+
+    <div class="row col-12 col-sm-6">
+
+      <div class="col-12 me-3 mt-2 col-sm-6 text-center">
+        <strong>author</strong>
+        <div>
+          <input class="input-group-text w-100 mt-1"
+                 [disabled]="true"
+                 [value]="planPublication.authorEmail"
+          >
+        </div>
+      </div>
+
+      <div class="col-12 me-3 mt-2 col-sm-5 text-center">
+        <strong>publish date</strong>
+        <div>
+          <p class="input-group-text  justify-content-center w-100 mt-1">
+            {{ planPublication.publishedAt | date: 'yyyy-MM-dd' }}
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="row col-12 col-sm-6 ms-sm-3">
+
+      <div class="col-12 me-3 mt-2 col-sm-5 text-center">
+        <strong>category</strong>
+        <div>
+          <input class="input-group-text w-100 mt-1"
+                 [disabled]="true"
+                 [value]="planPublication.category"
+          >
+        </div>
+      </div>
+
+      <div class="col-12 me-3 mt-2 col-sm-5 text-center">
+        <strong>difficulty level</strong>
+        <div>
+          <input class="input-group-text w-100 mt-1"
+                 [disabled]="true"
+                 [value]="planPublication.difficultyLvl"
+          >
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="col-12 mt-3">
+      <strong>goal</strong>
+      <input
+        class="input-group-text w-100 mt-1"
+        [readonly]="true"
+        [value]="planPublication.goal"
+      >
+    </div>
+
+    <div class="col-12 mt-4">
+      <strong>description</strong>
+      <textarea autosize
+                class="form-control w-100 mt-1 p-2 p-sm-3"
+                [readonly]="true"
+                [value]="planPublication.description"
+      ></textarea>
+    </div>
+
+  </div>
+
+  <br/>
+
+  <div class="base mt-2 row scale mx-auto ">
+    <p class="text-center h5 mb-3">scale</p>
+    <hr/>
+
+    <div class="col-6 d-flex flex-column align-items-center">
+      <p>weight</p>
+      <input
+        type="range"
+        min="0.15"
+        max="3"
+        step="0.05"
+        [(ngModel)]="scale.weightScale"
+        class="form-range"
+      >
+      <span>{{ (scale.weightScale * 100).toFixed(0) }}%</span>
+    </div>
+
+    <div class="col-6 d-flex flex-column align-items-center">
+      <p>start date</p>
+      <input
+        class="input-group-text"
+        type="date"
+        [(ngModel)]="scale.planStartDate"
+        (ngModelChange)="scale.dayOffSet = calculateDayOffSet()"
+      >
+    </div>
+  </div>
+
+  <br>
+
+  <strong class="h4">trainings</strong>
+  <div class="base">
+    <div *ngFor="let training of planPublication.trainings">
+      <app-training-publication
+        [training]="training"
+        [scale]="scale"
+      />
+    </div>
+  </div>
+
+</div>

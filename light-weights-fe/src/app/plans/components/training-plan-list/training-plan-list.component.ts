@@ -2,8 +2,9 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {TrainingPlanListModel} from '../../models/training-plan-list.model';
 import {NgForOf, NgIf} from '@angular/common';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {PlanService} from '../../services/plan-service';
+import {PlanPublicationService} from '../../../plan-publications/services/plan-publication-service';
 
 @Component({
   selector: 'app-training-plan-list',
@@ -25,7 +26,9 @@ export class TrainingPlanListComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private planService: PlanService
+    private router: Router,
+    private planService: PlanService,
+    private planPublicationService: PlanPublicationService
     ) {
   }
 
@@ -57,6 +60,12 @@ export class TrainingPlanListComponent implements OnInit {
     }
   }
 
+  onPublishPlan(planId: number) {
+    this.planPublicationService.publishPlan(planId).subscribe(planPublication => {
+      this.router.navigate(['/plan-publications', planPublication.id])
+    })
+  }
+
   private fetchPlans() {
     this.planList = this.route.snapshot.data['plans'];
     this.filteredPlanList = this.planList;
@@ -70,5 +79,6 @@ export class TrainingPlanListComponent implements OnInit {
   private isMobile(): boolean {
     return window.innerWidth <= 768
   }
+
 
 }

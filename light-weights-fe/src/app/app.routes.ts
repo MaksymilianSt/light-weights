@@ -8,6 +8,7 @@ import {TrainingResolver} from './plans/resolvers/training.resolver';
 import {BlockResolver} from './plans/resolvers/block.resolver';
 import {TrainingExecutionResolver} from './execution/resolvers/training-execution.resolver';
 import {TrainingExecutionPreviewResolver} from './execution/resolvers/training-execution-preview.resolver';
+import {PlanPublicationResolver} from './plan-publications/resolvers/plan-publication.resolver';
 
 export const routes: Routes = [
   {
@@ -94,6 +95,16 @@ export const routes: Routes = [
           ),
         resolve: {
           trainingExecution: TrainingExecutionResolver,
+        }
+      },
+      {
+        path: 'plan-publications/:planPublicationId',
+        loadComponent: () =>
+          import('./plan-publications/components/training-plan-publication/training-plan-publication.component').then(
+            (m) => m.TrainingPlanPublicationComponent
+          ),
+        resolve: {
+          trainingPlanPublication: PlanPublicationResolver,
         }
       },
     ]

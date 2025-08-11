@@ -1,0 +1,56 @@
+<div
+  class=" p-2 rounded d-flex justify-content-center align-items-center expand-btn mt-3"
+  role="button"
+  data-bs-toggle="collapse"
+  [attr.data-bs-target]="'#training' + training.id"
+  aria-expanded="false"
+  [attr.aria-controls]="'#training' + training.id"
+>
+  <strong class="justify-content-center">{{ training.name }}</strong>
+</div>
+
+<div
+  class="mt-2 expand-item collapse"
+  [attr.id]="'training' + training?.id"
+>
+
+  <div class="row mx-1">
+
+    <div class="col-6">
+      <strong>date</strong>
+      <p class="input-group-text justify-content-center">
+        {{ getTrainingDate() | date: 'yyyy-MM-dd' }}
+      </p>
+    </div>
+
+    <div class="col-6">
+      <strong>block</strong>
+      <p class="input-group-text justify-content-center">
+        {{ training.blockName }}
+      </p>
+    </div>
+
+    <div>
+      <strong>description</strong>
+      <p
+        autosize
+        class="input-group-text w-100 justify-content-center"
+      >
+        {{ training.description }}
+      </p>
+    </div>
+
+  </div>
+
+  <strong class="h5 mt-3 ms-3">exercises</strong>
+  <hr>
+
+  <div *ngFor="let exercise of training.exercises" class="mt-3">
+    <app-exercise-publication
+      [exercise]="exercise"
+      [scale]="scale"
+    />
+  </div>
+
+  <br>
+</div>
