@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.Comparator;
 
 
-@Mapper(componentModel = "spring", uses = TrainingPublicationMapper.class)
+@Mapper(componentModel = "spring", uses = {TrainingPublicationMapper.class, TrainingPlanPublicationOpinionMapper.class})
 public interface TrainingPlanPublicationPreviewMapper {
 
     @Mapping(source = "publicationDate", target = "publishedAt")

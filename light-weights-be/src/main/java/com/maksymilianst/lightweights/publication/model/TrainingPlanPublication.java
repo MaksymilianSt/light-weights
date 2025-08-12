@@ -28,6 +28,9 @@ public class TrainingPlanPublication extends TrainingPlan {
     private User author;
 
     @OneToMany(mappedBy = "planPublication")
+    private Set<TrainingPlanPublicationOpinion> opinions = new HashSet<>();
+
+    @OneToMany(mappedBy = "planPublication")
     private Set<TrainingPlanPublicationDownload> downloads = new HashSet<>();
 
     public Set<TrainingPlanPublicationDownload> getUserUniqueDownloads() {
