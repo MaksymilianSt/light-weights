@@ -1,8 +1,8 @@
 import {Component, Input} from '@angular/core';
-import {Exercise} from '../../../../plans/models/exercise.model';
+import {Exercise} from '../../../../../plans/models/exercise.model';
 import {NgForOf, NgIf} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {PlanScale} from '../../../models/plan-scale.model';
+import {PlanScale} from '../../../../models/plan-scale.model';
 
 @Component({
   selector: 'app-exercise-publication',

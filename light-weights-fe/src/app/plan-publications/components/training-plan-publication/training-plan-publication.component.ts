@@ -7,7 +7,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {PlanScale} from '../../models/plan-scale.model';
 import {PlanPublicationService} from '../../services/plan-publication-service';
-import {TrainingPublicationComponent} from '../training-publication/training-publication.component';
+import {TrainingPublicationComponent} from './training-publication/training-publication.component';
 import {AuthService} from '../../../auth/services/auth.service';
 import {User} from '../../../auth/models/user-model';
 

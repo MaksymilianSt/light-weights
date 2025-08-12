@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <p class="header mb-1 mb-sm-5">Plan publications</p>
+  </div>
+
+  <div class="container mt-5">
+
+    <div class="row mb-4">
+
+      <div class="d-flex justify-content-center mb-3">
+        <input
+          type="search"
+          class="input-group-text search-input"
+          placeholder="search plans"
+          [(ngModel)]="searchText"
+          (input)="filterPlans()"
+        >
+        <button
+          class="bg-transparent border-0 text-white ms-1 ms-md-3"
+          (click)="filterPlans()"
+        >
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+
+      <hr/>
+
+      <div class="row mx-0 mt-2 mx-lg-1">
+        <div
+          *ngFor="let plan of filteredPlanPublications"
+          class="col-12 mt-2"
+        >
+        <app-plan-publication-preview
+        [planPublication]="plan"
+        />
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

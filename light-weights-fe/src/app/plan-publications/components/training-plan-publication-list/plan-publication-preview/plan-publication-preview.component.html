@@ -1,0 +1,83 @@
+<div
+  class=" p-2 rounded d-flex justify-content-center align-items-center expand-list-btn mt-3"
+  role="button"
+  data-bs-toggle="collapse"
+  [attr.data-bs-target]="'#planPublication' + planPublication.id"
+  aria-expanded="false"
+  [attr.aria-controls]="'#planPublication' + planPublication.id"
+>
+  <strong>{{ planPublication.name }}</strong>
+</div>
+
+<div
+  class="mt-2 expand-list-item collapse"
+  [attr.id]="'planPublication' + planPublication?.id"
+>
+
+  <div class="row">
+
+    <div class="col-sm-4 text-center">
+      <strong>author</strong>
+      <p class="input-group-text justify-content-center">{{ planPublication.authorEmail }}</p>
+    </div>
+
+    <div class="col-sm-4 px-sm-3 text-center">
+      <strong>publication date</strong>
+      <p class="input-group-text justify-content-center">{{ planPublication.publishedAt | date: 'yyyy-MM-dd' }}</p>
+    </div>
+
+    <div class="col-sm-4 px-sm-3 text-center">
+      <strong>downloads</strong>
+      <p class="input-group-text justify-content-center">{{ planPublication.downloads }}</p>
+    </div>
+
+  </div>
+
+  <hr>
+
+  <div class="row">
+
+    <div class="col-sm-4 text-center">
+      <strong>category</strong>
+      <p class="input-group-text justify-content-center">{{ planPublication.category }}</p>
+    </div>
+
+    <div class="col-sm-4 px-sm-3 text-center">
+      <strong>difficulty lvl</strong>
+      <p class="input-group-text justify-content-center">{{ planPublication.difficultyLvl.toLowerCase() }}</p>
+    </div>
+
+    <div class="col-sm-4 px-sm-3 text-center">
+      <strong>weeks</strong>
+      <p class="input-group-text justify-content-center">
+        {{ calculateWeeks(planPublication.start, planPublication.end) }}
+      </p>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-12 text-center">
+      <strong>goal</strong>
+      <p class="input-group-text justify-content-center">{{ planPublication.goal }}</p>
+    </div>
+
+  </div>
+
+
+  <div class="row justify-content-end mt-2">
+    <div class="col-10 me-2 text-end">
+      <button
+        class="btn btn-outline-light btn-width"
+        [routerLink]="[planPublication.id]"
+      >
+        details
+      </button>
+    </div>
+
+  </div>
+
+  <h5 class="mx-2"><strong> opinions </strong></h5>
+  <hr>
+</div>
