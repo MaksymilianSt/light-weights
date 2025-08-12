@@ -6,7 +6,9 @@ import com.maksymilianst.lightweights.plan.model.TrainingPlan;
 import com.maksymilianst.lightweights.plan.repository.TrainingPlanRepository;
 import com.maksymilianst.lightweights.publication.dto.PlanScale;
 import com.maksymilianst.lightweights.publication.dto.TrainingPlanPublicationDto;
+import com.maksymilianst.lightweights.publication.dto.TrainingPlanPublicationPreviewDto;
 import com.maksymilianst.lightweights.publication.mapper.TrainingPlanPublicationMapper;
+import com.maksymilianst.lightweights.publication.mapper.TrainingPlanPublicationPreviewMapper;
 import com.maksymilianst.lightweights.publication.model.TrainingPlanPublication;
 import com.maksymilianst.lightweights.publication.model.TrainingPlanPublicationDownload;
 import com.maksymilianst.lightweights.publication.repository.TrainingPlanPublicationDownloadRepository;
@@ -31,6 +33,7 @@ public class PlanPublicationServiceImpl implements PlanPublicationService {
     private final CopyPlanService copyPlanService;
     private final TrainingPlanPublicationMapper planPublicationMapper;
     private final TrainingPlanMapper trainingPlanMapper;
+    private final TrainingPlanPublicationPreviewMapper planPublicationPreviewMapper;
 
     @Override
     public TrainingPlanPublicationDto getById(Integer publicationId) {
@@ -40,9 +43,9 @@ public class PlanPublicationServiceImpl implements PlanPublicationService {
     }
 
     @Override
-    public List<TrainingPlanPublicationDto> getAll() {
+    public List<TrainingPlanPublicationPreviewDto> getAll() {
         return publicationRepository.findAll().stream()
-                .map(planPublicationMapper::toDto)
+                .map(planPublicationPreviewMapper::toDto)
                 .toList();
     }
 

@@ -5,6 +5,7 @@ import {environment} from '../../../../environment';
 import {TrainingPlanPublication} from '../models/training-plan-publication.model';
 import {TrainingPlan} from '../../plans/models/training-plan.model';
 import {PlanScale} from '../models/plan-scale.model';
+import {TrainingPlanPublicationPreview} from '../models/training-plan-publication-preview.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,9 +16,9 @@ export class PlanPublicationService {
   constructor(private http: HttpClient) {
   }
 
-  // getPlanPublicationPreviews(): Observable<TrainingPlanListModel[]> {
-  //   return this.http.get<TrainingPlanListModel[]>(`${this.API_URL}/plans`)
-  // }
+  getPlanPublicationPreviews(): Observable<TrainingPlanPublicationPreview[]> {
+    return this.http.get<TrainingPlanPublicationPreview[]>(`${this.URL}`)
+  }
 
   getPlanPublicationById(id: number): Observable<TrainingPlanPublication> {
     return this.http.get<TrainingPlanPublication>(`${this.URL}/${id}`)

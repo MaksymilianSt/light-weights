@@ -1,0 +1,32 @@
+.expand-list-btn {
+  background-color: #ecedf3;
+  color: #1a1c2d;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.expand-list-btn:hover {
+  background-color: #c1c5d3;
+}
+
+.expand-list-item {
+  background-color: #ecedf3;
+  color: #1a1c2d;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  border-radius: 10px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+@media (min-width: 900px) {
+  .expand-list-item {
+    padding: 2%;
+  }
+}
+
+.btn-width {
+  width: 50%;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+@media (min-width: 900px) {
+  .btn-width {
+    width: 25%;
+  }
+}

@@ -4,6 +4,7 @@ import com.maksymilianst.lightweights.plan.controller.TrainingPlanController;
 import com.maksymilianst.lightweights.plan.dto.TrainingPlanDto;
 import com.maksymilianst.lightweights.publication.dto.PlanScale;
 import com.maksymilianst.lightweights.publication.dto.TrainingPlanPublicationDto;
+import com.maksymilianst.lightweights.publication.dto.TrainingPlanPublicationPreviewDto;
 import com.maksymilianst.lightweights.publication.service.PlanPublicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(TrainingPlanPublicationController.URL)
@@ -19,10 +21,10 @@ public class TrainingPlanPublicationController {
     public final static String URL = "/api/plan-publication";
     private final PlanPublicationService planPublicationService;
 
-    //    @GetMapping todo preview
-//    public ResponseEntity<List<TrainingPlanPublicationDto>> getAllPublications() {
-//        return ResponseEntity.ok(planPublicationService.getAll());
-//    }
+    @GetMapping
+    public ResponseEntity<List<TrainingPlanPublicationPreviewDto>> getAllPublications() {
+        return ResponseEntity.ok(planPublicationService.getAll());
+    }
 
     @GetMapping("/{publicationId}")
     public ResponseEntity<TrainingPlanPublicationDto> getById(@PathVariable Integer publicationId) {

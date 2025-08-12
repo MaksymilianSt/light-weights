@@ -1,10 +1,10 @@
 import {Component, Input} from '@angular/core';
-import {Training} from '../../../plans/models/training.model';
+import {Training} from '../../../../plans/models/training.model';
 import {AutosizeModule} from 'ngx-autosize';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DatePipe, NgForOf} from '@angular/common';
 import {ExercisePublicationComponent} from './exercise-publication/exercise-publication.component';
-import {PlanScale} from '../../models/plan-scale.model';
+import {PlanScale} from '../../../models/plan-scale.model';
 
 @Component({
   selector: 'app-training-publication',
@@ -30,4 +30,5 @@ export class TrainingPublicationComponent {
 
     return date.toString();
   }
+
 }
