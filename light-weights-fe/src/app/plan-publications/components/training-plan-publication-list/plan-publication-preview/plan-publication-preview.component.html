@@ -80,4 +80,10 @@
 
   <h5 class="mx-2"><strong> opinions </strong></h5>
   <hr>
+  <app-opinions
+    [opinions]="planPublication.opinions"
+    [planPublicationId]="planPublication.id"
+    (addNewOpinion)="addNewOpinion($event)"
+  />
+
 </div>

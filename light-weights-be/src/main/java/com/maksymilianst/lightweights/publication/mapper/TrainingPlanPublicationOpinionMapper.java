@@ -19,7 +19,9 @@ public interface TrainingPlanPublicationOpinionMapper {
     default List<TrainingPlanPublicationOpinionDto> toDtos(Collection<TrainingPlanPublicationOpinion> opinions) {
         return opinions.stream()
                 .map(this::toDto)
-                .sorted(Comparator.comparing(TrainingPlanPublicationOpinionDto::getCreationTime))
+                .sorted(
+                        Comparator.comparing(TrainingPlanPublicationOpinionDto::getCreationTime).reversed()
+                )
                 .toList();
     }
 }
