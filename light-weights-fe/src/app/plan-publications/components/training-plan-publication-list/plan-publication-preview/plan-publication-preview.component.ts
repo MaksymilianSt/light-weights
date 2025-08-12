@@ -2,12 +2,15 @@ import {Component, Input} from '@angular/core';
 import {TrainingPlanPublicationPreview} from '../../../models/training-plan-publication-preview.model';
 import {DatePipe} from '@angular/common';
 import {RouterLink} from '@angular/router';
+import {OpinionsComponent} from './opinions/opinions.component';
+import {PlanOpinion} from '../../../models/plan-opinion.model';
 
 @Component({
   selector: 'app-plan-publication-preview',
   imports: [
     DatePipe,
-    RouterLink
+    RouterLink,
+    OpinionsComponent
   ],
   templateUrl: './plan-publication-preview.component.html',
   standalone: true,
@@ -28,5 +31,9 @@ export class PlanPublicationPreviewComponent {
     const oneWeekInMs = 7 * 24 * 60 * 60 * 1000;
 
     return Math.ceil(diffInMs / oneWeekInMs);
+  }
+
+  addNewOpinion(newOpinion: PlanOpinion) {
+    this.planPublication.opinions.unshift(newOpinion);
   }
 }

@@ -1,3 +1,5 @@
+import {PlanOpinion} from './plan-opinion.model';
+
 export interface TrainingPlanPublicationPreview {
   id: number,
   name: string,
@@ -9,4 +11,5 @@ export interface TrainingPlanPublicationPreview {
   downloads: string
   start: string
   end: string
+  opinions: PlanOpinion[];
 }

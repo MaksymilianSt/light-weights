@@ -1,0 +1,42 @@
+<form class="row" #form="ngForm" (ngSubmit)="onNewOpinion(form)">
+  <div class="col-7 col-sm-10">
+    <input
+      name="newOpinion"
+      [(ngModel)]="newOpinion"
+      class="form-control"
+      required
+    >
+  </div>
+
+  <div class="col-5 col-sm-2">
+    <button
+      class="btn btn-outline-light"
+      type="submit"
+      [ngClass]="{'bg-secondary' : form.invalid}"
+      [disabled]="form.invalid"
+    >
+      add opinion
+    </button>
+  </div>
+</form>
+
+<hr class="w-75 mx-auto">
+
+<div
+  class="row align-items-start mb-2 mt-3"
+  *ngFor="let opinion of opinions"
+>
+
+  <div class="col-12 px-4 px-sm-2 col-md-3 d-flex flex-md-column justify-content-between small text-center">
+    <span>{{ opinion.creationTime | date: 'yyyy-MM-dd HH:mm' }}</span>
+    <span class="text-truncate">{{ opinion.userEmail }}</span>
+  </div>
+
+  <div class="col-12 col-md-9">
+    <div class="p-2 border rounded bg-light text-center">
+      {{ opinion.content }}
+    </div>
+
+  </div>
+
+</div>
