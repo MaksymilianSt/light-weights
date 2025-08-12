@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -17,7 +18,7 @@ public class TrainingPlanPublicationPreviewDto {
     private LocalDateTime publishedAt;
     private String authorEmail;
     private Integer downloads;
-
     private LocalDate start;
     private LocalDate end;
+    private List<TrainingPlanPublicationOpinionDto> opinions;
 }

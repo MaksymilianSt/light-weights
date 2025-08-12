@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -46,6 +47,7 @@ public class PlanPublicationServiceImpl implements PlanPublicationService {
     public List<TrainingPlanPublicationPreviewDto> getAll() {
         return publicationRepository.findAll().stream()
                 .map(planPublicationPreviewMapper::toDto)
+                .sorted(Comparator.comparingInt(TrainingPlanPublicationPreviewDto::getDownloads))
                 .toList();
     }
 
