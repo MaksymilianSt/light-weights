@@ -102,3 +102,11 @@ databaseChangeLog:
         - sqlFile:
             path: ../sql/v_13_create_plan_publication_opinion.sql
             relativeToChangelogFile: true
+
+  - changeSet:
+      id: 14
+      author: maksymilianst
+      changes:
+        - sqlFile:
+            path: ../sql/v_14_create_todo_table.sql
+            relativeToChangelogFile: true
