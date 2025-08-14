@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class TrainingExecutionServiceImpl implements TrainingExecutionService {
-    private final static BigDecimal DEFAULT_RPE = BigDecimal.valueOf(5);
+    private final static BigDecimal DEFAULT_RPE = BigDecimal.valueOf(8);
 
     private final TrainingExecutionRepository trainingExecutionRepository;
     private final TrainingRepository trainingRepository;
