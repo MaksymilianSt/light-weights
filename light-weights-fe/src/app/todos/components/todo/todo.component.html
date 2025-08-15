@@ -40,7 +40,6 @@
       type="submit"
       [ngClass]="{'bg-secondary': !todoForm.dirty && !createMode}"
       [disabled]="!todoForm.dirty && !createMode"
-      (click)="onSave()"
     >
       {{ this.createMode ? 'create' : 'save' }}
     </button>

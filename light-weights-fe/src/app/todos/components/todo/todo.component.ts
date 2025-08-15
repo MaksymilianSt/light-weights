@@ -60,15 +60,15 @@ export class TodoComponent implements OnInit {
     } as Todo;
 
     if (this.createMode) {
-      this.todoService.create(toSave).subscribe(createTodo => {
-        this.todo = createTodo;
+      this.todoService.create(toSave).subscribe(createdTodo => {
+        this.todo = createdTodo;
         this.createMode = false;
         this.initForm();
         this.addNewTodo.emit(this.todo);
       })
     } else {
-      this.todoService.update(toSave).subscribe(updateTodo => {
-        this.todo = updateTodo;
+      this.todoService.update(toSave).subscribe(updatedTodo => {
+        this.todo = updatedTodo;
         this.initForm();
         this.updateInList.emit(this.todo);
       })
