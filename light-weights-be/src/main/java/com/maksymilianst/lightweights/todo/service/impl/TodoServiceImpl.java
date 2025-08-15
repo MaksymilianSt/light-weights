@@ -21,9 +21,7 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public List<TodoDto> getAllForUser(User user) {
-        return todoRepository.findAllByUserId(user.getId()).stream()
-                .map(todoMapper::toDto)
-                .toList();
+        return todoMapper.toDtos(todoRepository.findAllByUserId(user.getId()));
     }
 
     @Override
