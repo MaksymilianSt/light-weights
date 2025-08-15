@@ -1,0 +1,9 @@
+.search-input {
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+  .search-input {
+    width: 80%;
+  }
+}

@@ -10,6 +10,7 @@ import {TrainingExecutionResolver} from './execution/resolvers/training-executio
 import {TrainingExecutionPreviewResolver} from './execution/resolvers/training-execution-preview.resolver';
 import {PlanPublicationResolver} from './plan-publications/resolvers/plan-publication.resolver';
 import {PlanPublicationPreviewResolver} from './plan-publications/resolvers/plan-publication-preview.resolver';
+import {TodosResolver} from './todos/resolvers/todo.resolver';
 
 export const routes: Routes = [
   {
@@ -116,6 +117,16 @@ export const routes: Routes = [
           ),
         resolve: {
           trainingPlanPublication: PlanPublicationResolver,
+        }
+      },
+      {
+        path: 'todos',
+        loadComponent: () =>
+          import('./todos/components/todo-list/todo-list.component').then(
+            (m) => m.TodoListComponent
+          ),
+        resolve: {
+          todos: TodosResolver,
         }
       },
     ]

@@ -1,0 +1,10 @@
+.todo-background {
+  background-color: #ecedf3;
+  color: #1a1c2d;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.border-done {
+  border: 2px solid #86e141;
+}
