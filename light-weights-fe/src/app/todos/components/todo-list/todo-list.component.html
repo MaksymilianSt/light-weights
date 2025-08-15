@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <p class="header mb-1 mb-sm-5">Todo list</p>
+  </div>
+
+  <div class="container mt-2 mt-sm-3">
+
+    <div
+      class="text-end mb-3"
+    >
+      <button
+        class="btn btn-light new-plan-btn"
+        (click)="onNewTodo()"
+      >
+        new todo
+      </button>
+    </div>
+
+    <div class="row mb-4">
+
+      <div class="col-5 ms-3 col-sm-2 ms-sm-0">
+        <strong>done</strong>
+        <select
+          class="form-select"
+          [(ngModel)]="doneFilter"
+          (change)="filterTodos()"
+        >
+          <option value="" disabled selected>select done</option>
+          <option [ngValue]="null">all</option>
+          <option [ngValue]="true">done</option>
+          <option [ngValue]="false">undone</option>
+        </select>
+      </div>
+
+      <div class="col-5 col-sm-2">
+        <strong>priority</strong>
+        <select
+          class="form-select"
+          [(ngModel)]="priorityFilter"
+          (change)="filterTodos()"
+        >
+          <option value="" disabled selected>select priority</option>
+          <option [ngValue]="null">all</option>
+          <option *ngFor="let opt of PRIORITIES" [ngValue]="opt">{{ opt }}</option>
+        </select>
+      </div>
+
+      <div class="col-12 col-sm-8 d-flex justify-content-center h-75 mt-4">
+        <input
+          type="search"
+          class="input-group-text search-input"
+          placeholder="search"
+          [(ngModel)]="searchText"
+        >
+        <button
+          class="bg-transparent border-0 text-white ms-1 ms-md-3"
+          (click)="filterTodos()"
+        >
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <hr/>
+
+    <div *ngFor="let todo of filteredTodoList">
+      <app-todo
+        [todo]="todo"
+        (addNewTodo)="addTodo($event)"
+        (updateInList)="updateTodo($event)"
+        (removeFromList)="removeFromList($event)"
+      ></app-todo>
+    </div>
+
+  </div>
+</div>
+

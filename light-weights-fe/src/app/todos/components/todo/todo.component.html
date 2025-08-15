@@ -1,0 +1,58 @@
+<form
+  class="container todo-background mt-4 py-2"
+  [ngClass]="{'border-done': todoForm.get('done')?.value}"
+  [formGroup]="todoForm"
+  (ngSubmit)="onSave()"
+>
+
+  <div class="d-flex justify-content-end align-items-center gap-3 me-sm-4">
+
+    <div class="d-flex flex-column">
+      <strong class="form-label small mb-1">Deadline</strong>
+      <input type="date" class="form-control form-control-sm" formControlName="deadline">
+    </div>
+
+    <div class="d-flex flex-column">
+      <strong class="form-label small mb-1">Priority</strong>
+      <select class="form-select form-select-sm" formControlName="priority">
+        <option *ngFor="let opt of PRIORITIES" [ngValue]="opt">{{ opt }}</option>
+      </select>
+    </div>
+
+    <div class="d-flex flex-column align-items-center">
+      <strong class="form-label small mb-1">Done</strong>
+      <input type="checkbox" class="form-check-input" formControlName="done">
+    </div>
+
+  </div>
+
+  <div>
+    <strong class="form-label small mb-1">note</strong>
+    <textarea class="form-control" formControlName="note"></textarea>
+  </div>
+
+  <hr>
+
+  <div class="d-flex justify-content-end align-items-center gap-3 mt-2">
+
+    <button
+      class="btn btn-outline-light"
+      type="submit"
+      [ngClass]="{'bg-secondary': !todoForm.dirty && !createMode}"
+      [disabled]="!todoForm.dirty && !createMode"
+      (click)="onSave()"
+    >
+      {{ this.createMode ? 'create' : 'save' }}
+    </button>
+
+    <button
+      class="btn btn-danger"
+      type="button"
+      (click)="onDelete()"
+    >
+      {{ this.createMode ? 'cancel' : 'delete' }}
+    </button>
+
+  </div>
+
+</form>
