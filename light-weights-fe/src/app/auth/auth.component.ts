@@ -53,7 +53,7 @@ export class AuthComponent {
       password: this.authForm.get('password')?.value,
     };
 
-    this.authService.authenticate(loginPayload).subscribe(resp => {
+    this.authService.authenticate(loginPayload).subscribe(() => {
       this.errorMessage = null;
       this.router.navigate(['']);
       this.toggleLoading();
@@ -70,7 +70,7 @@ export class AuthComponent {
       password: this.authForm.get('password')?.value,
     };
 
-    this.authService.register(registerPayload).subscribe(resp => {
+    this.authService.register(registerPayload).subscribe(() => {
       this.router.navigate(['']);
       this.toggleLoading()
     }, error => {

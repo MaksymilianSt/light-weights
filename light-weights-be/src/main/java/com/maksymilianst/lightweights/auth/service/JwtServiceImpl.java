@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 
-import java.time.Duration;
 import java.util.*;
 import java.util.function.Function;
 
@@ -25,7 +24,7 @@ public class JwtServiceImpl implements JwtService{
     private String ISSUER;
     @Value("${security.jwt.audience}")
     private String AUDIENCE;
-    private final static long TOKEN_LIFE_TIME = Duration.ofHours(3).toMillis();
+
 
 
     public String generateToken(UserDetails userDetails) {

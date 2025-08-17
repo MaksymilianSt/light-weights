@@ -1,49 +1,45 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, catchError, map, Observable} from 'rxjs';
+import {BehaviorSubject, catchError, map, Observable, of, switchMap, tap} from 'rxjs';
 import {environment} from '../../../../environment';
 import {AuthenticationResponse} from '../models/authentication-response.model';
 import {RegisterRequest} from '../models/register-request.model';
 import {AuthenticationRequest} from '../models/authentication-request.model';
 import {User} from '../models/user-model';
 import {Router} from '@angular/router';
-import {JwtPayload} from '../models/jwt-payload-model';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly API_URL = `${environment.apiUrl}/auth`;
-  private readonly _local_storage_user_key = 'user';
+  private readonly AUTH_URL = `${environment.apiUrl}/auth`;
+  private readonly USER_URL = `${environment.apiUrl}/user`;
 
   private currentUserSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
   public currentUser$: Observable<User | null> = this.currentUserSubject.asObservable();
 
-  private logoutTimer: any;
 
   constructor(private http: HttpClient, private router: Router) {
-    this.autoLogin();
   }
 
-  authenticate(payload: AuthenticationRequest): Observable<AuthenticationResponse> {
+  authenticate(payload: AuthenticationRequest): Observable<User | null> {
     return this.http
-      .post<AuthenticationResponse>(`${this.API_URL}/authenticate`, payload)
+      .post<AuthenticationResponse>(`${this.AUTH_URL}/authenticate`, payload)
       .pipe(
-        map((resp: AuthenticationResponse) => this.handleAuthResponse(resp))
+        switchMap((resp: AuthenticationResponse) => this.fetchCurrentUser())
       );
   }
 
-  register(payload: RegisterRequest): Observable<AuthenticationResponse> {
+  register(payload: RegisterRequest): Observable<User | null> {
     return this.http
-      .post<AuthenticationResponse>(`${this.API_URL}/register`, payload)
+      .post<AuthenticationResponse>(`${this.AUTH_URL}/register`, payload)
       .pipe(
-        map((resp: AuthenticationResponse) => this.handleAuthResponse(resp))
+        switchMap((resp: AuthenticationResponse) => this.fetchCurrentUser())
       );
   }
 
   logout(): void {
-    localStorage.removeItem(this._local_storage_user_key);
     this.currentUserSubject.next(null);
     this.router.navigate(['auth']);
   }
@@ -56,51 +52,14 @@ export class AuthService {
     return !!this.currentUserSubject.value;
   }
 
-  private handleAuthResponse(resp: AuthenticationResponse): AuthenticationResponse {
-    const parsedTokenPayload = this.parseJwt(resp.token);
-    const user: User = {
-      email: parsedTokenPayload.sub,
-      token: resp.token
-    }
-    localStorage.setItem(this._local_storage_user_key, JSON.stringify(user));
-    this.currentUserSubject.next(user);
-    this.setAutoLogout(parsedTokenPayload.exp)
-
-    return resp;
+  fetchCurrentUser(): Observable<User | null> {
+    return this.http.get<User>(`${this.USER_URL}/me`, {withCredentials: true}).pipe(
+      tap(user => this.currentUserSubject.next(user)),
+      catchError(error => {
+        this.currentUserSubject.next(null);
+        return of(null);
+      })
+    );
   }
 
-  private autoLogin() {
-    const storedUser = localStorage.getItem(this._local_storage_user_key);
-
-    if (storedUser) {
-      const user: User = JSON.parse(storedUser);
-      const expDate = this.parseJwt(user.token).exp;
-
-      this.currentUserSubject.next(user);
-      this.setAutoLogout(expDate);
-    }
-  }
-
-  private setAutoLogout(expirationTime: number): void {
-    if (this.logoutTimer) {
-      clearTimeout(this.logoutTimer);
-    }
-
-    const currentTime = Date.now();
-    const tokenValidityTime = expirationTime * 1000 - currentTime;
-
-    if (tokenValidityTime <= 0) {
-      this.logout();
-      return;
-    }
-
-    this.logoutTimer = setTimeout(() => {
-      this.logout();
-    }, tokenValidityTime);
-  }
-
-  private parseJwt(token: string): JwtPayload {
-    const tokenPayload = token.split('.')[1];
-    return JSON.parse(atob(tokenPayload));
-  }
 }

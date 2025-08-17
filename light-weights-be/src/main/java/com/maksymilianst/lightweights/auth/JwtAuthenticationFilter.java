@@ -3,6 +3,7 @@ package com.maksymilianst.lightweights.auth;
 import com.maksymilianst.lightweights.auth.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.util.WebUtils;
 
 import java.io.IOException;
 
@@ -20,7 +22,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private static final String AUTHORIZATION_HEADER = "Authorization";
+    private static final String JWT_COOKIE = "jwt";
     private static final String BEARER_PREFIX = "Bearer ";
 
     private final JwtService jwtService;
@@ -31,14 +33,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             HttpServletRequest req, HttpServletResponse resp, FilterChain filterChain
     ) throws ServletException, IOException {
 
-        final String authHeader = req.getHeader(AUTHORIZATION_HEADER);
         final String token, userName;
 
-        if (authHeader == null || !authHeader.startsWith(BEARER_PREFIX)) {
+        Cookie jwtCookie = WebUtils.getCookie(req, JWT_COOKIE);
+        token = jwtCookie != null ? jwtCookie.getValue() : null;
+
+        if (token == null) {
             filterChain.doFilter(req, resp);
             return;
         }
-        token = authHeader.substring(BEARER_PREFIX.length());
         userName = jwtService.extractUsername(token);
 
         if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
