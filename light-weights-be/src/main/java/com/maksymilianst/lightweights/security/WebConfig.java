@@ -11,7 +11,6 @@ import java.util.List;
 
 import static org.springframework.http.HttpHeaders.*;
 
-
 @Configuration
 public class WebConfig {
 
