@@ -1,5 +1,6 @@
 package com.maksymilianst.lightweights.auth.service;
 
+import com.maksymilianst.lightweights.auth.exception.InvalidJwtException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -59,11 +60,15 @@ public class JwtServiceImpl implements JwtService{
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser()
-                .verifyWith(getSignInKey())
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
+        try {
+            return Jwts.parser()
+                    .verifyWith(getSignInKey())
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+        } catch (Exception e) {
+            throw new InvalidJwtException();
+        }
     }
 
     private SecretKey getSignInKey() {

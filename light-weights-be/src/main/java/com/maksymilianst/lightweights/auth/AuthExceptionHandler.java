@@ -1,6 +1,7 @@
 package com.maksymilianst.lightweights.auth;
 
 import com.maksymilianst.lightweights.auth.dto.ValidationErrorResponse;
+import com.maksymilianst.lightweights.auth.exception.InvalidJwtException;
 import com.maksymilianst.lightweights.auth.exception.RegistrationValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,13 @@ public class AuthExceptionHandler {
     private static final String BAD_CREDENTIALS_ERROR_MESSAGE = "Invalid email or password";
     private static final String DEFAULT_VALIDATION_ERROR_MESSAGE = "Validation failed";
 
+
+    @ExceptionHandler(InvalidJwtException.class)
+    public ResponseEntity<?> handleInvalidJwtException(InvalidJwtException ex) {
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(DEFAULT_AUTH_ERROR_MESSAGE);
+    }
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<?> handleAuthenticationException(AuthenticationException ex) {
