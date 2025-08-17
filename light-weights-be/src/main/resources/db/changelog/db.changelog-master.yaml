@@ -110,3 +110,11 @@ databaseChangeLog:
         - sqlFile:
             path: ../sql/v_14_create_todo_table.sql
             relativeToChangelogFile: true
+
+  - changeSet:
+      id: 15
+      author: maksymilianst
+      changes:
+        - sqlFile:
+            path: ../sql/v_15_add_indexes.sql
+            relativeToChangelogFile: true
