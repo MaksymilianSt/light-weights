@@ -14,6 +14,8 @@ import javax.crypto.SecretKey;
 import java.time.Duration;
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Service
@@ -21,7 +23,12 @@ public class JwtServiceImpl implements JwtService{
 
     @Value("${security.jwt.secret-key}")
     private String SECRET_KEY;
+    @Value("${security.jwt.issuer}")
+    private String ISSUER;
+    @Value("${security.jwt.audience}")
+    private String AUDIENCE;
     private final static long TOKEN_LIFE_TIME = Duration.ofHours(3).toMillis();
+
 
     public String generateToken(UserDetails userDetails) {
         return generateToken(null, userDetails);
@@ -33,14 +40,22 @@ public class JwtServiceImpl implements JwtService{
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + TOKEN_LIFE_TIME))
+                .issuer(ISSUER)
+                .audience().add(AUDIENCE).and()
+                .id(UUID.randomUUID().toString())
                 .signWith(getSignInKey())
                 .compact();
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
+        final String issuer = extractClaim(token, Claims::getIssuer);
+        final Set<String> audiences = extractClaim(token, Claims::getAudience);
+
         return username.equals(userDetails.getUsername())
-                && !isTokenExpired(token);
+                && !isTokenExpired(token)
+                && ISSUER.equals(issuer)
+                && audiences.contains(AUDIENCE);
     }
 
     public String extractUsername(String token) {

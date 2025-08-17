@@ -4,6 +4,8 @@ app:
 security:
   jwt:
     secret-key: ${JWT_SECRET}
+    issuer: lightweights
+    audience: frontend
 
 spring:
   profiles.active: ${SPRING_PROFILES_ACTIVE:dev}
