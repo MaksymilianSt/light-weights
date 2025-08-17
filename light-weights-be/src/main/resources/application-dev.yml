@@ -3,7 +3,7 @@ app:
 
 security:
   jwt:
-    secret-key: 55dc31ac577f43b3776f6fc48fd5ab4771eba1648113134a047b1cea0a03ffa1
+    secret-key: VdwxrFd/Q7N3b2/Ej9WrR3HroWSBExNKBHsc6goD/6E=
 
 spring:
   datasource:
