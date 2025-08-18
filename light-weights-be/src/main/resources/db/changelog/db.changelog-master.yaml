@@ -118,3 +118,11 @@ databaseChangeLog:
         - sqlFile:
             path: ../sql/v_15_add_indexes.sql
             relativeToChangelogFile: true
+
+  - changeSet:
+      id: 16
+      author: maksymilianst
+      changes:
+        - sqlFile:
+            path: ../sql/v_16_create_refresh_token.sql
+            relativeToChangelogFile: true

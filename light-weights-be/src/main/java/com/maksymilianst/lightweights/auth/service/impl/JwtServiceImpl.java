@@ -1,10 +1,15 @@
-package com.maksymilianst.lightweights.auth.service;
+package com.maksymilianst.lightweights.auth.service.impl;
 
+import com.maksymilianst.lightweights.auth.RefreshToken;
+import com.maksymilianst.lightweights.auth.RefreshTokenRepository;
 import com.maksymilianst.lightweights.auth.exception.InvalidJwtException;
+import com.maksymilianst.lightweights.auth.service.JwtService;
+import com.maksymilianst.lightweights.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +22,8 @@ import java.util.*;
 import java.util.function.Function;
 
 @Service
-public class JwtServiceImpl implements JwtService{
+@RequiredArgsConstructor
+public class JwtServiceImpl implements JwtService {
 
     @Value("${security.jwt.secret-key}")
     private String SECRET_KEY;
@@ -25,28 +31,44 @@ public class JwtServiceImpl implements JwtService{
     private String ISSUER;
     @Value("${security.jwt.audience}")
     private String AUDIENCE;
-    private final static long TOKEN_LIFE_TIME = Duration.ofHours(3).toMillis();
+    private final static long ACCESS_TOKEN_LIFE_TIME = Duration.ofMinutes(20).toMillis();
+    private final static long REFRESH_TOKEN_LIFE_TIME = Duration.ofDays(7).toMillis();
 
+    private final RefreshTokenRepository refreshTokenRepository;
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateAccessToken(UserDetails userDetails) {
         var roleClaims = new HashMap<String, Object>();
-       roleClaims.put(
-               "roles",
-               userDetails.getAuthorities().stream().
-                       map(GrantedAuthority::getAuthority)
-                       .toList()
-       );
+        roleClaims.put(
+                "roles",
+                userDetails.getAuthorities().stream().
+                        map(GrantedAuthority::getAuthority)
+                        .toList()
+        );
+        Date expDate = new Date(System.currentTimeMillis() + ACCESS_TOKEN_LIFE_TIME);
 
-
-        return generateToken(roleClaims, userDetails);
+        return generateToken(roleClaims, userDetails, expDate);
     }
 
-    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+    public String generateRefreshToken(UserDetails userDetails) {
+        Date expDate = new Date(System.currentTimeMillis() + REFRESH_TOKEN_LIFE_TIME);
+        String token = generateToken(null, userDetails, expDate);
+
+        var refreshToken = RefreshToken.builder()
+                .user((User) userDetails)
+                .token(token)
+                .expiryDate(expDate.toInstant())
+                .build();
+        refreshTokenRepository.save(refreshToken);
+
+        return token;
+    }
+
+    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails, Date expirationTime) {
         return Jwts.builder()
                 .claims(extraClaims)
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + TOKEN_LIFE_TIME))
+                .expiration(expirationTime)
                 .issuer(ISSUER)
                 .audience().add(AUDIENCE).and()
                 .id(UUID.randomUUID().toString())
