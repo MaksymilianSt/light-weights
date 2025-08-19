@@ -38,8 +38,8 @@
     <button
       class="btn btn-outline-light"
       type="submit"
-      [ngClass]="{'bg-secondary': !todoForm.dirty && !createMode}"
-      [disabled]="!todoForm.dirty && !createMode"
+      [ngClass]="{'bg-secondary': todoForm.invalid || (!todoForm.dirty && !createMode)}"
+      [disabled]="todoForm.invalid || (!todoForm.dirty && !createMode)"
     >
       {{ this.createMode ? 'create' : 'save' }}
     </button>

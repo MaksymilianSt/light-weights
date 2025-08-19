@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Todo} from '../../models/todo.model';
 import {PRIORITIES} from '../../models/priorities.const';
 import {NgClass, NgForOf, NgIf} from '@angular/common';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {TodoService} from '../../services/todo-service';
 
 @Component({
@@ -44,7 +44,7 @@ export class TodoComponent implements OnInit {
       deadline: [this.todo?.deadline ?? null],
       priority: [this.todo?.priority ?? 'LOW'],
       done: [this.todo?.done ?? false],
-      note: [this.todo?.note ?? null]
+      note: [this.todo?.note ?? null, [Validators.required, Validators.pattern(/\S+/)] ],
     });
   }
 
