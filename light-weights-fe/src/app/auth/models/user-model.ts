@@ -1,4 +1,6 @@
 export interface User {
   email: string;
-  token: string;
+  roles: string[];
+  access_token: string;
+  refresh_token: string;
 }

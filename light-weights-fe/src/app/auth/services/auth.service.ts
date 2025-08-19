@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, catchError, map, Observable} from 'rxjs';
+import {BehaviorSubject, catchError, filter, map, Observable, take, throwError} from 'rxjs';
 import {environment} from '../../../../environment';
 import {AuthenticationResponse} from '../models/authentication-response.model';
 import {RegisterRequest} from '../models/register-request.model';
@@ -14,12 +14,14 @@ import {JwtPayload} from '../models/jwt-payload-model';
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly API_URL = `${environment.apiUrl}/auth`;
+  public static readonly API_URL = `${environment.apiUrl}/auth`;
   private readonly _local_storage_user_key = 'user';
 
   private currentUserSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
   public currentUser$: Observable<User | null> = this.currentUserSubject.asObservable();
 
+  private isRefreshing = false;
+  private refreshTokenSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
   private logoutTimer: any;
 
   constructor(private http: HttpClient, private router: Router) {
@@ -28,7 +30,7 @@ export class AuthService {
 
   authenticate(payload: AuthenticationRequest): Observable<AuthenticationResponse> {
     return this.http
-      .post<AuthenticationResponse>(`${this.API_URL}/authenticate`, payload)
+      .post<AuthenticationResponse>(`${AuthService.API_URL}/authenticate`, payload)
       .pipe(
         map((resp: AuthenticationResponse) => this.handleAuthResponse(resp))
       );
@@ -36,13 +38,70 @@ export class AuthService {
 
   register(payload: RegisterRequest): Observable<AuthenticationResponse> {
     return this.http
-      .post<AuthenticationResponse>(`${this.API_URL}/register`, payload)
+      .post<AuthenticationResponse>(`${AuthService.API_URL}/register`, payload)
       .pipe(
         map((resp: AuthenticationResponse) => this.handleAuthResponse(resp))
       );
   }
 
+  refreshToken(): Observable<AuthenticationResponse> {
+    const storedUser = localStorage.getItem(this._local_storage_user_key);
+    if (!storedUser) return throwError(() => new Error('No user stored'));
+
+    const user: User = JSON.parse(storedUser);
+    if(!user){
+      this.logout();
+      return throwError(() => new Error('Invalid user'));
+    }
+
+    const refreshToken = this.parseJwt(user.refresh_token)
+    if( !refreshToken || (refreshToken.exp * 1000) < Date.now()) {
+      this.logout();
+      return throwError(() => new Error('Refresh token expired'));
+    }
+
+    if (this.isRefreshing) {
+      return this.refreshTokenSubject.pipe(
+        filter(token => token != null),
+        take(1),
+        map(token =>
+          this.handleAuthResponse({
+            accessToken: token!,
+            refreshToken: user.refresh_token
+          } as AuthenticationResponse)
+        )
+      );
+    } else {
+      this.isRefreshing = true;
+      this.refreshTokenSubject.next(null);
+
+      return this.http.post<AuthenticationResponse>(
+        `${AuthService.API_URL}/refresh`,
+        user.refresh_token
+      ).pipe(
+        map((resp: AuthenticationResponse) => {
+          this.isRefreshing = false;
+          this.refreshTokenSubject.next(resp.accessToken);
+          return this.handleAuthResponse(resp);
+        }),
+        catchError(err => {
+          this.isRefreshing = false;
+          this.logout();
+          return throwError(() => err);
+        })
+      );
+    }
+  }
+
   logout(): void {
+    const user = this.getCurrentUser();
+    if (user?.refresh_token) {
+      this.http.post(`${AuthService.API_URL}/logout`, user.refresh_token ).subscribe({
+        next: () => console.log('Refresh token invalidated'),
+        error: (err) => console.error('Failed to invalidate refresh token', err)
+      });
+    }
+
     localStorage.removeItem(this._local_storage_user_key);
     this.currentUserSubject.next(null);
     this.router.navigate(['auth']);
@@ -57,14 +116,16 @@ export class AuthService {
   }
 
   private handleAuthResponse(resp: AuthenticationResponse): AuthenticationResponse {
-    const parsedTokenPayload = this.parseJwt(resp.token);
+    const parsedTokenPayload = this.parseJwt(resp.accessToken);
     const user: User = {
       email: parsedTokenPayload.sub,
-      token: resp.token
+      roles: parsedTokenPayload['roles'],
+      access_token: resp.accessToken,
+      refresh_token: resp.refreshToken
     }
     localStorage.setItem(this._local_storage_user_key, JSON.stringify(user));
     this.currentUserSubject.next(user);
-    this.setAutoLogout(parsedTokenPayload.exp)
+    this.setAutoLogout(this.parseJwt(resp.refreshToken).exp)
 
     return resp;
   }
@@ -74,7 +135,7 @@ export class AuthService {
 
     if (storedUser) {
       const user: User = JSON.parse(storedUser);
-      const expDate = this.parseJwt(user.token).exp;
+      const expDate = this.parseJwt(user.refresh_token).exp;
 
       this.currentUserSubject.next(user);
       this.setAutoLogout(expDate);

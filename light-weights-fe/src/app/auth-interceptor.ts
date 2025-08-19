@@ -1,26 +1,39 @@
 import {Injectable} from '@angular/core';
-import {HttpInterceptor, HttpRequest, HttpHandler, HttpEvent} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse} from '@angular/common/http';
+import {catchError, Observable, switchMap, throwError} from 'rxjs';
 import {AuthService} from './auth/services/auth.service';
+import {Router} from '@angular/router';
+import {AuthenticationResponse} from './auth/models/authentication-response.model';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const currentUser = this.authService.getCurrentUser();
-    const authToken = currentUser?.token;
+    const authToken = currentUser?.access_token;
+    const isRefreshRequest = req.url.includes(AuthService.API_URL);
 
-    if (authToken) {
-      const clonedRequest = req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${authToken}`
+    const clonedRequest = authToken && !isRefreshRequest
+      ? req.clone({setHeaders: {Authorization: `Bearer ${authToken}`}})
+      : req;
+
+    return next.handle(clonedRequest).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if ((error.status === 401 || error.status === 403) && !isRefreshRequest) {
+          return this.authService.refreshToken().pipe(
+            switchMap((refreshResp: AuthenticationResponse) => {
+              const retryRequest = req.clone({
+                setHeaders: {Authorization: `Bearer ${refreshResp.accessToken}`}
+              });
+              return next.handle(retryRequest);
+            })
+          );
         }
-      });
-      return next.handle(clonedRequest);
-    }
-    return next.handle(req);
+        return throwError(() => error);
+      })
+    );
   }
 }
