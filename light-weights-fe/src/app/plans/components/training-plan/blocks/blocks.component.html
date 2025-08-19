@@ -44,4 +44,12 @@
       (deleteBlockFromList)="deleteBlock($event)"
     />
   </div>
+
+  <div
+    *ngIf="!blocks || blocks.length === 0"
+    class="d-flex justify-content-center align-items-center mt-2"
+  >
+    <strong>No blocks yet.</strong>
+  </div>
+
 </div>

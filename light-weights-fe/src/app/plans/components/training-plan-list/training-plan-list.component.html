@@ -97,8 +97,7 @@
               <a
                 class="dropdown-item"
                 [routerLink]="['/plans', plan.id]"
-              ><!--todo: nav to plan-->
-
+              >
                 view
               </a>
             </li>
@@ -124,6 +123,13 @@
 
       </div>
 
+    </div>
+
+    <div
+      *ngIf="!filteredPlanList || filteredPlanList.length === 0"
+      class="d-flex justify-content-center align-items-center mt-5"
+    >
+      <strong>No items in the list.</strong>
     </div>
 
   </div>

@@ -35,6 +35,13 @@
         />
         </div>
 
+        <div
+          *ngIf="!filteredPlanPublications || filteredPlanPublications.length === 0"
+          class="d-flex justify-content-center align-items-center mt-5"
+        >
+          <strong>No items in the list.</strong>
+        </div>
+
       </div>
 
     </div>

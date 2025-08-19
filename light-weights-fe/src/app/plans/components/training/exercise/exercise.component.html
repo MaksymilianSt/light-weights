@@ -188,6 +188,13 @@
             </div>
         </div>
 
+      <div
+        *ngIf="!sets || sets.length === 0"
+        class="d-flex justify-content-center align-items-center mt-2"
+      >
+        <strong>No sets yet.</strong>
+      </div>
+
     </div>
 
     <div *ngIf="editMode || createMode"

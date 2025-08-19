@@ -1,17 +1,18 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {PlanOpinion} from '../../../../models/plan-opinion.model';
-import {DatePipe, NgClass, NgForOf} from '@angular/common';
+import {DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import {FormsModule, NgForm} from '@angular/forms';
 import {PlanPublicationOpinionService} from '../../../../services/plan-publication-opinion-service';
 
 @Component({
   selector: 'app-opinions',
-  imports: [
-    NgForOf,
-    DatePipe,
-    FormsModule,
-    NgClass
-  ],
+    imports: [
+        NgForOf,
+        DatePipe,
+        FormsModule,
+        NgClass,
+        NgIf
+    ],
   templateUrl: './opinions.component.html',
   standalone: true,
   styleUrl: './opinions.component.css'

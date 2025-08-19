@@ -50,4 +50,11 @@
     />
   </div>
 
+  <div
+    *ngIf="!exercises || exercises.length === 0"
+    class="d-flex justify-content-center align-items-center mt-2"
+  >
+    <strong>No exercises yet.</strong>
+  </div>
+
 </div>

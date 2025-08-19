@@ -227,6 +227,14 @@
           </div>
         </div>
       </div>
+
+      <div
+        *ngIf="!block?.trainings || block?.trainings?.length === 0"
+        class="d-flex justify-content-center align-items-center mt-5"
+      >
+        <strong>No trainings yet.</strong>
+      </div>
+
     </div>
   </div>
 </form>
