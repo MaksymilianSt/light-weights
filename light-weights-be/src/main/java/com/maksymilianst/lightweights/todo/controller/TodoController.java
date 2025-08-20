@@ -3,6 +3,7 @@ package com.maksymilianst.lightweights.todo.controller;
 import com.maksymilianst.lightweights.todo.dto.TodoDto;
 import com.maksymilianst.lightweights.todo.service.TodoService;
 import com.maksymilianst.lightweights.user.User;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,7 +26,7 @@ public class TodoController {
     }
 
     @PostMapping
-    public ResponseEntity<TodoDto> create(@RequestBody TodoDto todoDto, @AuthenticationPrincipal User user) {
+    public ResponseEntity<TodoDto> create(@RequestBody @Valid TodoDto todoDto, @AuthenticationPrincipal User user) {
         TodoDto created = todoService.create(todoDto, user);
 
         return ResponseEntity
@@ -35,14 +36,14 @@ public class TodoController {
 
     @PutMapping("/{todoId}")
     @PreAuthorize("@todoAccessControlService.hasAccess(#todoId, principal.id)")
-    ResponseEntity<TodoDto> update(@PathVariable Integer todoId, @RequestBody TodoDto todoDto) {
+    ResponseEntity<TodoDto> update(@PathVariable Integer todoId, @RequestBody @Valid TodoDto todoDto) {
         TodoDto updated = todoService.update(todoId, todoDto);
         return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{todoId}")
     @PreAuthorize("@todoAccessControlService.hasAccess(#todoId, principal.id)")
-    ResponseEntity<TodoDto> update(@PathVariable Integer todoId) {
+    ResponseEntity<Void> delete(@PathVariable Integer todoId) {
         todoService.delete(todoId);
         return ResponseEntity.noContent().build();
     }

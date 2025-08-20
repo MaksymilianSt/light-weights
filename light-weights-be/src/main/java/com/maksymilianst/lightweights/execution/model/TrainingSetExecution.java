@@ -2,6 +2,8 @@ package com.maksymilianst.lightweights.execution.model;
 
 import com.maksymilianst.lightweights.plan.model.TrainingSet;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.Getter;
@@ -31,8 +33,8 @@ public class TrainingSetExecution {
     private String tempo;
 
     @Column(nullable = false)
-    @Max(10)
-    @Min(1)
+    @DecimalMin(value = "1.0", message = "Rpe must be at least 1")
+    @DecimalMax(value = "10.0", message = "Rpe must be at most 10.0")
     private BigDecimal rpe;
 
     @Min(0)
