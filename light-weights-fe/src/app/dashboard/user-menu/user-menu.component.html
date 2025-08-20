@@ -11,8 +11,11 @@
   </button>
 
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUserButton">
-    <div class="dropdown-item-text fw-semibold text-dark border-bottom mb-3">
+    <div class="dropdown-item-text fw-semibold text-dark ">
       {{ email }}
+    </div>
+    <div class="dropdown-item-text text-dark border-bottom">
+      {{ roles }}
     </div>
     <li><a class="dropdown-item logout-btn" (click)="logout()">Logout</a></li>
   </ul>

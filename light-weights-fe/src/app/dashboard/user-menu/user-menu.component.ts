@@ -13,6 +13,7 @@ import {RouterLink} from '@angular/router';
 })
 export class UserMenuComponent implements OnInit {
   email: string = '';
+  roles: string[] = [];
 
   constructor(private authService: AuthService) {
   }
@@ -21,6 +22,7 @@ export class UserMenuComponent implements OnInit {
     this.authService.currentUser$.subscribe(user => {
       if (user) {
         this.email = user.email;
+        this.roles = user.roles;
       }
     })
   }

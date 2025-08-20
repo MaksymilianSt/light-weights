@@ -20,4 +20,10 @@ export class PlanPublicationOpinionService {
     );
   }
 
+  deleteOpinion(planPublicationId: number, opinionId: number) {
+    return this.http.delete<PlanOpinion>(
+      `${this.URL}/${planPublicationId}/opinions/${opinionId}`
+    );
+  }
+
 }

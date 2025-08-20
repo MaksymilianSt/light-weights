@@ -115,6 +115,10 @@ export class AuthService {
     return !!this.currentUserSubject.value;
   }
 
+  isAdmin(): boolean {
+    return this.getCurrentUser()!.roles.includes('ADMIN');
+  }
+
   private handleAuthResponse(resp: AuthenticationResponse): AuthenticationResponse {
     const parsedTokenPayload = this.parseJwt(resp.accessToken);
     const user: User = {
@@ -164,4 +168,5 @@ export class AuthService {
     const tokenPayload = token.split('.')[1];
     return JSON.parse(atob(tokenPayload));
   }
+
 }

@@ -38,6 +38,19 @@
       {{ opinion.content }}
     </div>
 
+    <div
+      class="text-end mt-1 me-1"
+      *ngIf="hasRemoveAccess()"
+    >
+      <button
+        class="btn btn-danger"
+        type="button"
+        (click)="deleteOpinion(opinion)"
+      >
+        delete
+      </button>
+    </div>
+
   </div>
 
 </div>
