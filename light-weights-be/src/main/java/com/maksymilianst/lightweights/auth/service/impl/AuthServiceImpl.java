@@ -26,7 +26,7 @@ import java.util.Set;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class AuthServiceImpl implements AuthService {
+class AuthServiceImpl implements AuthService {
     private final static Set<Role> DEFAULT_ROLES = Set.of(Role.USER);
     private final UserRepository userRepository;
     private final RefreshTokenRepository refreshTokenRepository;

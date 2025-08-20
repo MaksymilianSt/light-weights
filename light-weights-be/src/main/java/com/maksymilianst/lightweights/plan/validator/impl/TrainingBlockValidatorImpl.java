@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 
 @Component
-public class TrainingBlockValidatorImpl implements TrainingBlockValidator {
+class TrainingBlockValidatorImpl implements TrainingBlockValidator {
 
     @Override
     public void validate(TrainingBlockDto block) {

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service("planAccessControlService")
 @RequiredArgsConstructor
 @Slf4j
-public class PlanAccessControlServiceImpl implements PlanAccessControlService {
+class PlanAccessControlServiceImpl implements PlanAccessControlService {
 
     private final TrainingPlanRepository planRepository;
     private final TrainingBlockRepository blockRepository;

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class TrainingBlockServiceImpl implements TrainingBlockService {
+class TrainingBlockServiceImpl implements TrainingBlockService {
 
     private final TrainingBlockRepository trainingBlockRepository;
     private final TrainingPlanRepository trainingPlanRepository;

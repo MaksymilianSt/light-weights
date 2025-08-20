@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service("planPublicationAccessControlService")
 @RequiredArgsConstructor
 @Slf4j
-public class PlanPublicationAccessControlServiceImpl implements PlanPublicationAccessControlService {
+class PlanPublicationAccessControlServiceImpl implements PlanPublicationAccessControlService {
 
     private final TrainingPlanPublicationRepository planPublicationRepository;
 

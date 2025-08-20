@@ -20,7 +20,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class TrainingPlanServiceImpl implements TrainingPlanService {
+class TrainingPlanServiceImpl implements TrainingPlanService {
 
     private final TrainingPlanRepository trainingPlanRepository;
     private final PlanCategoryRepository planCategoryRepository;

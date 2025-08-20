@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class TrainingExerciseExecutionServiceImpl implements TrainingExerciseExecutionService {
+class TrainingExerciseExecutionServiceImpl implements TrainingExerciseExecutionService {
 
     private final TrainingExerciseExecutionRepository exerciseExecutionRepository;
     private final TrainingExerciseExecutionRepository trainingExerciseExecutionRepository;

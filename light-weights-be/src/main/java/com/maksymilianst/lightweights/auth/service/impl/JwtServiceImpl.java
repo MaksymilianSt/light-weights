@@ -23,7 +23,7 @@ import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
-public class JwtServiceImpl implements JwtService {
+class JwtServiceImpl implements JwtService {
 
     @Value("${security.jwt.secret-key}")
     private String SECRET_KEY;
@@ -63,19 +63,6 @@ public class JwtServiceImpl implements JwtService {
         return token;
     }
 
-    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails, Date expirationTime) {
-        return Jwts.builder()
-                .claims(extraClaims)
-                .subject(userDetails.getUsername())
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(expirationTime)
-                .issuer(ISSUER)
-                .audience().add(AUDIENCE).and()
-                .id(UUID.randomUUID().toString())
-                .signWith(getSignInKey())
-                .compact();
-    }
-
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         final String issuer = extractClaim(token, Claims::getIssuer);
@@ -89,6 +76,19 @@ public class JwtServiceImpl implements JwtService {
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
+    }
+
+    private String generateToken(Map<String, Object> extraClaims, UserDetails userDetails, Date expirationTime) {
+        return Jwts.builder()
+                .claims(extraClaims)
+                .subject(userDetails.getUsername())
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(expirationTime)
+                .issuer(ISSUER)
+                .audience().add(AUDIENCE).and()
+                .id(UUID.randomUUID().toString())
+                .signWith(getSignInKey())
+                .compact();
     }
 
     private boolean isTokenExpired(String token) {

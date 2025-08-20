@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service("todoAccessControlService")
 @RequiredArgsConstructor
 @Slf4j
-public class TodoAccessControlServiceImpl implements TodoAccessControlService {
+class TodoAccessControlServiceImpl implements TodoAccessControlService {
 
     private final TodoRepository todoRepository;
 

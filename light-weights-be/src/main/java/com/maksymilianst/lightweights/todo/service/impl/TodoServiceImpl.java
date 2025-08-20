@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class TodoServiceImpl implements TodoService {
+class TodoServiceImpl implements TodoService {
     final static Priority DEFAULT_PRIORITY = Priority.LOW;
     private final TodoRepository todoRepository;
     private final TodoMapper todoMapper;

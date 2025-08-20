@@ -9,7 +9,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
 
 @Component()
 @RequiredArgsConstructor
-public class TrainingExerciseCleanupListener {
+class TrainingExerciseCleanupListener {
     private final ExerciseRepository exerciseRepository;
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)

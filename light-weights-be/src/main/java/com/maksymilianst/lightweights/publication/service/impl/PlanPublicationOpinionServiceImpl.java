@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class PlanPublicationOpinionServiceImpl implements PlanPublicationOpinionService {
+class PlanPublicationOpinionServiceImpl implements PlanPublicationOpinionService {
 
     private final TrainingPlanPublicationOpinionRepository opinionRepository;
     private final TrainingPlanPublicationRepository planPublicationRepository;

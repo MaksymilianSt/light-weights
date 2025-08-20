@@ -27,7 +27,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class PlanPublicationServiceImpl implements PlanPublicationService {
+class PlanPublicationServiceImpl implements PlanPublicationService {
     private final TrainingPlanRepository planRepository;
     private final TrainingPlanPublicationRepository publicationRepository;
     private final TrainingPlanPublicationDownloadRepository downloadRepository;

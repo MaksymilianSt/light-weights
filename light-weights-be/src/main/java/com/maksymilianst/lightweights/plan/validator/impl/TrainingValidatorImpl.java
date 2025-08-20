@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 
 @Component
-public class TrainingValidatorImpl implements TrainingValidator {
+class TrainingValidatorImpl implements TrainingValidator {
 
     @Override
     public void validate(TrainingDto training, TrainingBlock block) {

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service("executionAccessControlService")
 @RequiredArgsConstructor
 @Slf4j
-public class ExecutionAccessControlServiceImpl implements ExecutionAccessControlService {
+class ExecutionAccessControlServiceImpl implements ExecutionAccessControlService {
 
     private final PlanAccessControlService planAccessControlService;
     private final TrainingExecutionRepository trainingExecutionRepository;

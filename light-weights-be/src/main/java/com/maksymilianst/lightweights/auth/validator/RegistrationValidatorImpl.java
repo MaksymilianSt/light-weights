@@ -14,7 +14,7 @@ import java.util.function.Predicate;
 
 @Service
 @RequiredArgsConstructor
-public class RegistrationValidatorImpl implements RegistrationValidator{
+class RegistrationValidatorImpl implements RegistrationValidator{
     private final UserRepository userRepository;
 
     public void validate(RegisterRequest registerRequest) {

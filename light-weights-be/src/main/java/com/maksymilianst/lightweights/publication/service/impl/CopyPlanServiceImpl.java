@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Service()
 @RequestScope
 @RequiredArgsConstructor
-public class CopyPlanServiceImpl implements CopyPlanService {
+class CopyPlanServiceImpl implements CopyPlanService {
     private final ExerciseRepository exerciseRepository;
     private final TrainingPlanPublicationRepository publicationRepository;
     private final TrainingPlanRepository trainingPlanRepository;
