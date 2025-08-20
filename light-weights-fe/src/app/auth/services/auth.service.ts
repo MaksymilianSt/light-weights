@@ -29,6 +29,8 @@ export class AuthService {
   }
 
   authenticate(payload: AuthenticationRequest): Observable<AuthenticationResponse> {
+    localStorage.removeItem(this._local_storage_user_key);
+
     return this.http
       .post<AuthenticationResponse>(`${AuthService.API_URL}/authenticate`, payload)
       .pipe(
@@ -37,6 +39,8 @@ export class AuthService {
   }
 
   register(payload: RegisterRequest): Observable<AuthenticationResponse> {
+    localStorage.removeItem(this._local_storage_user_key);
+
     return this.http
       .post<AuthenticationResponse>(`${AuthService.API_URL}/register`, payload)
       .pipe(
