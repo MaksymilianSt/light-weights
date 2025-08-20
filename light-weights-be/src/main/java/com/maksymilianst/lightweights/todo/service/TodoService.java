@@ -1,6 +1,6 @@
 package com.maksymilianst.lightweights.todo.service;
 
-import com.maksymilianst.lightweights.todo.dto.TodoDto;
+import com.maksymilianst.lightweights.todo.TodoDto;
 import com.maksymilianst.lightweights.user.User;
 
 import java.util.List;

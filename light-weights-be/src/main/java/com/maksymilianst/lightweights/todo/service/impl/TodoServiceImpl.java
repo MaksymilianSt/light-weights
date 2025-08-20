@@ -1,10 +1,11 @@
 package com.maksymilianst.lightweights.todo.service.impl;
 
-import com.maksymilianst.lightweights.todo.dto.TodoDto;
-import com.maksymilianst.lightweights.todo.mapper.TodoMapper;
+
+import com.maksymilianst.lightweights.todo.TodoDto;
+import com.maksymilianst.lightweights.todo.TodoMapper;
+import com.maksymilianst.lightweights.todo.TodoRepository;
 import com.maksymilianst.lightweights.todo.model.Priority;
 import com.maksymilianst.lightweights.todo.model.Todo;
-import com.maksymilianst.lightweights.todo.repository.TodoRepository;
 import com.maksymilianst.lightweights.todo.service.TodoService;
 import com.maksymilianst.lightweights.user.User;
 import lombok.RequiredArgsConstructor;

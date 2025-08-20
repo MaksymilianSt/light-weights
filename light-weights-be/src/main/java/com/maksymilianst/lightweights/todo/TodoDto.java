@@ -1,8 +1,7 @@
-package com.maksymilianst.lightweights.todo.dto;
+package com.maksymilianst.lightweights.todo;
 
 import com.maksymilianst.lightweights.todo.model.Priority;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Data;
 

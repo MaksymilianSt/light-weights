@@ -1,4 +1,4 @@
-package com.maksymilianst.lightweights.todo.repository;
+package com.maksymilianst.lightweights.todo;
 
 import com.maksymilianst.lightweights.todo.model.Todo;
 import org.springframework.data.jpa.repository.JpaRepository;

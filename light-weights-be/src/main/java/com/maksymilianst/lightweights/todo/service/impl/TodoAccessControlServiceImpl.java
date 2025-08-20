@@ -1,6 +1,7 @@
 package com.maksymilianst.lightweights.todo.service.impl;
 
-import com.maksymilianst.lightweights.todo.repository.TodoRepository;
+
+import com.maksymilianst.lightweights.todo.TodoRepository;
 import com.maksymilianst.lightweights.todo.service.TodoAccessControlService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

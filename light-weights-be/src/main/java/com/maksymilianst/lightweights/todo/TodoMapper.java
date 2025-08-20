@@ -1,6 +1,5 @@
-package com.maksymilianst.lightweights.todo.mapper;
+package com.maksymilianst.lightweights.todo;
 
-import com.maksymilianst.lightweights.todo.dto.TodoDto;
 import com.maksymilianst.lightweights.todo.model.Todo;
 import org.mapstruct.Mapper;
 

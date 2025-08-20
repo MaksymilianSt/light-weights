@@ -1,6 +1,5 @@
-package com.maksymilianst.lightweights.todo.controller;
+package com.maksymilianst.lightweights.todo;
 
-import com.maksymilianst.lightweights.todo.dto.TodoDto;
 import com.maksymilianst.lightweights.todo.service.TodoService;
 import com.maksymilianst.lightweights.user.User;
 import jakarta.validation.Valid;
