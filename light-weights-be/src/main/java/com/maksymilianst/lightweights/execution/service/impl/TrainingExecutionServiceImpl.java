@@ -56,6 +56,7 @@ public class TrainingExecutionServiceImpl implements TrainingExecutionService {
     }
 
     @Override
+    @Transactional
     public TrainingExecutionDto finish(Integer trainingExecutionId) {
         TrainingExecution execution = trainingExecutionRepository.findById(trainingExecutionId)
                 .orElseThrow(() -> new TrainingExecutionException("Invalid training execution id"));
@@ -71,6 +72,7 @@ public class TrainingExecutionServiceImpl implements TrainingExecutionService {
     }
 
     @Override
+    @Transactional
     public TrainingExecutionDto update(Integer trainingExecutionId, TrainingExecutionDto trainingExecutionDto) {
         TrainingExecution toUpdate = trainingExecutionRepository.findById(trainingExecutionId)
                 .orElseThrow(() -> new TrainingExecutionException("Invalid training execution id"));
